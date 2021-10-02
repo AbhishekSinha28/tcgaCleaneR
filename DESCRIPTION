@@ -1,11 +1,11 @@
-Package: trial.pac
+Package: tgcapkg
 Type: Package
 Title: Abhishek Sinha trial functions
 Version: 0.1.0
 Author: Abhishek Sinha
 Maintainer: Abhishek Sinha <asin80@gmail.com>
 Description: This is a trial package to test function capabilities.
-URL: https://github.com/AbhishekSinha28/trial.pac
+URL: https://github.com/AbhishekSinha28/tgcapkg
 License: GPL-2
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
