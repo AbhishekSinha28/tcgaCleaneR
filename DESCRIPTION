@@ -1,0 +1,18 @@
+Package: trial.pac
+Type: Package
+Title: Abhishek Sinha trial functions
+Version: 0.1.0
+Author: Abhishek Sinha
+Maintainer: Abhishek Sinha <asin80@gmail.com>
+Description: This is a trial package to test function capabilities.
+URL: https://github.com/AbhishekSinha28/trial.pac
+License: GPL-2
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+LazyData: true
+Imports:
+  SummarizedExperiment
+Depends: 
+    R (>= 2.10)
+
