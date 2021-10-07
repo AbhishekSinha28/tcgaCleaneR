@@ -10,3 +10,5 @@ library.size <- function(data1,data2,plot_type){
       plot(library_size, xlab = 'sample', ylab = 'log2 library size', col = factor(sample.info$year_mda))
     }
 }
+
+# df3 <- library.size(data1 = brca.se.data.temp, data2 = df2, plot_type = "Scatterplot")
