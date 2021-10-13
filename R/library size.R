@@ -1,8 +1,9 @@
 # determining library size
 
-library.size <- function(data1,data2,plot_type){
-  sample.info <-  as.data.frame(SummarizedExperiment::colData(data1))
-  library_size <- log2(colSums(data2))
+library.size <- function(data,plot_type){
+  sample.info <-  as.data.frame(SummarizedExperiment::colData(data))
+  raw.count <- as.data.frame(SummarizedExperiment::assay(data, 'HTseq_counts'))
+  library_size <- log2(colSums(raw.count))
   if (plot_type == "Boxplot"){
     boxplot(library_size ~ sample.info$year_mda)
   } else
@@ -11,4 +12,4 @@ library.size <- function(data1,data2,plot_type){
     }
 }
 
-# df3 <- library.size(data1 = brca.se.data.temp, data2 = df2, plot_type = "Scatterplot")
+# df3 <- library.size(data = df2, plot_type = "Scatterplot")
