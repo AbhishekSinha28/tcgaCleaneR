@@ -49,7 +49,7 @@ pca.lreg <- function(pca.data, data){
         levels = c('Raw counts', 'FPKM', 'FPKM.UQ'))) %>%
     data.frame(.)
 
-  p <- ggplot(ls.lnreg.normAssess, aes(x = pcs, y = ls, group = Datasets)) +
+  ggplot(ls.lnreg.normAssess, aes(x = pcs, y = ls, group = Datasets)) +
     geom_line(aes(color = Datasets), size = 1) +
     geom_point(aes(color = Datasets), size = 3) +
     xlab('PCs') + ylab (expression("R"^"2")) +
@@ -69,7 +69,6 @@ pca.lreg <- function(pca.data, data){
       legend.title = element_text(size = 14),
       strip.text.x = element_text(size = 10)
     )
-  return(p)
 }
 
-df7 <- pca.lreg(pca.data = df5, data = brca.se.data.temp)
+#df7 <- pca.lreg(pca.data = df5, data = df4)
