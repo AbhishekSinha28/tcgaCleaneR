@@ -1,27 +1,42 @@
-#  PCs and library size - linear regression
+#  PCs and library size/ purity - linear regression
 
-pca.lreg <- function(pca.data, data){
+pca.reg <- function(pca.data, data, type){
   raw.count <- as.data.frame(SummarizedExperiment::assay(data, 'HTseq_counts'))
   library.size <- log2(colSums(raw.count))
-
+  data.set.names <- names(SummarizedExperiment::assays(data))
+  sample.info <-  as.data.frame(SummarizedExperiment::colData(data))
   nPCs <- 10
-  lreg.ls.cancer.tcga <- lapply(
-    data.set.names <- c("HTseq_counts", "HTseq_FPKM", "HTseq_FPKM.UQ"),
-    function(x){
-      pcs <- pca.data[[x]]$sing.val$u
-      tcga.ls.rSquared <- sapply(
-        1:nPCs,
-        function(y) {
-          lm.ls <- summary(lm(library.size ~ pcs[, 1:y]))$r.squared
+  if(type == "librarysize"){
+    lreg.cancer.tcga <- lapply(
+      data.set.names,
+      function(x){
+        pcs <- pca.data[[x]]$sing.val$u
+        tcga.ls.rSquared <- sapply(
+          1:nPCs,
+          function(y) {
+            lm.ls <- summary(lm(library.size ~ pcs[, 1:y]))$r.squared
+          })
+      })
+  } else
+    if(type == "purity"){
+      lreg.cancer.tcga <- lapply(
+        data.set.names,
+        function(x){
+          pcs <- pca.data[[x]]$sing.val$u
+          tcga.ls.rSquared <- sapply(
+            1:nPCs,
+            function(y) {
+              purity.ls <- summary(lm(sample.info$purity_HTseq_FPKM ~ pcs[, 1:y]))$r.squared
+            })
         })
-    })
-  names(lreg.ls.cancer.tcga) <- data.set.names
+    }
+  names(lreg.cancer.tcga) <- data.set.names
 
   # Visualize
-  ls.lnreg.normAssess <- data.frame(
-    Raw.counts = lreg.ls.cancer.tcga$HTseq_counts,
-    FPKM = lreg.ls.cancer.tcga$HTseq_FPKM,
-    FPKM.UQ = lreg.ls.cancer.tcga$HTseq_FPKM.UQ,
+  lnreg.normAssess <- data.frame(
+    Raw.counts = lreg.cancer.tcga$HTseq_counts,
+    FPKM = lreg.cancer.tcga$HTseq_FPKM,
+    FPKM.UQ = lreg.cancer.tcga$HTseq_FPKM.UQ,
     pcs = c(1:10)
   )
 
@@ -35,7 +50,7 @@ pca.lreg <- function(pca.data, data){
     'FPKM.UQ'
   )
 
-  ls.lnreg.normAssess <- ls.lnreg.normAssess %>%
+  lnreg.normAssess <- lnreg.normAssess %>%
     tidyr::pivot_longer(
       -pcs,
       names_to = 'Datasets',
@@ -49,7 +64,7 @@ pca.lreg <- function(pca.data, data){
         levels = c('Raw counts', 'FPKM', 'FPKM.UQ'))) %>%
     data.frame(.)
 
-  ggplot(ls.lnreg.normAssess, aes(x = pcs, y = ls, group = Datasets)) +
+  ggplot(lnreg.normAssess, aes(x = pcs, y = ls, group = Datasets)) +
     geom_line(aes(color = Datasets), size = 1) +
     geom_point(aes(color = Datasets), size = 3) +
     xlab('PCs') + ylab (expression("R"^"2")) +
@@ -71,4 +86,4 @@ pca.lreg <- function(pca.data, data){
     )
 }
 
-#df7 <- pca.lreg(pca.data = df5, data = df4)
+#pca.reg(pca.data = df5, data = df4, type = "librarysize")
