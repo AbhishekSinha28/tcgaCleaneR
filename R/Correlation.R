@@ -45,31 +45,30 @@ pca.corr <- function(pca.data, data, type){
       pvalue = unlist(pval),
       adj.pvalue = p.adjust(unlist(pval), 'BH')
     )
-    return(results)
   }
   raw.count <- as.matrix(raw.count)
   if(type == "librarysize"){
     sample.info$ls <- log2(colSums(raw.count))
-    genes.ls <- .corr.gene.variable(
+    genes.df <- .corr.gene.variable(
       expr.data = raw.count,
       is.log = FALSE,
       variable = sample.info$ls,
       method = 'spearman',
       n.cores = 5
     )
-    hist(genes.ls$rho)
+    hist(genes.df$rho)
   } else
     if(type == "purity"){
-      genes.purity <- .corr.gene.variable(
+      genes.df <- .corr.gene.variable(
         expr.data = raw.count,
         is.log = FALSE,
         variable = sample.info$purity_HTseq_FPKM,
         method = 'spearman',
         n.cores = 5
       )
-      hist(genes.purity$rho)
+      hist(genes.df$rho)
     }
-
+  return(genes.df)
 }
 
-#pca.corr(pca.data = df5, data = df4, type = "librarysize")
+#df9 <- pca.corr(pca.data = df5, data = df4, type = "purity")
