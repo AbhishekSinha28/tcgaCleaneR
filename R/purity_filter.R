@@ -3,7 +3,7 @@
 purity.filter <- function(data,purity_cutoff){
   sample.info <-  as.data.frame(SummarizedExperiment::colData(data))
   keep.samples <- sample.info$purity_HTseq_counts > purity_cutoff
-  brca.se.filtered <- data[keep.samples,]
+  brca.se.filtered <- data[ ,keep.samples]
   return(brca.se.filtered)
 }
 
