@@ -1,11 +1,11 @@
 #  PCs and library size/ purity - linear regression
 
-pca.reg <- function(pca.data, data, type){
+pca.reg <- function(pca.data, data, type, nPCs){
   raw.count <- as.data.frame(SummarizedExperiment::assay(data, 'HTseq_counts'))
   library.size <- log2(colSums(raw.count))
   data.set.names <- names(SummarizedExperiment::assays(data))
   sample.info <-  as.data.frame(SummarizedExperiment::colData(data))
-  nPCs <- 10
+  #nPCs <- 10
   if(type == "librarysize"){
     lreg.cancer.tcga <- lapply(
       data.set.names,
@@ -29,7 +29,19 @@ pca.reg <- function(pca.data, data, type){
               purity.ls <- summary(lm(sample.info$purity_HTseq_FPKM ~ pcs[, 1:y]))$r.squared
             })
         })
-    }
+    } else
+      if(type == "year"){
+        lreg.cancer.tcga <- lapply(
+          data.set.names,
+          function(x){
+            pcs <- pca.data[[x]]$sing.val$u
+            tcga.ls.rSquared <- sapply(
+              1:nPCs,
+              function(y) {
+                time.ls <- summary(lm(sample.info$year_mda ~ pcs[, 1:y]))$r.squared
+              })
+          })
+      }
   names(lreg.cancer.tcga) <- data.set.names
 
   # Visualize
@@ -86,4 +98,5 @@ pca.reg <- function(pca.data, data, type){
     )
 }
 
-#pca.reg(pca.data = df5, data = df4, type = "librarysize")
+pca.reg(pca.data = df6, data = df5, type = "librarysize", nPCs = 10)
+#pca.reg(pca.data = df6, data = df5, type = "purity", nPCs = 10)
