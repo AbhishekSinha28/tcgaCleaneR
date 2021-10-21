@@ -8,4 +8,4 @@ library.size.fil <- function(data,ls_cutoff){
   return(brca.se.filtered)
 }
 
-# df4 <- library.size.fil(data = df2, ls_cutoff = 22)
+# df5 <- library_size_fil(data = df3, ls_cutoff = 22.5)

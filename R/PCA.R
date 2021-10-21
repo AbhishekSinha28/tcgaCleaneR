@@ -29,4 +29,4 @@ get.pca <- function(data){
   return(pca.cancer.tcga)
 }
 
-#df5 <- get.pca(data = brca.se.data.temp)
+#df6 <- get.pca(data = df5)

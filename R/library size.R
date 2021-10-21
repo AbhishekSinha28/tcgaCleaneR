@@ -12,4 +12,4 @@ library.size <- function(data,plot_type){
     }
 }
 
-# df3 <- library.size(data = df2, plot_type = "Scatterplot")
+# df4 <- library.size(data = df3, plot_type = "Scatterplot")
