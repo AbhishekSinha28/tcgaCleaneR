@@ -98,5 +98,5 @@ pca.reg <- function(pca.data, data, type, nPCs){
     )
 }
 
-pca.reg(pca.data = df6, data = df5, type = "librarysize", nPCs = 10)
+#pca.reg(pca.data = df6, data = df5, type = "librarysize", nPCs = 10)
 #pca.reg(pca.data = df6, data = df5, type = "purity", nPCs = 10)
