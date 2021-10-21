@@ -1,0 +1,245 @@
+# Plot PCA function
+
+pca.plot <- function(pca.data, data, group, plot_type, npcs){
+  .scatter.density.pc <- function(
+    pcs,
+    pc.var,
+    group.name,
+    group,
+    color,
+    strokeSize,
+    pointSize,
+    strokeColor,
+    alpha){
+    pair.pcs <- utils::combn(ncol(pcs), 2)
+    pList <- list()
+    for(i in 1:ncol(pair.pcs)){
+      if(i == 1){
+        x <- pair.pcs[1,i]
+        y <- pair.pcs[2,i]
+        p <- ggplot(mapping = aes(
+          x = pcs[,x],
+          y = pcs[,y],
+          fill = group)) +
+          xlab(paste0('PC', x, ' (', pc.var[x], '%)')) +
+          ylab(paste0('PC', y, ' (', pc.var[y], '%)')) +
+          geom_point(
+            aes(fill = group),
+            pch = 21,
+            color = strokeColor,
+            stroke = strokeSize,
+            size = pointSize,
+            alpha = alpha) +
+          scale_x_continuous(breaks = scales::pretty_breaks(n = 5)) +
+          scale_y_continuous(breaks = scales::pretty_breaks(n = 5)) +
+          theme(
+            legend.position = "right",
+            panel.background = element_blank(),
+            axis.line = element_line(colour = "black", size = 1.1),
+            legend.background = element_blank(),
+            legend.text = element_text(size = 12),
+            legend.title = element_text(size = 14),
+            legend.key = element_blank(),
+            axis.text.x = element_text(size = 10),
+            axis.text.y = element_text(size = 10),
+            axis.title.x = element_text(size = 14),
+            axis.title.y = element_text(size = 14)) +
+          guides(fill = guide_legend(override.aes = list(size = 4))) +
+          scale_fill_manual(name = group.name, values = color)
+
+        le <- ggpubr::get_legend(p)
+      }else{
+        x <- pair.pcs[1,i]
+        y <- pair.pcs[2,i]
+        p <- ggplot(mapping = aes(
+          x = pcs[,x],
+          y = pcs[,y],
+          fill = group)) +
+          xlab(paste0('PC', x, ' (',pc.var[x],  '%)')) +
+          ylab(paste0('PC', y, ' (',pc.var[y], '%)')) +
+          geom_point(
+            aes(fill = group),
+            pch = 21,
+            color = strokeColor,
+            stroke = strokeSize,
+            size = pointSize,
+            alpha = alpha) +
+          scale_x_continuous(breaks = scales::pretty_breaks(n = 5)) +
+          scale_y_continuous(breaks = scales::pretty_breaks(n = 5)) +
+          theme(
+            panel.background = element_blank(),
+            axis.line = element_line(colour = "black", size = 1.1),
+            legend.position = "none",
+            axis.text.x = element_text(size = 10),
+            axis.text.y = element_text(size = 10),
+            axis.title.x = element_text(size = 14),
+            axis.title.y = element_text(size = 14)) +
+          scale_fill_manual(values = color, name = group.name)
+      }
+      p <- p + theme(legend.position = "none")
+      xdens <- cowplot::axis_canvas(p, axis = "x")+
+        geom_density(
+          mapping = aes(
+            x = pcs[,x],
+            fill = group),
+          alpha = 0.7,
+          size = 0.2
+        ) +
+        theme(legend.position = "none") +
+        scale_fill_manual(values = color)
+
+      ydens <- cowplot::axis_canvas(
+        p,
+        axis = "y",
+        coord_flip = TRUE) +
+        geom_density(
+          mapping = aes(
+            x = pcs[,y],
+            fill = group),
+          alpha = 0.7,
+          size = 0.2) +
+        theme(legend.position = "none") +
+        scale_fill_manual(name = group.name, values = color) +
+        coord_flip()
+
+      p1 <- insert_xaxis_grob(
+        p,
+        xdens,
+        grid::unit(.2, "null"),
+        position = "top"
+      )
+      p2 <- insert_yaxis_grob(
+        p1,
+        ydens,
+        grid::unit(.2, "null"),
+        position = "right"
+      )
+      pList[[i]] <- ggdraw(p2)
+    }
+    pList[[i+1]] <- le
+    return(pList)
+  }
+  sample.info <-  as.data.frame(SummarizedExperiment::colData(data))
+  if (group == "Time"){
+    if(plot_type == "DensityPlot"){
+      pca.plots.time <- lapply(
+        data.set.names <- names(SummarizedExperiment::assays(data)),#tcga.harmonized,
+        function(x){
+          pcs <- pca.data[[x]]
+          p <- .scatter.density.pc(
+            pcs = pcs$sing.val$u[,1:npcs],
+            pc.var = pcs$var,
+            group.name = 'Time',
+            group = sample.info$year_mda,
+            color = unique(sample.info$year_mda),#years.colors,
+            strokeSize = .2,
+            pointSize = 3,
+            strokeColor = 'gray30',
+            alpha = .6)
+          do.call(
+            gridExtra::grid.arrange,
+            c(p,
+              ncol = 4, top = x)
+          )
+        })
+    } else if (plot_type == "BoxPlot"){
+      for (i in 1:npcs){
+        boxplot(pca.data$HTseq_counts$sing.val$u[,i] ~ sample.info$year_mda)
+      }
+    }
+  }
+  else
+    if (group == "Tissue"){
+      if(plot_type == "DensityPlot"){
+        pca.plots.time <- lapply(
+          data.set.names <- c("HTseq_counts", "HTseq_FPKM", "HTseq_FPKM.UQ"),#tcga.harmonized,
+          function(x){
+            pcs <- pca.data[[x]]
+            p <- .scatter.density.pc(
+              pcs = pcs$sing.val$u[,1:npcs],
+              pc.var = pcs$var,
+              group.name = 'Tissue',
+              group = sample.info$tissue,
+              color = c('red', 'blue'),
+              strokeSize = .2,
+              pointSize = 3,
+              strokeColor = 'gray30',
+              alpha = .6)
+            do.call(
+              gridExtra::grid.arrange,
+              c(p,
+                ncol = 4,
+                top = x)
+            )
+          })
+      } else if (plot_type == "BoxPlot"){
+        for (i in 1:npcs){
+          boxplot(pca.data$HTseq_counts$sing.val$u[,i] ~ sample.info$tissue)
+        }
+      }
+    } else
+      if (group == "Plate"){
+        if(plot_type == "DensityPlot"){
+          pca.plots.time <- lapply(
+            data.set.names <- c("HTseq_counts", "HTseq_FPKM", "HTseq_FPKM.UQ"),#tcga.harmonized,
+            function(x){
+              pcs <- pca.data[[x]]
+              p <- .scatter.density.pc(
+                pcs = pcs$sing.val$u[,1:npcs],
+                pc.var = pcs$var,
+                group.name = 'Plate',
+                group = sample.info$PlateId_mda,
+                color = unique(factor(sample.info$PlateId_mda)),
+                strokeSize = .2,
+                pointSize = 3,
+                strokeColor = 'gray30',
+                alpha = .6)
+              do.call(
+                gridExtra::grid.arrange,
+                c(p,
+                  ncol = 4,
+                  top = x)
+              )
+            })
+        } else if (plot_type == "BoxPlot"){
+          for (i in 1:npcs){
+            boxplot(pca.data$HTseq_counts$sing.val$u[,i] ~ sample.info$PlateId_mda)
+          }
+        }
+      } else
+        if (group == "Batch"){
+          if(plot_type == "DensityPlot"){
+            pca.plots.time <- lapply(
+              data.set.names <- c("HTseq_counts", "HTseq_FPKM", "HTseq_FPKM.UQ"),#tcga.harmonized,
+              function(x){
+                pcs <- pca.data[[x]]
+                p <- .scatter.density.pc(
+                  pcs = pcs$sing.val$u[,1:npcs],
+                  pc.var = pcs$var,
+                  group.name = 'Batch',
+                  group = sample.info$BatchId_mda,
+                  color = unique(sample.info$BatchId_mda),
+                  strokeSize = .2,
+                  pointSize = 3,
+                  strokeColor = 'gray30',
+                  alpha = .6)
+                do.call(
+                  gridExtra::grid.arrange,
+                  c(p,
+                    ncol = 4,
+                    top = x)
+                )
+              })
+          } else if (plot_type == "BoxPlot"){
+            for (i in 1:npcs){
+              boxplot(pca.data$HTseq_counts$sing.val$u[,i] ~ sample.info$BatchId_mda)
+            }
+          }
+        }
+  #return(data.set.names)
+}
+
+#df6 <- pca.plot(pca.data = df5, data = df4, group = "Time")
+#df6
+#df7 <- pca.plot(pca.data = df6, data = df5, group = "Time", plot_type = "DensityPlot", npcs = 3)
+#df7 <- pca.plot(pca.data = df6, data = df5, group = "Plate", plot_type = "BoxPlot", npcs = 3)
