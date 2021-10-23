@@ -49,7 +49,7 @@ pca.reg <- function(pca.data, data, type, nPCs){
     Raw.counts = lreg.cancer.tcga$HTseq_counts,
     FPKM = lreg.cancer.tcga$HTseq_FPKM,
     FPKM.UQ = lreg.cancer.tcga$HTseq_FPKM.UQ,
-    pcs = c(1:10)
+    pcs = c(1:nPCs)
   )
 
   # Visualize
@@ -83,7 +83,7 @@ pca.reg <- function(pca.data, data, type, nPCs){
     scale_color_manual(
       values = c(dataSets.colors[1:3]),
       labels = c('Raw counts', 'FPKM','FPKM.UQ')) +
-    scale_x_continuous(breaks = (1:10), labels = c('PC1', paste0('PC1:', 2:10)) ) +
+    scale_x_continuous(breaks = (1:nPCs), labels = c('PC1', paste0('PC1:', 2:nPCs)) ) +
     scale_y_continuous(breaks = scales::pretty_breaks(n = 5), limits = c(0,1)) +
     theme(
       panel.background = element_blank(),
