@@ -12,12 +12,20 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 LazyData: true
 Imports:
-  SummarizedExperiment,
-  BiocSingular,
-  ggplot2,
-  cowplot,
-  tidyverse
+    SummarizedExperiment,
+    BiocSingular,
+    ggplot2,
+    cowplot,
+    tidyverse,
+    dplyr,
+    tidyr,
+    MASS,
+    fastDummies,
+    ggpubr,
+    gridExtra,
+    scales,
+    wesanderson
 Depends: 
-    R (>= 4.1.1)
+    R (>= 4.1.0)
 Suggests:
   testthat

@@ -4,7 +4,7 @@
 #'
 #' @description This function is a part of the data wrangling functionality of tgcapkg.    It allows user to input the TGCA dataset and the required genes to filter the input data based on genes.
 #'
-#' @usage filter.genes(data=brca.se.data.temp,gene.type=c("protein_coding","lncRNA"))
+#' @usage filter.genes(data,gene.type)
 #'
 #' @param data Input TGCA Dataset.
 #' @param gene.type A character vector of items.

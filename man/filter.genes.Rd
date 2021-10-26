@@ -4,7 +4,7 @@
 \alias{filter.genes}
 \title{Gene Filter}
 \usage{
-filter.genes(data=brca.se.data.temp,gene.type=c("protein_coding","lncRNA"))
+filter.genes(data,gene.type)
 }
 \arguments{
 \item{data}{Input TGCA Dataset.}
