@@ -13,9 +13,9 @@
 #' @export
 #'
 #' @examples
-#' filter.genes(data=brca.se.data.temp,gene.type=c("protein_coding","lncRNA"))
+#' filter.genes(data=brca.data,gene.type=c("protein_coding","lncRNA"))
 #' \dontrun{
-#' filter.genes(data=brca.se.data.temp,gene.type=c("protein_coding"))
+#' filter.genes(data=brca.data,gene.type=c("protein_coding"))
 #' }
 filter.genes <- function(data,gene.type){
   gene.annot.rm <-  as.data.frame(SummarizedExperiment::rowData(data))

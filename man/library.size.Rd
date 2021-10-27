@@ -18,8 +18,8 @@ Scatter Plot, Box plot
 This function is a part of the data analysis functionality of tgcapkg.    It allows user to input the TGCA dataset and the type of plot to analyse library size.
 }
 \examples{
-library.size(data = brca.se.data.temp, plot_type = "Scatterplot")
+library.size(data = brca.data, plot_type = "Scatterplot")
 \dontrun{
-library.size(data = brca.se.data.temp, plot_type = "Boxplot")
+library.size(data = brca.data, plot_type = "Boxplot")
 }
 }
