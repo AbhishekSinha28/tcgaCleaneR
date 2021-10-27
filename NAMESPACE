@@ -2,4 +2,7 @@
 
 export(filter.genes)
 export(filter.low.genes)
+export(get.pca)
 export(library.size)
+export(library.size.fil)
+export(purity.filter)

@@ -5,7 +5,7 @@
 \alias{brca.data}
 \title{TCGA Breast Cancer Data}
 \format{
-The S4 data object is a matrix container with information on 180 genes. The rows represent
+The S4 data object is a matrix container with information on 100 genes. The rows represent
 features of interest (e.g. genes) and columns represent samples. The objects contain one or more
 assays, each represented by a matrix-like object of numeric or other mode. Information about these
 features is stored in a DataFrame object, accessible using the function \code{rowData()}. The

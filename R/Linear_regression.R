@@ -1,5 +1,22 @@
 #  PCs and library size/ purity - linear regression
 
+#' @title Linear Regression for Variation Analysis
+#'
+#' @description This function is a part of the data analysis functionality of tgcapkg. It helps user to run regression between bias in TCGA RNA-seq and PCs from \code{get.pca}. The output is a linear plot that compares the three \code{assays} in \code{SummarizedExperiment} TGCA Cancer data across n PCs and R-sq.
+#'
+#' @param pca.data list: PCA output from \code{get.pca}.
+#' @param data S4 data object
+#' @param type character: The response variable to \code{lm} model. groups included are 'librarysize', 'purity'.
+#' @param nPCs numeric: Number of PCs that needs to be used for regression
+#'
+#' @return Linear Plot the compares the correlation between library size (or Purity) and PCs across three datasets.
+#' @export
+#'
+#' @examples
+#' pca.reg(pca.data, data = brca.data, type = "librarysize", nPCs = 10)
+#' \dontrun{
+#' pca.reg(pca.data, data = brca.data, type = "purity", nPCs = 7)
+#' }
 pca.reg <- function(pca.data, data, type, nPCs){
   raw.count <- as.data.frame(SummarizedExperiment::assay(data, 'HTseq_counts'))
   library.size <- log2(colSums(raw.count))
@@ -97,6 +114,3 @@ pca.reg <- function(pca.data, data, type, nPCs){
       strip.text.x = element_text(size = 10)
     )
 }
-
-#pca.reg(pca.data = df6, data = df5, type = "librarysize", nPCs = 10)
-#pca.reg(pca.data = df6, data = df5, type = "purity", nPCs = 10)

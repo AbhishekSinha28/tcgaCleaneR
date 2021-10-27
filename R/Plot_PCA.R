@@ -1,5 +1,23 @@
 # Plot PCA function
 
+#' @title PCA Visualization
+#'
+#' @description This function is a part of the data analysis functionality of tgcapkg. It helps to visualize the PCs from \code{get.pca}
+#'
+#' @param pca.data list: PCA output from \code{get.pca}.
+#' @param data S4 data object
+#' @param group character: Color code PCs based on group. groups included are 'Time', 'Tissue', 'Plate', 'Batch'
+#' @param plot_type character: Plot type
+#' @param npcs numeric: Number of PCs that needs to be plotted
+#'
+#' @return Density Plot, Box Plot
+#' @export
+#'
+#' @examples
+#' pca.plot(pca.data, data = brca.data, group = "Time", plot_type = "DensityPlot", npcs = 3)
+#' \dontrun{
+#' pca.plot(pca.data = df6, data = brca.data, group = "Plate", plot_type = "BoxPlot", npcs = 3)
+#' }
 pca.plot <- function(pca.data, data, group, plot_type, npcs){
   .scatter.density.pc <- function(
     pcs,
@@ -238,8 +256,3 @@ pca.plot <- function(pca.data, data, group, plot_type, npcs){
         }
   #return(data.set.names)
 }
-
-#df6 <- pca.plot(pca.data = df5, data = df4, group = "Time")
-#df6
-#df7 <- pca.plot(pca.data = df6, data = df5, group = "Time", plot_type = "DensityPlot", npcs = 3)
-#df7 <- pca.plot(pca.data = df6, data = df5, group = "Plate", plot_type = "BoxPlot", npcs = 3)
