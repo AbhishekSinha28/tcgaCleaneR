@@ -24,7 +24,6 @@ The goal of the **_tgcapkg_** package is to minimize this challenge and help use
 
 ```{r setup}
 library(tgcapkg)
-library(SummarizedExperiment)
 ```
 
 # Data
@@ -51,7 +50,7 @@ raw.count <- as.data.frame(SummarizedExperiment::assay(brca.data, 'HTseq_counts'
 ## Filter data by specific gene.
 
 ```{r}
-df1 <- filter.genes(data=brca.data,gene.type=c("protein_coding"))
+df1 <- gene.filter(data=brca.data,gene.type=c("protein_coding"))
 ```
 
 # Removing lowly expressed genes
@@ -59,7 +58,7 @@ df1 <- filter.genes(data=brca.data,gene.type=c("protein_coding"))
 ## Filter data for genes with low count set number of samples
 
 ```{r}
-df2 <- filter.low.genes(data=df1,gene_count = 20,sample_size = 200)
+df2 <- low.genes.filter(data=df1,gene_count = 20,sample_size = 200)
 ```
 
 # Purity Filter
@@ -121,7 +120,7 @@ pca.plot(pca.data = df5, data = df4, group = "Time", plot_type = "DensityPlot", 
 # PCs correlation with unwanted variations
 
 ```{r fig.align='center',message=FALSE, fig.width=7, fig.height=5}
-library(tidyverse)
+library(magrittr)
 df6 <- pca.corr(pca.data = df5, data = df4, type = "purity", nPCs = 7)
 df6
 ```

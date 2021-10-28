@@ -4,7 +4,7 @@
 #'
 #' @description This function is a part of the data wrangling functionality of tgcapkg.    It allows user to input the TGCA dataset and the required genes to filter the input data based on genes.
 #'
-#' @usage filter.genes(data,gene.type)
+#' @usage gene.filter(data,gene.type)
 #'
 #' @param data Input TGCA Dataset.
 #' @param gene.type A character vector of items.
@@ -14,10 +14,10 @@
 #'
 #' @examples
 #' \dontrun{
-#' filter.genes(data=brca.data,gene.type=c("protein_coding","lncRNA"))
-#' filter.genes(data=brca.data,gene.type=c("protein_coding"))
+#' gene.filter(data=brca.data,gene.type=c("protein_coding","lncRNA"))
+#' gene.filter(data=brca.data,gene.type=c("protein_coding"))
 #' }
-filter.genes <- function(data,gene.type){
+gene.filter <- function(data,gene.type){
   gene.annot.rm <-  as.data.frame(SummarizedExperiment::rowData(data))
   keep.genes.rm <- gene.annot.rm$gene_biotype_BioMart %in% gene.type
   data.filtered <- data[keep.genes.rm , ]
