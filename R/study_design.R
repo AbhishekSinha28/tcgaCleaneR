@@ -1,6 +1,6 @@
 # Study Design Function
 
-#' @title Study Design
+#' @title Study Design Plot
 #'
 #' @description This function is a part of the data analysis functionality of tgcapkg. It helps to plot a Heat Map \code{ComplexHeatmap} for some sample variables and present a dashboard level analysis of TCGA data.
 #'

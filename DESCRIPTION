@@ -32,4 +32,7 @@ Imports:
 Depends: 
     R (>= 4.1.0)
 Suggests:
-  testthat
+    rmarkdown,
+    knitr,
+    testthat
+VignetteBuilder: knitr
