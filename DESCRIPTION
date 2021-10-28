@@ -10,7 +10,7 @@ License: GPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
-LazyData: true
+LazyData: false
 Imports:
     SummarizedExperiment,
     BiocSingular,
@@ -32,7 +32,6 @@ Imports:
 Depends: 
     R (>= 4.1.0)
 Suggests:
-    rmarkdown,
     knitr,
     testthat
 VignetteBuilder: knitr
