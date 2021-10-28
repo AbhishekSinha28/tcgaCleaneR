@@ -1,5 +1,23 @@
 #  PCs and library size/ purity/ time - Correlation Analysis (regression + vector correlation)
 
+#' @title Correlation Analysis between PCs and variation types
+#'
+#' @description This function is a part of the data analysis functionality of tgcapkg. It helps user to run regression between bias in TCGA RNA-seq like librarysize and purity with PCs from \code{get.pca}. The output is a linear plot that compares the three \code{assays} in \code{SummarizedExperiment} TGCA Cancer data across n PCs and R-sq. It also runs vector correlation \code(\link{https://stat.ethz.ch/R-manual/R-devel/library/stats/html/cancor.html}) between time and n PCs with the same linear output explaining variation explained by different variation types.
+#'
+#' @param pca.data list: PCA output from \code{get.pca}.
+#' @param data S4 data object
+#' @param type character: The response variable to \code{lm} model. groups included are 'librarysize', 'purity' and 'time'.
+#' @param nPCs numeric: Number of PCs that needs to be used for regression
+#'
+#' @return Linear Plot the compares the correlation between library size (or Purity, time) and PCs across three datasets. When output is stored in a object the user can also access values used to plot the linear graphs.
+#' @export
+#'
+#' @examples
+#' pca.corr(pca.data, data = brca.data, type = "purity", nPCs = 10)
+#' \dontrun{
+#' df <- pca.corr(pca.data, data = brca.data, type = "time", nPCs = 8)
+#' df
+#' }
 pca.corr <- function(pca.data, data, type, nPCs){
   raw.count <- as.data.frame(SummarizedExperiment::assay(data, 'HTseq_counts'))
   library.size <- log2(colSums(raw.count))
@@ -111,8 +129,3 @@ pca.corr <- function(pca.data, data, type, nPCs){
 
   #return(corr.normAssess)
 }
-
-#df8 <- pca.corr(pca.data = df6, data = df5, type = "librarysize", nPCs = 8)
-#pca.corr(pca.data = df6, data = df5, type = "purity", nPCs = 10)
-#df8 <- pca.corr(pca.data = df6, data = df5, type = "time", nPCs = 8)
-#df8

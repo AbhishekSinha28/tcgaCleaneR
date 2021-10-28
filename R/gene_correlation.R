@@ -1,5 +1,23 @@
 #  Gene Correlation analysis function
 
+#' @title Gene Correlation analysis
+#'
+#' @description This function is a part of the data analysis functionality of tgcapkg. It helps to run correlation analysis between genes and variation variables.
+#'
+#' @param data S4 data object
+#' @param is.log logical: Checks if the S4 data has log values. It 'False', it converts data to log scale.
+#' @param type character: Variation variable to perform correlation with. type included are 'librarysize', 'purity_HTseq_counts', 'purity_HTseq_FPKM' and 'purity_HTseq_FPKM.UQ'.
+#' @param cor.method a character string indicating which correlation coefficient is to be used for the test. One of "pearson", "kendall", or "spearman", can be abbreviated. Default is spearman.
+#' @param n.cores The number of cores to use, i.e. at most how many child processes will be run simultaneously. Must be at least one, and parallelization requires at least two cores.
+#'
+#' @return A S3 data frame. The output contains the correlation test output containing pvalue, adj p-value and Spearman's rank correlation coefficient. Along with the data frame output the function also returns a histogram for Spearman's rank correlation coefficient for easy analysis of the test results
+#' @export
+#'
+#' @examples
+#' gene.corr(data = brca.data, is.log = FALSE, type = "librarysize", cor.method = 'spearman', n.cores = 5)
+#' \dontrun{
+#' df <- gene.corr(data = brca.data, is.log = FALSE, type = "purity_HTseq_FPKM", cor.method = 'pearson', n.cores = 5)
+#' }
 gene.corr <- function(data, is.log, type, cor.method, n.cores){
   sample.info <-  as.data.frame(SummarizedExperiment::colData(data))
   raw.count <- as.data.frame(SummarizedExperiment::assay(data, 'HTseq_counts'))
