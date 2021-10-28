@@ -1,5 +1,16 @@
 # Study Design Function
 
+#' @title Study Design
+#'
+#' @description This function is a part of the data analysis functionality of tgcapkg. It helps to plot a Heat Map \code{ComplexHeatmap} for some sample variables and present a dashboard level analysis of TCGA data.
+#'
+#' @param data S4 data object: Input TGCA Dataset
+#'
+#' @return HeatMap Dashboard
+#' @export
+#'
+#' @examples
+#' study.design(data = brca.data)
 study.design <- function(data){
   data$ls <- log2(colSums(SummarizedExperiment::assay(data, 'HTseq_counts')))
   sample.info <- as.data.frame(SummarizedExperiment::colData(data))
@@ -144,5 +155,3 @@ study.design <- function(data){
     heatmap_legend_side = 'left'
   )
 }
-
-#study.design(data = brca.se.data.temp)

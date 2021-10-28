@@ -25,7 +25,10 @@ Imports:
     gridExtra,
     scales,
     wesanderson,
-    parallel
+    parallel,
+    ComplexHeatmap,
+    RColorBrewer,
+    viridis
 Depends: 
     R (>= 4.1.0)
 Suggests:
