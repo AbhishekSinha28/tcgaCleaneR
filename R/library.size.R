@@ -20,7 +20,7 @@ library.size <- function(data,plot_type){
   raw.count <- as.data.frame(SummarizedExperiment::assay(data, 'HTseq_counts'))
   library_size <- log2(colSums(raw.count))
   if (plot_type == "Boxplot"){
-    boxplot(library_size ~ sample.info$year_mda)
+    boxplot(library_size ~ sample.info$year_mda, xlab = 'Sample Years', ylab = 'log2 library size')
   } else
     if (plot_type == "Scatterplot"){
       plot(library_size, xlab = 'sample', ylab = 'log2 library size', col = factor(sample.info$year_mda))

@@ -6,7 +6,7 @@
 #'
 #' @param pca.data list: PCA output from \code{get.pca}.
 #' @param data S4 data object
-#' @param group character: Color code PCs based on group. groups included are 'Time', 'Tissue', 'Plate', 'Batch'
+#' @param group character: Color code PCs based on group. groups included are 'Time', 'Tissue', 'Plate', 'Batch', 'TSS', 'Center'
 #' @param plot_type character: Plot type
 #' @param npcs numeric: Number of PCs that needs to be plotted
 #'
@@ -138,10 +138,11 @@ pca.plot <- function(pca.data, data, group, plot_type, npcs){
     return(pList)
   }
   sample.info <-  as.data.frame(SummarizedExperiment::colData(data))
+  data.set.names <- names(SummarizedExperiment::assays(data))
   if (group == "Time"){
     if(plot_type == "DensityPlot"){
       pca.plots.time <- lapply(
-        data.set.names <- names(SummarizedExperiment::assays(data)),#tcga.harmonized,
+        data.set.names,#tcga.harmonized,
         function(x){
           pcs <- pca.data[[x]]
           p <- .scatter.density.pc(
@@ -170,7 +171,7 @@ pca.plot <- function(pca.data, data, group, plot_type, npcs){
     if (group == "Tissue"){
       if(plot_type == "DensityPlot"){
         pca.plots.time <- lapply(
-          data.set.names <- c("HTseq_counts", "HTseq_FPKM", "HTseq_FPKM.UQ"),#tcga.harmonized,
+          data.set.names,
           function(x){
             pcs <- pca.data[[x]]
             p <- .scatter.density.pc(
@@ -199,7 +200,7 @@ pca.plot <- function(pca.data, data, group, plot_type, npcs){
       if (group == "Plate"){
         if(plot_type == "DensityPlot"){
           pca.plots.time <- lapply(
-            data.set.names <- c("HTseq_counts", "HTseq_FPKM", "HTseq_FPKM.UQ"),#tcga.harmonized,
+            data.set.names,
             function(x){
               pcs <- pca.data[[x]]
               p <- .scatter.density.pc(
@@ -228,7 +229,7 @@ pca.plot <- function(pca.data, data, group, plot_type, npcs){
         if (group == "Batch"){
           if(plot_type == "DensityPlot"){
             pca.plots.time <- lapply(
-              data.set.names <- c("HTseq_counts", "HTseq_FPKM", "HTseq_FPKM.UQ"),#tcga.harmonized,
+              data.set.names,
               function(x){
                 pcs <- pca.data[[x]]
                 p <- .scatter.density.pc(
@@ -253,6 +254,64 @@ pca.plot <- function(pca.data, data, group, plot_type, npcs){
               boxplot(pca.data$HTseq_counts$sing.val$u[,i] ~ sample.info$BatchId_mda)
             }
           }
-        }
+        } else
+          if (group == "TSS"){
+            if(plot_type == "DensityPlot"){
+              pca.plots.time <- lapply(
+                data.set.names,
+                function(x){
+                  pcs <- pca.data[[x]]
+                  p <- .scatter.density.pc(
+                    pcs = pcs$sing.val$u[,1:npcs],
+                    pc.var = pcs$var,
+                    group.name = 'TSS',
+                    group = sample.info$TSS_mda,
+                    color = unique(factor(sample.info$TSS_mda)),
+                    strokeSize = .2,
+                    pointSize = 3,
+                    strokeColor = 'gray30',
+                    alpha = .6)
+                  do.call(
+                    gridExtra::grid.arrange,
+                    c(p,
+                      ncol = 4,
+                      top = x)
+                  )
+                })
+            } else if (plot_type == "BoxPlot"){
+              for (i in 1:npcs){
+                boxplot(pca.data$HTseq_counts$sing.val$u[,i] ~ sample.info$TSS_mda)
+              }
+            }
+          } else
+            if (group == "Center"){
+              if(plot_type == "DensityPlot"){
+                pca.plots.time <- lapply(
+                  data.set.names,
+                  function(x){
+                    pcs <- pca.data[[x]]
+                    p <- .scatter.density.pc(
+                      pcs = pcs$sing.val$u[,1:npcs],
+                      pc.var = pcs$var,
+                      group.name = 'Center',
+                      group = sample.info$center_mda,
+                      color = unique(sample.info$center_mda),
+                      strokeSize = .2,
+                      pointSize = 3,
+                      strokeColor = 'gray30',
+                      alpha = .6)
+                    do.call(
+                      gridExtra::grid.arrange,
+                      c(p,
+                        ncol = 4,
+                        top = x)
+                    )
+                  })
+              } else if (plot_type == "BoxPlot"){
+                for (i in 1:npcs){
+                  boxplot(pca.data$HTseq_counts$sing.val$u[,i] ~ sample.info$center_mda)
+                }
+              }
+            }
   #return(data.set.names)
 }
