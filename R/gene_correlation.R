@@ -14,8 +14,8 @@
 #' @export
 #'
 #' @examples
-#' gene.corr(data = brca.data, is.log = FALSE, type = "librarysize", cor.method = 'spearman', n.cores = 5)
 #' \dontrun{
+#' gene.corr(data = brca.data, is.log = FALSE, type = "librarysize", cor.method = 'spearman', n.cores = 5)
 #' df <- gene.corr(data = brca.data, is.log = FALSE, type = "purity_HTseq_FPKM", cor.method = 'pearson', n.cores = 5)
 #' }
 gene.corr <- function(data, is.log, type, cor.method, n.cores){
@@ -90,7 +90,3 @@ gene.corr <- function(data, is.log, type, cor.method, n.cores){
         }
   return(genes.df)
 }
-
-#df9 <- gene.corr(data = df5, is.log = FALSE, type = "librarysize", cor.method = 'spearman', n.cores = 5)
-#gene.corr(data = df5, is.log = FALSE, type = "purity_HTseq_FPKM", cor.method = 'spearman', n.cores = 5)
-#gene.corr(data = df5, is.log = FALSE, type = "purity_HTseq_FPKM", cor.method = 'pearson', n.cores = 5)

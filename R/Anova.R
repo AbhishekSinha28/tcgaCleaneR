@@ -13,11 +13,11 @@
 #' @export
 #'
 #' @examples
-#' anova.test(data = brca.data, variable = "Plate", is.log = F, n.cores = 5)
 #' \dontrun{
-#' df <- anova.test(data = brca.data, variable = "Time", is.log = F, n.cores = 5)
+#' f.test(data = brca.data, variable = "Plate", is.log = FALSE, n.cores = 5)
+#' f.test(data = brca.data, variable = "Time", is.log = FALSE, n.cores = 5)
 #' }
-anova.test <- function(data, variable, is.log, n.cores){
+f.test <- function(data, variable, is.log, n.cores){
   raw.count <- as.data.frame(SummarizedExperiment::assay(data, 'HTseq_counts'))
   sample.info <-  as.data.frame(SummarizedExperiment::colData(data))
   sample.info$ls <- log2(colSums(raw.count))
@@ -44,17 +44,12 @@ anova.test <- function(data, variable, is.log, n.cores){
         }
         , mc.cores = n.cores)
     }
-  f.test <- data.frame(
+  test.values <- data.frame(
     Genes = row.names(raw.count),
     FValue = round(unlist(lapply(f.test, function(x) x$`F Value`[2])), digits = 4) ,
     PValue = unlist(lapply(f.test, function(x) x$`Pr(F)`[2])),
     Adj.PValue = p.adjust(unlist(lapply(f.test, function(x) x$`Pr(F)`[2])), method = 'BH'),
     Mean = round(average.exp, digits = 2)
   )
-  return(f.test)
+  return(test.values)
 }
-
-
-#df10 <- anova.test(data = df5, variable = "Plate", is.log = F, n.cores = 5)
-#df11 <- anova.test(data = df5, variable = "Time", is.log = F, n.cores = 5)
-

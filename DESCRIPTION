@@ -24,7 +24,8 @@ Imports:
     ggpubr,
     gridExtra,
     scales,
-    wesanderson
+    wesanderson,
+    parallel
 Depends: 
     R (>= 4.1.0)
 Suggests:

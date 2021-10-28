@@ -14,8 +14,8 @@
 #' @export
 #'
 #' @examples
-#' pca.plot(pca.data, data = brca.data, group = "Time", plot_type = "DensityPlot", npcs = 3)
 #' \dontrun{
+#' pca.plot(pca.data, data = brca.data, group = "Time", plot_type = "DensityPlot", npcs = 3)
 #' pca.plot(pca.data = df6, data = brca.data, group = "Plate", plot_type = "BoxPlot", npcs = 3)
 #' }
 pca.plot <- function(pca.data, data, group, plot_type, npcs){

@@ -2,7 +2,7 @@
 
 #' @title Correlation Analysis between PCs and variation types
 #'
-#' @description This function is a part of the data analysis functionality of tgcapkg. It helps user to run regression between bias in TCGA RNA-seq like librarysize and purity with PCs from \code{get.pca}. The output is a linear plot that compares the three \code{assays} in \code{SummarizedExperiment} TGCA Cancer data across n PCs and R-sq. It also runs vector correlation \code(\link{https://stat.ethz.ch/R-manual/R-devel/library/stats/html/cancor.html}) between time and n PCs with the same linear output explaining variation explained by different variation types.
+#' @description This function is a part of the data analysis functionality of tgcapkg. It helps user to run regression between bias in TCGA RNA-seq like librarysize and purity with PCs from \code{get.pca}. The output is a linear plot that compares the three \code{assays} in \code{SummarizedExperiment} TGCA Cancer data across n PCs and R-sq. It also runs vector correlation \code{stats::cancor} between time and n PCs with the same linear output explaining variation explained by different variation types.
 #'
 #' @param pca.data list: PCA output from \code{get.pca}.
 #' @param data S4 data object
@@ -13,8 +13,8 @@
 #' @export
 #'
 #' @examples
-#' pca.corr(pca.data, data = brca.data, type = "purity", nPCs = 10)
 #' \dontrun{
+#' pca.corr(pca.data, data = brca.data, type = "purity", nPCs = 10)
 #' df <- pca.corr(pca.data, data = brca.data, type = "time", nPCs = 8)
 #' df
 #' }
