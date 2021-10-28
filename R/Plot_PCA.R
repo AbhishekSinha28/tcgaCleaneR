@@ -13,6 +13,8 @@
 #' @return Density Plot, Box Plot
 #' @export
 #'
+#' @importFrom ggplot2 ggplot
+#' @importFrom cowplot axis_canvas
 #' @examples
 #' \dontrun{
 #' pca.plot(pca.data, data = brca.data, group = "Time", plot_type = "DensityPlot", npcs = 3)
@@ -35,7 +37,7 @@ pca.plot <- function(pca.data, data, group, plot_type, npcs){
       if(i == 1){
         x <- pair.pcs[1,i]
         y <- pair.pcs[2,i]
-        p <- ggplot(mapping = aes(
+        p <- ggplot2::ggplot(mapping = aes(
           x = pcs[,x],
           y = pcs[,y],
           fill = group)) +
@@ -69,7 +71,7 @@ pca.plot <- function(pca.data, data, group, plot_type, npcs){
       }else{
         x <- pair.pcs[1,i]
         y <- pair.pcs[2,i]
-        p <- ggplot(mapping = aes(
+        p <- ggplot2::ggplot(mapping = aes(
           x = pcs[,x],
           y = pcs[,y],
           fill = group)) +

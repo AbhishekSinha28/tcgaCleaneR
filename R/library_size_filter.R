@@ -11,7 +11,9 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' library.size.fil(data = brca.data, ls_cutoff = 22.5)
+#' }
 library.size.fil <- function(data,ls_cutoff){
   raw.count <- as.data.frame(SummarizedExperiment::assay(data, 'HTseq_counts'))
   library_size <- log2(colSums(raw.count))

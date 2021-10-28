@@ -18,8 +18,8 @@ S4 data object
 This function is a part of the data wrangling functionality of tgcapkg.    It allows user to input the TGCA dataset and the required genes to filter the input data based on genes.
 }
 \examples{
-filter.genes(data=brca.data,gene.type=c("protein_coding","lncRNA"))
 \dontrun{
+filter.genes(data=brca.data,gene.type=c("protein_coding","lncRNA"))
 filter.genes(data=brca.data,gene.type=c("protein_coding"))
 }
 }

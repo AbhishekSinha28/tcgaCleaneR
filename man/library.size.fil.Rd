@@ -18,5 +18,7 @@ S4 data object
 This function is a part of the data wrangling functionality of tgcapkg.    It allows user to handle the bias in TCGA Cancer data due to library size by filtering out the samples with sample size greater than the threshold. Using \code{library.size}, user can determine the threshold.
 }
 \examples{
+\dontrun{
 library.size.fil(data = brca.data, ls_cutoff = 22.5)
+}
 }

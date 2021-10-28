@@ -99,7 +99,7 @@ pca.corr <- function(pca.data, data, type, nPCs){
         levels = c('Raw counts', 'FPKM', 'FPKM.UQ'))) %>%
     data.frame(.)
 
-  ggplot(corr.normAssess.p, aes(x = pcs, y = CorrValue, group = Datasets)) +
+  ggplot2::ggplot(corr.normAssess.p, aes(x = pcs, y = CorrValue, group = Datasets)) +
     geom_line(aes(color = Datasets), size = 1) +
     geom_point(aes(color = Datasets), size = 3) +
     xlab('PCs') + ylab (expression("R"^"2")) +

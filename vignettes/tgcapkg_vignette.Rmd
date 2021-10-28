@@ -24,6 +24,7 @@ The goal of the **_tgcapkg_** package is to minimize this challenge and help use
 
 ```{r setup}
 library(tgcapkg)
+library(SummarizedExperiment)
 ```
 
 # Data
@@ -40,8 +41,8 @@ The package contains a highly condensed version of the original dataset with 100
 
 ```{r eval=FALSE}
 gene.annot <-  as.data.frame(SummarizedExperiment::rowData(brca.data))
-sample.info <-  as.data.frame(SummarizedExperiment::colData(brca.se.data.temp))
-raw.count <- as.data.frame(SummarizedExperiment::assay(brca.se.data.temp, 'HTseq_counts'))
+sample.info <-  as.data.frame(SummarizedExperiment::colData(brca.data))
+raw.count <- as.data.frame(SummarizedExperiment::assay(brca.data, 'HTseq_counts'))
 ```
 # Data Wrangling
 
@@ -73,7 +74,7 @@ df3 <- purity.filter(data= df2,purity_cutoff= 0.496)
 
 ## Determine Library Size
 
-```{r}
+```{r fig.align='center', fig.width=7, fig.height=5}
 library.size(data = df3, plot_type = "Scatterplot")
 ```
 
@@ -87,7 +88,7 @@ df4 <- library.size.fil(data = df3, ls_cutoff = 17.5)
 
 # Study Design Plot
 
-```{r}
+```{r fig.align='center', fig.width=7, fig.height=5}
 study.design(data = df4)
 ```
 # PCA
@@ -111,7 +112,7 @@ head(df5[['HTseq_counts']]$sing.val$u,2)
 
 ## Plot PCA
 
-```{r}
+```{r fig.align='center', fig.width=7, fig.height=5}
 library(ggplot2)
 library(cowplot)
 pca.plot(pca.data = df5, data = df4, group = "Time", plot_type = "DensityPlot", npcs = 3)
@@ -119,7 +120,7 @@ pca.plot(pca.data = df5, data = df4, group = "Time", plot_type = "DensityPlot", 
 
 # PCs correlation with unwanted variations
 
-```{r message=FALSE}
+```{r fig.align='center',message=FALSE, fig.width=7, fig.height=5}
 library(tidyverse)
 df6 <- pca.corr(pca.data = df5, data = df4, type = "purity", nPCs = 7)
 df6
@@ -127,15 +128,15 @@ df6
 
 # Gene correlation 
 
-```{r}
-df7 <- gene.corr(data = df4, is.log = FALSE, type = "librarysize", cor.method = 'spearman', n.cores = 5)
+```{r fig.align='center', fig.width=7, fig.height=5}
+df7 <- gene.corr(data = df4, is.log = FALSE, type = "librarysize", cor.method = 'spearman', n.cores = 2)
 head(df7)
 ```
 
 # Anova Test
 
 ```{r}
-df8 <- f.test(data = df4, variable = "Time", is.log = FALSE, n.cores = 5)
+df8 <- f.test(data = df4, variable = "Time", is.log = FALSE, n.cores = 2)
 head(df8)
 ```
 

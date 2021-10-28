@@ -11,7 +11,9 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' purity.filter(data= brca.data,purity_cutoff= 0.496)
+#' }
 purity.filter <- function(data,purity_cutoff){
   sample.info <-  as.data.frame(SummarizedExperiment::colData(data))
   keep.samples <- sample.info$purity_HTseq_counts > purity_cutoff

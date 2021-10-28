@@ -20,5 +20,7 @@ S4 data object
 This function is a part of the data wrangling functionality of tgcapkg.    It allows user to input the TGCA dataset and the threshold for the minimum gene count and sample count.
 }
 \examples{
+\dontrun{
 filter.low.genes(data=brca.data,gene_count = 20,sample_size = 200)
+}
 }

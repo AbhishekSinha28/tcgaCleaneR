@@ -18,8 +18,8 @@ Scatter Plot, Box plot
 This function is a part of the data analysis functionality of tgcapkg.    It allows user to analyze the Library Size bias, a technical bias in the TCGA RNA-seq.    The user can input the TGCA dataset and the type of plot to analyse variations in library size across years and samples.
 }
 \examples{
-library.size(data = brca.data, plot_type = "Scatterplot")
 \dontrun{
+library.size(data = brca.data, plot_type = "Scatterplot")
 library.size(data = brca.data, plot_type = "Boxplot")
 }
 }
