@@ -14,7 +14,27 @@
 #' @export
 #'
 #' @importFrom ggplot2 ggplot
+#' @importFrom ggplot2 aes
+#' @importFrom ggplot2 xlab
+#' @importFrom ggplot2 ylab
+#' @importFrom ggplot2 geom_point
+#' @importFrom ggplot2 scale_x_continuous
+#' @importFrom ggplot2 scale_y_continuous
+#' @importFrom ggplot2 theme
+#' @importFrom ggplot2 element_blank
+#' @importFrom ggplot2 element_line
+#' @importFrom ggplot2 element_text
+#' @importFrom ggplot2 scale_fill_manual
+#' @importFrom ggplot2 geom_density
+#' @importFrom ggplot2 coord_flip
+#' @importFrom ggplot2 geom_line
+#' @importFrom ggplot2 scale_color_manual
+#' @importFrom ggplot2 ggtitle
+#' @importFrom ggplot2 guides
+#' @importFrom ggplot2 guide_legend
 #' @importFrom cowplot axis_canvas
+#' @importFrom cowplot insert_xaxis_grob
+#' @importFrom cowplot insert_yaxis_grob
 #' @examples
 #' \dontrun{
 #' pca.plot(pca.data, data = brca.data, group = "Time", plot_type = "DensityPlot", npcs = 3)
@@ -64,7 +84,7 @@ pca.plot <- function(pca.data, data, group, plot_type, npcs){
             axis.text.y = element_text(size = 10),
             axis.title.x = element_text(size = 14),
             axis.title.y = element_text(size = 14)) +
-          guides(fill = guide_legend(override.aes = list(size = 4))) +
+          ggplot2::guides(fill = ggplot2::guide_legend(override.aes = list(size = 4))) +
           scale_fill_manual(name = group.name, values = color)
 
         le <- ggpubr::get_legend(p)

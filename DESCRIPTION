@@ -16,7 +16,7 @@ Imports:
     BiocSingular,
     ggplot2,
     cowplot,
-    magrittr,
+    tidyverse,
     dplyr,
     tidyr,
     MASS,

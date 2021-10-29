@@ -111,7 +111,7 @@ head(df5[['HTseq_counts']]$sing.val$u,2)
 
 ## Plot PCA
 
-```{r fig.align='center', fig.width=7, fig.height=5}
+```{r fig.align='center', fig.width=7, fig.height=5, message=FALSE}
 library(ggplot2)
 library(cowplot)
 pca.plot(pca.data = df5, data = df4, group = "Time", plot_type = "DensityPlot", npcs = 3)
@@ -120,7 +120,7 @@ pca.plot(pca.data = df5, data = df4, group = "Time", plot_type = "DensityPlot", 
 # PCs correlation with unwanted variations
 
 ```{r fig.align='center',message=FALSE, fig.width=7, fig.height=5}
-library(magrittr)
+library(tidyverse)
 df6 <- pca.corr(pca.data = df5, data = df4, type = "purity", nPCs = 7)
 df6
 ```
