@@ -1,5 +1,19 @@
 # RUV-III - PRPS((Pseudo replicate of pseudo sample)) map
 
+#' @title RUV-III PRPS Map
+#'
+#' @description This function is a part of the data analysis functionality of tgcapkg. This function helps
+#'
+#' @param data S4 data object
+#' @param n numeric: Minimum no. of samples needed to make pseudo sample. By default it consider 3 samples.
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' ruv.prps.plot(data = brca.data)
+#' }
 ruv.prps.plot <- function(data,n=3){
   sample.info <-  as.data.frame(SummarizedExperiment::colData(data))
   sample.info$biology <- sample(letters[1:4], nrow(sample.info), replace = TRUE)
@@ -49,5 +63,3 @@ ruv.prps.plot <- function(data,n=3){
       legend.position = 'none'
     )
 }
-
-#ruv.prps.plot(data = df5, n=3)
