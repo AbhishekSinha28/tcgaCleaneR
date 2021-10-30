@@ -1,6 +1,6 @@
 # RUV-III - PRPS((Pseudo replicate of pseudo sample)) map
 
-ruv.prps.plot <- function(data,n){
+ruv.prps.plot <- function(data,n=3){
   sample.info <-  as.data.frame(SummarizedExperiment::colData(data))
   sample.info$biology <- sample(letters[1:4], nrow(sample.info), replace = TRUE)
   sample.info$new.batch <- paste0(
