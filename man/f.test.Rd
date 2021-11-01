@@ -23,7 +23,7 @@ This function is a part of the data analysis functionality of tgcapkg. It helps 
 }
 \examples{
 \dontrun{
-f.test(data = brca.data, variable = "Plate", is.log = FALSE, n.cores = 5)
-f.test(data = brca.data, variable = "Time", is.log = FALSE, n.cores = 5)
+f.test(data = brca.data, variable = "Plate", is.log = FALSE, n.cores = 2)
+f.test(data = brca.data, variable = "Time", is.log = FALSE, n.cores = 2)
 }
 }

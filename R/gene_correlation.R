@@ -15,8 +15,8 @@
 #'
 #' @examples
 #' \dontrun{
-#' gene.corr(data = brca.data, is.log = FALSE, type = "librarysize", cor.method = 'spearman', n.cores = 5)
-#' df <- gene.corr(data = brca.data, is.log = FALSE, type = "purity_HTseq_FPKM", cor.method = 'pearson', n.cores = 5)
+#' gene.corr(data = brca.data, is.log = FALSE, type = "librarysize", cor.method = 'spearman', n.cores = 2)
+#' df <- gene.corr(data = brca.data, is.log = FALSE, type = "purity_HTseq_FPKM", cor.method = 'pearson', n.cores = 2)
 #' }
 gene.corr <- function(data, is.log, type, cor.method, n.cores){
   sample.info <-  as.data.frame(SummarizedExperiment::colData(data))
@@ -54,7 +54,7 @@ gene.corr <- function(data, is.log, type, cor.method, n.cores){
       is.log = is.log,
       variable = sample.info$ls,
       method = cor.method,
-      n.cores = 5
+      n.cores = 2
     )
     hist(genes.df$rho)
   } else
@@ -64,7 +64,7 @@ gene.corr <- function(data, is.log, type, cor.method, n.cores){
         is.log = is.log,
         variable = sample.info$purity_HTseq_counts,
         method = cor.method,
-        n.cores = 5
+        n.cores = 2
       )
       hist(genes.df$rho)
     } else
@@ -74,7 +74,7 @@ gene.corr <- function(data, is.log, type, cor.method, n.cores){
           is.log = is.log,
           variable = sample.info$purity_HTseq_FPKM,
           method = cor.method,
-          n.cores = 5
+          n.cores = 2
         )
         hist(genes.df$rho)
       } else
@@ -84,7 +84,7 @@ gene.corr <- function(data, is.log, type, cor.method, n.cores){
             is.log = is.log,
             variable = sample.info$purity_HTseq_FPKM.UQ,
             method = cor.method,
-            n.cores = 5
+            n.cores = 2
           )
           hist(genes.df$rho)
         }
