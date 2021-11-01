@@ -11,13 +11,13 @@ get.pca(data, nPcs, is.log)
 
 \item{nPcs}{numeric: Number of PCs that needs to be generated}
 
-\item{is.log}{logical: Checks if the S4 data has log values. It 'False', it converts data to log scale.}
+\item{is.log}{logical: Checks if the S4 data has log values. If 'False', it converts data to log scale.}
 }
 \value{
 A List of S4 class containing n PCs. For all three \code{assays()}, two values are returned. \code{sing.val} contains singular values with \code{u} containing PCs. \code{variation} contains the variation of each PC.
 }
 \description{
-This function is a part of the data analysis functionality of tgcapkg.    It performs PCA using SVD algorithm (\code{runSVD()}) on the \code{SummarizedExperiment} class TCGA Cancer Data across all three \code{assays()} i.e. 'HTseq_counts', 'HTseq_FPKM' and 'HTseq_FPKM.UQ' and generate PCs.
+This function is a part of the data analysis functionality of tgcapkg. It performs PCA using SVD algorithm (\code{runSVD()}) on the \code{SummarizedExperiment} class TCGA Cancer Data across all three \code{assays()} i.e. 'HTseq_counts', 'HTseq_FPKM' and 'HTseq_FPKM.UQ' and generate PCs.
 }
 \examples{
 \dontrun{

@@ -138,4 +138,17 @@ head(df7)
 df8 <- f.test(data = df4, variable = "Time", is.log = FALSE, n.cores = 2)
 head(df8)
 ```
+# RUV - III
+
+## PRPS Map
+
+```{r fig.align='center', fig.width=7, fig.height=5, message=FALSE}
+ruv.prps.plot(data = df4)
+```
+
+## PRPS Generation
+
+```{r}
+df9 <- get.prps(data=df4, batch=c('Year', 'Plates'), biology='biology', purity=NULL, include.ls=T, include.purity=F, n.ls.ps=10, n.sample.batch=3, n.sample.purity=0, n.sample.ls=3)
+```
 
