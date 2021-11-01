@@ -1,15 +1,38 @@
-.CreatePseudoSamplesForLsPurityBatch <- function(
-  expr.data,
-  sample.info,
-  batch,
-  biology,
-  purity,
-  include.ls,
-  include.purity,
-  n.ls.ps,
-  n.sample.batch,
-  n.sample.purity,
-  n.sample.ls){
+# RUV-III - PRPS((Pseudo replicate of pseudo sample)) generation
+
+get.prps <- function(data, batch, biology, purity, include.ls, include.purity, n.ls.ps, n.sample.ls,
+                     n.sample.batch, n.sample.purity){
+  data$log.ls <- log2(colSums(SummarizedExperiment::assay(data, 'HTseq_counts')))
+  sample.info <- as.data.frame(SummarizedExperiment::colData(data))
+  sample.info$Purity_singscore <- sample.info$purity_HTseq_FPKM
+  sample.info$Year <- sample.info$year_mda
+  sample.info$Plates <- sample.info$PlateId_mda
+  sample.info$TSS <- sample.info$TSS_mda
+  sample.info$Tissues <- sample.info$tissue
+  sample.info$Center <- sample.info$center_mda
+  cols <- c(
+    'Year',
+    'Plates',
+    'TSS',
+    'Tissues',
+    'Center',
+    'log.ls',
+    'Purity_singscore'
+  )
+  sample.info <- sample.info[ , cols]
+  sample.info$biology <- sample(letters[1:4], nrow(sample.info), replace = TRUE)
+  sample.info$new.batch <- paste0(
+    sample.info$Year,
+    '_',
+    sample.info$Plates
+  )
+  raw.data <- as.matrix(SummarizedExperiment::assay(data, 'HTseq_counts'))
+  gene.annot <- as.data.frame(SummarizedExperiment::rowData(data))
+  keep.genes <- gene.annot$gene_biotype_BioMart == 'protein_coding'
+  gene.annot <- gene.annot[ keep.genes, ]
+  raw.data <- raw.data[ keep.genes, ]
+  expr.data = raw.data
+
   ### combine biology and batch
   sample.info$lib.size <- colSums(expr.data)
   biology.batches <- c(biology, batch )
@@ -25,8 +48,8 @@
   sample.info$biology.batches <- apply(
     sample.info[, biology.batches],
     1, paste,
-    collapse = "-"
-  )
+    collapse = "-")
+
   ### sort samples
   sample.info <- dplyr::arrange(
     sample.info,
@@ -62,9 +85,10 @@
       })
     ps.ls <- do.call(cbind, ps.ls)
   }else if (! include.ls){
-    print('Library size has not been considered')
+    warning('Library size has not been considered')
     ps.ls = list()
   }
+
   if(include.purity ){
     selected.biology <- names(
       which(table(sample.info$biology) >= 2*n.sample.purity)
@@ -91,35 +115,10 @@
       })
     ps.purity <- do.call(cbind, ps.purity)
   } else if (!include.purity){
-    print('PS do not cover purity variation')
+    warning('PS do not cover purity variation')
     ps.purity = list()
   }
   return(list(ps.purity = ps.purity, ps.ls = ps.ls, ps.batch = ps.batch))
 }
 
-raw.data <- as.matrix(SummarizedExperiment::assay(data, 'HTseq_counts'))
-gene.annot <- as.data.frame(SummarizedExperiment::rowData(data))
-keep.genes <- gene.annot$gene_biotype_BioMart == 'protein_coding'
-gene.annot <- gene.annot[ keep.genes, ]
-raw.data <- raw.data[ keep.genes, ]
-
-prps <-
-  .CreatePseudoSamplesForLsPurityBatch(
-    expr.data = raw.data,
-    sample.info = sample.info,
-    batch = c('Year', 'Plates'),
-    biology = 'biology',
-    purity = NULL,
-    include.ls = T,
-    include.purity = F,
-    n.ls.ps = 10,
-    n.sample.batch = 3,
-    n.sample.purity = 3,
-    n.sample.ls = 3
-  )
-prps$ps.batch
-prps.batch <- prps$ps.batch
-colnames(prps.batch) <- unlist(lapply(
-  colnames(prps.batch),
-  function(x) strsplit(x, '-')[[1]][1]
-))
+df20 <- get.prps(data=brca.se.filtered3, batch=c('Year', 'Plates'), biology='biology', purity=NULL, include.ls=T, include.purity=F, n.ls.ps=10, n.sample.batch=3, n.sample.purity=3, n.sample.ls=3)
