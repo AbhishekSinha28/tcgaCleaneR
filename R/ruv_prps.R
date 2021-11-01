@@ -1,5 +1,28 @@
 # RUV-III - PRPS((Pseudo replicate of pseudo sample)) generation
 
+#' @title Generate RUV-III PRPS data
+#'
+#' @description This function is a part of the data analysis functionality of \code{tgcapkg}. It creates pseudo samples for on Library size, Batches and Purity.
+#'
+#' @param data S4 data object
+#' @param batch character: Batch effect factors. In current package version batch can be given values like 'Year', 'Plate' or both.
+#' @param biology character: Biology of cancer type. In current package version biology for cancer type Breast, Rectum & Colon is considered.
+#' @param purity character: Purity column name
+#' @param include.ls logical: Do we need to consider library size in creating pseudo samples.
+#' @param include.purity logical: Do we need to consider purity in creating pseudo samples.
+#' @param n.ls.ps numeric: Number of samples for library size considered within plate.
+#' @param n.sample.ls numeric: Minimum number of samples within library size pseudo sample size.
+#' @param n.sample.batch numeric: Number of samples per batch.
+#' @param n.sample.purity numeric: Number of samples for purity.
+#'
+#' @return A S4 list object with the Pseudo replicate for pseudo samples for different batches.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' get.prps(data=brca.data, batch=c('Year', 'Plates'), biology='biology', purity=NULL, include.ls=T, include.purity=F, n.ls.ps=10, n.sample.batch=3, n.sample.purity=0, n.sample.ls=3)
+#' get.prps(data=brca.data, batch=c('Year', 'Plates'), biology='biology', purity='Purity_singscore', include.ls=T, include.purity=T, n.ls.ps=10, n.sample.batch=3, n.sample.purity=3, n.sample.ls=3)
+#' }
 get.prps <- function(data, batch, biology, purity, include.ls, include.purity, n.ls.ps, n.sample.ls,
                      n.sample.batch, n.sample.purity){
   data$log.ls <- log2(colSums(SummarizedExperiment::assay(data, 'HTseq_counts')))
@@ -121,4 +144,4 @@ get.prps <- function(data, batch, biology, purity, include.ls, include.purity, n
   return(list(ps.purity = ps.purity, ps.ls = ps.ls, ps.batch = ps.batch))
 }
 
-df20 <- get.prps(data=brca.se.filtered3, batch=c('Year', 'Plates'), biology='biology', purity=NULL, include.ls=T, include.purity=F, n.ls.ps=10, n.sample.batch=3, n.sample.purity=3, n.sample.ls=3)
+

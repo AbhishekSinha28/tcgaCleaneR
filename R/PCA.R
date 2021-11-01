@@ -2,11 +2,11 @@
 
 #' @title Generate PCA
 #'
-#' @description This function is a part of the data analysis functionality of tgcapkg.    It performs PCA using SVD algorithm (\code{runSVD()}) on the \code{SummarizedExperiment} class TCGA Cancer Data across all three \code{assays()} i.e. 'HTseq_counts', 'HTseq_FPKM' and 'HTseq_FPKM.UQ' and generate PCs.
+#' @description This function is a part of the data analysis functionality of tgcapkg. It performs PCA using SVD algorithm (\code{runSVD()}) on the \code{SummarizedExperiment} class TCGA Cancer Data across all three \code{assays()} i.e. 'HTseq_counts', 'HTseq_FPKM' and 'HTseq_FPKM.UQ' and generate PCs.
 #'
 #' @param data S4 data object
 #' @param nPcs numeric: Number of PCs that needs to be generated
-#' @param is.log logical: Checks if the S4 data has log values. It 'False', it converts data to log scale.
+#' @param is.log logical: Checks if the S4 data has log values. If 'False', it converts data to log scale.
 #'
 #' @return A List of S4 class containing n PCs. For all three \code{assays()}, two values are returned. \code{sing.val} contains singular values with \code{u} containing PCs. \code{variation} contains the variation of each PC.
 #' @export
