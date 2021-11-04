@@ -1,7 +1,31 @@
 # RUV-III generation
 
+#' @title Generate RUV-III Data Object
+#'
+#' @description This function is a part of the data analysis functionality of \code{tgcapkg}. It captures both the uses PRPS values from library \code{tgcapkg} combined with row counts and run SVD algorithm (\code{runSVD()}) from \code{BiocSingular} on the combined dataset. The function uses RUV-I algorithm from \code{ruv} as a pre-processing step to RUV-III.
+#'
+#' @param ruv.data S4 data object for RUV-III: A S4 data object with combined data including the row count from original filtered data using assay \code{HTseq_counts}, prps data for batch and library size. This data needs to be further converted to log scale and transposed.
+#' @param ruv.rep S4 data matrix for RUV-III: A S4 data object that has been generated using \code{replicate.matrix} functionality from \code{ruv} package. This helps ruv to identify replicate samples.
+#' @param ncg.set logical object: Set of Negative Controlled genes.
+#' @param k Integer scalar specifying the number of. Default is NULL. Currently Value 1 represents the library size, 2 represents purity and 3 is time variation.
+#' @param eta Gene-wise (as opposed to sample-wise) covariates. A matrix with n columns for \code{ruv::RUV1}. Default is NULL.
+#' @param svd_k Integer scalar specifying the number of singular values to return for \code{BiocSingular::runSVD}.Default is 50.
+#' @param include.intercept Add an intercept term to eta if it does not include one already for \code{ruv::RUV1}. Default is True.
+#' @param BPPARAM A BiocParallelParam object specifying how parallelization should be performed. Default is \code{SerialParam()}
+#' @param BSPARAM A BiocSingularParam object specifying the type of algorithm to run. Default is \code{ExactParam()}
+#' @param fullalpha To perform RUV-III calculation. Default is NULL.
+#' @param return.info logical: Do you want all the information related to RUV-III object. False gives all information whereas True gives only the
+#' @param inputcheck logical: Check the inputs to identify if ruv.data contains missing values or infinite values.
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' get.ruv(ruv.data = ruv.data, ruv.rep = ruv.rep, ncg.set = ncg.set, k=1, BSPARAM = BiocSingular::bsparam(), return.info = TRUE)
+#' }
 get.ruv <- function(ruv.data, ruv.rep, ncg.set, k = NULL, eta = NULL,
-                    svd_k = 50, include.intercept = TRUE, average = FALSE,
+                    svd_k = 50, include.intercept = TRUE,
                     BPPARAM = SerialParam(), BSPARAM = ExactParam(),
                     fullalpha = NULL, return.info = FALSE, inputcheck = TRUE){
 
