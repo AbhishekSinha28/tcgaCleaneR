@@ -28,7 +28,10 @@ Imports:
     parallel,
     ComplexHeatmap,
     RColorBrewer,
-    viridis
+    viridis,
+    ruv,
+    DelayedArray,
+    Matrix
 Depends: 
     R (>= 4.1.0)
 Suggests:

@@ -17,7 +17,7 @@
 #' @param return.info logical: Do you want all the information related to RUV-III object. False gives all information whereas True gives only the
 #' @param inputcheck logical: Check the inputs to identify if ruv.data contains missing values or infinite values.
 #'
-#' @return
+#' @return Based on the return.info we get either a S4 list will all information related to RUV-III object or just the RUV-III result.
 #' @export
 #'
 #' @examples
