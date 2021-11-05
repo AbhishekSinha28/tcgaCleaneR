@@ -15,6 +15,10 @@ knitr::opts_chunk$set(
 
 # tgcapkg
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/AbhishekSinha28/tgcapkg/workflows/R-CMD-check/badge.svg)](https://github.com/AbhishekSinha28/tgcapkg/actions)
+<!-- badges: end -->
+
 The goal of `tgcapkg` is to provide a user-friendly R package to help Bioinformaticians with easy access to a tool that can perform Data Wrangling and Data Analysis on TCGA Pan Cancer Dataset. The package contains a subset of the original TCGA Breast Cancer Data collected from [TCGA](https://www.cbioportal.org/datasets). The package contains a detailed set of functionalities allowing user to identify and handle unwanted variations in the TCGA datasets.
 
 ## Installation
