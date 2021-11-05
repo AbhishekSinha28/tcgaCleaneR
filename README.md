@@ -3,11 +3,6 @@
 
 # tgcapkg
 
-<!-- badges: start -->
-
-![R-CMD-check](https://github.com/AbhishekSinha28/tgcapkg/workflows/R-CMD-check/badge.svg)
-<!-- badges: end -->
-
 The goal of `tgcapkg` is to provide a user-friendly R package to help
 Bioinformaticians with easy access to a tool that can perform Data
 Wrangling and Data Analysis on TCGA Pan Cancer Dataset. The package
@@ -123,12 +118,12 @@ pca_data <- get.pca(data = filtered.data3, nPcs = 7, is.log = FALSE)
 ``` r
 # Generated 7 PCs for first two genes
 head(pca_data[['HTseq_counts']]$sing.val$u,2)
-#>                                      [,1]        [,2]        [,3]        [,4]
-#> TCGA-A8-A06Z-01A-11R-A00Z-07  0.008247742 -0.03800256 0.074868654 -0.08068739
-#> TCGA-AN-A03Y-01A-21R-A00Z-07 -0.001517381 -0.01297216 0.008098276  0.01609687
-#>                                      [,5]       [,6]        [,7]
-#> TCGA-A8-A06Z-01A-11R-A00Z-07 -0.017982615 0.03732318 -0.02340876
-#> TCGA-AN-A03Y-01A-21R-A00Z-07 -0.001079862 0.04753702  0.04164173
+#>                                      [,1]       [,2]         [,3]        [,4]
+#> TCGA-A8-A06Z-01A-11R-A00Z-07 -0.008247742 0.03800256 -0.074868654 -0.08068739
+#> TCGA-AN-A03Y-01A-21R-A00Z-07  0.001517381 0.01297216 -0.008098276  0.01609687
+#>                                     [,5]       [,6]        [,7]
+#> TCGA-A8-A06Z-01A-11R-A00Z-07 0.017982613 0.03732319 -0.02341010
+#> TCGA-AN-A03Y-01A-21R-A00Z-07 0.001079871 0.04753708  0.04164209
 ```
 
 ### Plot PCA
