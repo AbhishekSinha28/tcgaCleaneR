@@ -1,0 +1,139 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# tgcapkg
+
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/AbhishekSinha28/tgcapkg/workflows/R-CMD-check/badge.svg)](https://github.com/AbhishekSinha28/tgcapkg/actions)
+<!-- badges: end -->
+
+The goal of `tgcapkg` is to provide a user-friendly R package to help Bioinformaticians with easy access to a tool that can perform Data Wrangling and Data Analysis on TCGA Pan Cancer Dataset. The package contains a subset of the original TCGA Breast Cancer Data collected from [TCGA](https://www.cbioportal.org/datasets). The package contains a detailed set of functionalities allowing user to identify and handle unwanted variations in the TCGA datasets.
+
+## Installation
+
+You can install the development version of tgcapkg from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("AbhishekSinha28/tgcapkg")
+```
+
+## TCGA Functionality
+
+This is a quick walk trough the `tgcapkg` functionalities. For the detailed information on the Data Wrangling and Data Analysis functions and arguments of `tgcapkg` package, \code{help} files can be refereed. Also you can consider looking at the vignette to get a detailed walk through about the package functionalties.
+
+```{r}
+library(tgcapkg)
+```
+
+# Data
+
+```{r message=FALSE,warning=FALSE}
+data("brca.data")
+```
+
+```{r message=FALSE,warning=FALSE}
+brca.data
+```
+
+# Data Wrangling
+
+## Gene Filter
+
+```{r}
+filtered.data <- gene.filter(data=brca.data,gene.type=c("protein_coding"))
+```
+
+## Removing lowly expressed genes
+
+```{r}
+filtered.data1 <- low.genes.filter(data=filtered.data,gene_count = 20,sample_size = 200)
+```
+
+## Purity Filter - Filter Samples based on Tumor Purity
+
+```{r}
+filtered.data2 <- purity.filter(data= filtered.data1,purity_cutoff= 0.496)
+```
+
+## Library Size Filter
+
+### Determine Library Size
+
+```{r fig.align='center', fig.width=7, fig.height=5}
+library.size(data = filtered.data2, plot_type = "Scatterplot")
+```
+
+### Filter samples based on library size
+
+```{r}
+filtered.data3 <- library.size.fil(data = filtered.data2, ls_cutoff = 17.5)
+```
+
+
+# Data Analysis
+
+## Study Design Plot
+
+```{r fig.align='center', fig.width=7, fig.height=5}
+study.design(data = filtered.data3)
+```
+
+## PCA
+
+### Generate PCA
+
+```{r}
+# Is data input for PCA logical
+is.logical(filtered.data3)
+```
+
+```{r}
+pca_data <- get.pca(data = filtered.data3, nPcs = 7, is.log = FALSE)
+```
+
+```{r}
+# Generated 7 PCs for first two genes
+head(pca_data[['HTseq_counts']]$sing.val$u,2)
+```
+
+### Plot PCA
+
+```{r fig.align='center', fig.width=7, fig.height=5, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(cowplot)
+pca.plot.data <- pca.plot(pca.data = pca_data, data = filtered.data3, group = "Time", plot_type = "DensityPlot", npcs = 3)
+```
+
+### PCs correlation with unwanted variations
+
+```{r fig.align='center',message=FALSE, fig.width=7, fig.height=5, warning=FALSE}
+library(tidyverse)
+corr_data <- pca.corr(pca.data = pca_data, data = filtered.data3, type = "purity", nPCs = 7)
+corr_data
+```
+### Gene correlation 
+
+```{r fig.align='center', fig.width=7, fig.height=5}
+gene_corr_data <- gene.corr(data = filtered.data3, is.log = FALSE, type = "librarysize", cor.method = 'spearman', n.cores = 2)
+head(gene_corr_data)
+```
+
+# Anova Test
+
+```{r}
+anova.data <- f.test(data = filtered.data3, variable = "Time", is.log = FALSE, n.cores = 2)
+head(anova.data)
+```
