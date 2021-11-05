@@ -66,7 +66,70 @@ pca.corr <- function(pca.data, data, type, nPCs){
             })
       }
   names(corr.cancer.tcga) <- data.set.names
+  if (length(assays(data)) == 4){
+    # Visualize
+    corr.normAssess <- data.frame(
+      Raw.counts = corr.cancer.tcga$HTseq_counts,
+      FPKM = corr.cancer.tcga$HTseq_FPKM,
+      FPKM.UQ = corr.cancer.tcga$HTseq_FPKM.UQ,
+      RUV_III = corr.cancer.tcga$RUV_III,
+      pcs = c(1:nPCs)
+    )
 
+    # Visualize
+    dataSets.colors <- wesanderson::wes_palette(
+      n = 4,
+      name = "GrandBudapest1")[c(1,2,4,3)]
+    names(dataSets.colors) <- c(
+      'Raw counts',
+      'FPKM',
+      'FPKM.UQ',
+      'RUV_III'
+    )
+
+    corr.normAssess.p <- corr.normAssess %>%
+      tidyr::pivot_longer(
+        -pcs,
+        names_to = 'Datasets',
+        values_to = 'CorrValue') %>%
+      dplyr::mutate(Datasets = replace(
+        Datasets,
+        Datasets == 'Raw.counts', 'Raw counts')) %>%
+      dplyr::mutate(
+        Datasets = factor(
+          x = Datasets,
+          levels = c('Raw counts', 'FPKM', 'FPKM.UQ', 'RUV_III'))) %>%
+      data.frame(.)
+
+    ggplot2::ggplot(corr.normAssess.p, ggplot2::aes(x = pcs, y = CorrValue, group = Datasets)) +
+      ggplot2::geom_line(ggplot2::aes(color = Datasets), size = 1) +
+      ggplot2::geom_point(ggplot2::aes(color = Datasets), size = 3) +
+      ggplot2::xlab('PCs') + ggplot2::ylab (expression("R"^"2")) +
+      ggplot2::scale_color_manual(
+        values = c(dataSets.colors[1:4]),
+        labels = c('Raw counts', 'FPKM','FPKM.UQ', 'RUV_III')) +
+      ggplot2::scale_x_continuous(breaks = (1:nPCs), labels = c('PC1', paste0('PC1:', 2:nPCs)) ) +
+      ggplot2::scale_y_continuous(breaks = scales::pretty_breaks(n = 5), limits = c(0,1)) +
+      ggplot2::theme(
+        panel.background = ggplot2::element_blank(),
+        axis.line = ggplot2::element_line(colour = 'black', size = 1),
+        axis.title.x = ggplot2::element_text(size = 14),
+        axis.title.y = ggplot2::element_text(size = 14),
+        axis.text.x = ggplot2::element_text(size = 12, angle = 45, hjust = 1),
+        axis.text.y = ggplot2::element_text(size = 12),
+        legend.text = ggplot2::element_text(size = 10),
+        legend.title = ggplot2::element_text(size = 14),
+        strip.text.x = ggplot2::element_text(size = 10)
+      ) + {if (type == 'purity')
+      {
+        ggplot2::ggtitle('Purity : PCs Regression Plot')
+      } else if (type == 'librarysize'){
+        ggplot2::ggtitle('Library Size : PCs Regression Plot')
+      } else if (type == 'time'){
+        ggplot2::ggtitle('Time : PCs Correlation Plot')
+      } }
+  } else
+    if(length(assays(data)) == 3){
   # Visualize
   corr.normAssess <- data.frame(
     Raw.counts = corr.cancer.tcga$HTseq_counts,
@@ -126,6 +189,6 @@ pca.corr <- function(pca.data, data, type, nPCs){
     } else if (type == 'time'){
       ggtitle('Time : PCs Correlation Plot')
     } }
-
+    }
   #return(corr.normAssess)
 }
