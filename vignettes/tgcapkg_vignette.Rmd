@@ -111,7 +111,7 @@ head(df5[['HTseq_counts']]$sing.val$u,2)
 
 ## Plot PCA
 
-```{r fig.align='center', fig.width=7, fig.height=5, message=FALSE}
+```{r fig.align='center', fig.width=7, fig.height=5, message=FALSE, warning=FALSE}
 library(ggplot2)
 library(cowplot)
 pca.plot(pca.data = df5, data = df4, group = "Time", plot_type = "DensityPlot", npcs = 3)
@@ -119,7 +119,7 @@ pca.plot(pca.data = df5, data = df4, group = "Time", plot_type = "DensityPlot", 
 
 # PCs correlation with unwanted variations
 
-```{r fig.align='center',message=FALSE, fig.width=7, fig.height=5}
+```{r fig.align='center',message=FALSE, fig.width=7, fig.height=5, warning=FALSE}
 library(tidyverse)
 df6 <- pca.corr(pca.data = df5, data = df4, type = "purity", nPCs = 7)
 df6
@@ -152,3 +152,76 @@ ruv.prps.plot(data = df4)
 df9 <- get.prps(data=df4, batch=c('Year', 'Plates'), biology='biology', purity=NULL, include.ls=T, include.purity=F, n.ls.ps=10, n.sample.batch=3, n.sample.purity=0, n.sample.ls=3)
 ```
 
+## RUV-III
+
+```{r}
+### data input
+library(SummarizedExperiment)
+### PRPS values
+prps.batch <- df9$ps.batch
+colnames(prps.batch) <- unlist(lapply(
+  colnames(prps.batch),
+  function(x) strsplit(x, '-')[[1]][1]
+))
+prps.ls <- df9$ps.ls
+
+
+raw.data <- as.matrix(SummarizedExperiment::assay(df4, 'HTseq_counts'))
+ruv.data <- cbind(raw.data ,prps.batch ,prps.ls )
+ruv.data <- t(log2(ruv.data + 1))
+
+### replicate matrix
+ruv.rep <- ruv::replicate.matrix(row.names(ruv.data))
+
+gene.annot <-  as.data.frame(SummarizedExperiment::rowData(df4))
+
+### NCG sets
+ncg.set <- colnames(ruv.data) %in% gene.annot$gene_id.v[gene.annot$array.hk == 'yes']
+```
+
+```{r}
+library(BiocParallel)
+library(BiocSingular)
+df10 <- get.ruv(ruv.data = ruv.data, ruv.rep = ruv.rep, ncg.set = ncg.set, k=1, 
+                BSPARAM = BiocSingular::bsparam(), return.info = TRUE)
+```
+
+# Combined Analysis
+
+## Combined data
+
+```{r}
+#library(SummarizedExperiment)
+gene.annot <-  as.data.frame(SummarizedExperiment::rowData(df4))
+
+sample.info <-  as.data.frame(SummarizedExperiment::colData(df4))
+
+ruv.iii.adj <- t(df10$new.ruv.data[1:ncol(raw.data) , ]) # transpose
+
+raw.count <- SummarizedExperiment::assay(df4, 'HTseq_counts')
+fpkm <- SummarizedExperiment::assay(df4, 'HTseq_FPKM')
+fpkm.uq <- SummarizedExperiment::assay(df4, 'HTseq_FPKM.UQ')
+RUV_III <- ruv.iii.adj
+RUV_III <- abs(RUV_III) # absolute values
+
+combined_data <- SummarizedExperiment(assays = list(HTseq_counts = raw.count, HTseq_FPKM = fpkm,
+                                                HTseq_FPKM.UQ = fpkm.uq, RUV_III = RUV_III),
+                                  colData = sample.info,
+                                  rowData = gene.annot)
+```
+
+## PCA on Combined Data
+```{r}
+df11 <- get.pca(data = combined_data, nPcs = 7, is.log = FALSE)
+```
+
+## Plot PCA for Combined Data
+```{r}
+pca.plot(pca.data = df11, data = combined_data, group = "Time", plot_type = "DensityPlot", npcs = 3)
+```
+## PCs correlation with unwanted variations in Combined Data
+
+```{r fig.align='center',message=FALSE, fig.width=7, fig.height=5, warning=FALSE}
+df12 <- pca.corr(pca.data = df11, data = combined_data, type = "purity", nPCs = 7)
+df12
+```

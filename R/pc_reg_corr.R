@@ -66,7 +66,7 @@ pca.corr <- function(pca.data, data, type, nPCs){
             })
       }
   names(corr.cancer.tcga) <- data.set.names
-  if (length(assays(data)) == 4){
+  if (length(SummarizedExperiment::assays(data)) == 4){
     # Visualize
     corr.normAssess <- data.frame(
       Raw.counts = corr.cancer.tcga$HTseq_counts,
@@ -129,7 +129,7 @@ pca.corr <- function(pca.data, data, type, nPCs){
         ggplot2::ggtitle('Time : PCs Correlation Plot')
       } }
   } else
-    if(length(assays(data)) == 3){
+    if(length(SummarizedExperiment::assays(data)) == 3){
   # Visualize
   corr.normAssess <- data.frame(
     Raw.counts = corr.cancer.tcga$HTseq_counts,
