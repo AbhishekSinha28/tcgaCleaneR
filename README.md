@@ -100,6 +100,9 @@ filtered.data3 <- library.size.fil(data = filtered.data2, ls_cutoff = 17.5)
 
 ## Study Design Plot
 
+The idea behind Study Design plot is to present the summarized
+information about the filtered dataset using HeatMaps.
+
 ``` r
 study.design(data = filtered.data3)
 ```
@@ -123,12 +126,12 @@ pca_data <- get.pca(data = filtered.data3, nPcs = 7, is.log = FALSE)
 ``` r
 # Generated 7 PCs for first two genes
 head(pca_data[['HTseq_counts']]$sing.val$u,2)
-#>                                      [,1]        [,2]        [,3]        [,4]
-#> TCGA-A8-A06Z-01A-11R-A00Z-07  0.008247742 -0.03800256 0.074868654 -0.08068739
-#> TCGA-AN-A03Y-01A-21R-A00Z-07 -0.001517381 -0.01297216 0.008098276  0.01609687
-#>                                     [,5]        [,6]        [,7]
-#> TCGA-A8-A06Z-01A-11R-A00Z-07 0.017982615 -0.03732320 -0.02340946
-#> TCGA-AN-A03Y-01A-21R-A00Z-07 0.001079871 -0.04753709  0.04164184
+#>                                      [,1]       [,2]        [,3]        [,4]
+#> TCGA-A8-A06Z-01A-11R-A00Z-07 -0.008247742 0.03800256 0.074868654  0.08068739
+#> TCGA-AN-A03Y-01A-21R-A00Z-07  0.001517381 0.01297216 0.008098276 -0.01609687
+#>                                      [,5]        [,6]        [,7]
+#> TCGA-A8-A06Z-01A-11R-A00Z-07 -0.017982614 -0.03732318 -0.02340878
+#> TCGA-AN-A03Y-01A-21R-A00Z-07 -0.001079871 -0.04753709  0.04164179
 ```
 
 ### Plot PCA

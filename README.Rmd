@@ -87,6 +87,8 @@ filtered.data3 <- library.size.fil(data = filtered.data2, ls_cutoff = 17.5)
 
 ## Study Design Plot
 
+The idea behind Study Design plot is to present the summarized information about the filtered dataset using HeatMaps. 
+
 ```{r fig.align='center', fig.width=7, fig.height=5}
 study.design(data = filtered.data3)
 ```
