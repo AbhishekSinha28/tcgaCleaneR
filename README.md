@@ -5,7 +5,7 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/AbhishekSinha28/tgcapkg/workflows/R-CMD-check/badge.svg)](https://github.com/AbhishekSinha28/tgcapkg/actions)
+![R-CMD-check](https://github.com/AbhishekSinha28/tgcapkg/workflows/R-CMD-check/badge.svg)
 <!-- badges: end -->
 
 The goal of `tgcapkg` is to provide a user-friendly R package to help
@@ -113,6 +113,13 @@ study.design(data = filtered.data3)
 
 ### Generate PCA
 
+The principal components (in this context also called singular vectors)
+of the sample × transcript array of log-counts are the linear
+combinations of the transcript measurements having the largest, second
+largest, third largest, etc. variation, standardized to be of unit
+length and orthogonal to the preceding components. Each will give a
+single value for each sample.
+
 ``` r
 # Is data input for PCA logical
 is.logical(filtered.data3)
@@ -126,15 +133,20 @@ pca_data <- get.pca(data = filtered.data3, nPcs = 7, is.log = FALSE)
 ``` r
 # Generated 7 PCs for first two genes
 head(pca_data[['HTseq_counts']]$sing.val$u,2)
-#>                                      [,1]       [,2]        [,3]        [,4]
-#> TCGA-A8-A06Z-01A-11R-A00Z-07 -0.008247742 0.03800256 0.074868654  0.08068739
-#> TCGA-AN-A03Y-01A-21R-A00Z-07  0.001517381 0.01297216 0.008098276 -0.01609687
-#>                                      [,5]        [,6]        [,7]
-#> TCGA-A8-A06Z-01A-11R-A00Z-07 -0.017982614 -0.03732318 -0.02340878
-#> TCGA-AN-A03Y-01A-21R-A00Z-07 -0.001079871 -0.04753709  0.04164179
+#>                                      [,1]        [,2]        [,3]        [,4]
+#> TCGA-A8-A06Z-01A-11R-A00Z-07 -0.008247742 -0.03800256 0.074868654  0.08068739
+#> TCGA-AN-A03Y-01A-21R-A00Z-07  0.001517381 -0.01297216 0.008098276 -0.01609687
+#>                                    [,5]       [,6]        [,7]
+#> TCGA-A8-A06Z-01A-11R-A00Z-07 0.01798261 0.03732318  0.02340878
+#> TCGA-AN-A03Y-01A-21R-A00Z-07 0.00107987 0.04753709 -0.04164179
 ```
 
 ### Plot PCA
+
+Once we have the PCs generated using the PCA function the next step is
+to visualise those PCs with respect to the sample features like Time,
+Tissue, Plate etc., to identify any unwanted variation by identifying
+patterns in the plots by feature.
 
 ``` r
 library(ggplot2)
