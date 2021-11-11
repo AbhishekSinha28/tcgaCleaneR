@@ -128,14 +128,14 @@ df6
 # Gene correlation 
 
 ```{r fig.align='center', fig.width=7, fig.height=5}
-df7 <- gene.corr(data = df4, is.log = FALSE, type = "librarysize", cor.method = 'spearman', n.cores = 2)
+df7 <- gene.corr(data = df4, is.log = FALSE, type = "librarysize", cor.method = 'spearman', n.cores = 1)
 head(df7)
 ```
 
 # Anova Test
 
 ```{r}
-df8 <- f.test(data = df4, variable = "Time", is.log = FALSE, n.cores = 2)
+df8 <- f.test(data = df4, variable = "Time", is.log = FALSE, n.cores = 1)
 head(df8)
 ```
 # RUV - III

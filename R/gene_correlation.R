@@ -15,8 +15,8 @@
 #'
 #' @examples
 #' \dontrun{
-#' gene.corr(data = brca.data, is.log = FALSE, type = "librarysize", cor.method = 'spearman', n.cores = 2)
-#' df <- gene.corr(data = brca.data, is.log = FALSE, type = "purity_HTseq_FPKM", cor.method = 'pearson', n.cores = 2)
+#' gene.corr(data = brca.data,is.log = FALSE,type = "librarysize",cor.method = 'spearman',n.cores = 2)
+#' df <- gene.corr(data = brca.data,is.log = FALSE,type = "purity_HTseq_FPKM",cor.method = 'pearson',n.cores = 2)
 #' }
 gene.corr <- function(data, is.log, type, cor.method, n.cores){
   sample.info <-  as.data.frame(SummarizedExperiment::colData(data))

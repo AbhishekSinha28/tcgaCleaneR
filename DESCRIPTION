@@ -31,7 +31,8 @@ Imports:
     viridis,
     ruv,
     DelayedArray,
-    Matrix
+    Matrix,
+    BiocParallel
 Depends: 
     R (>= 4.1.0)
 Suggests:
