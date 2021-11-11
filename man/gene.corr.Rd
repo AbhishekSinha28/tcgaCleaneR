@@ -25,7 +25,7 @@ This function is a part of the data analysis functionality of tgcapkg. It helps 
 }
 \examples{
 \dontrun{
-gene.corr(data = brca.data, is.log = FALSE, type = "librarysize", cor.method = 'spearman', n.cores = 2)
-df <- gene.corr(data = brca.data, is.log = FALSE, type = "purity_HTseq_FPKM", cor.method = 'pearson', n.cores = 2)
+gene.corr(data = brca.data,is.log = FALSE,type = "librarysize",cor.method = 'spearman',n.cores = 1)
+df <- gene.corr(data = brca.data,is.log = FALSE,type = "purity_HTseq_FPKM",cor.method = 'pearson',n.cores = 1)
 }
 }

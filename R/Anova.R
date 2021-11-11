@@ -14,8 +14,8 @@
 #'
 #' @examples
 #' \dontrun{
-#' f.test(data = brca.data, variable = "Plate", is.log = FALSE, n.cores = 2)
-#' f.test(data = brca.data, variable = "Time", is.log = FALSE, n.cores = 2)
+#' f.test(data = brca.data, variable = "Plate", is.log = FALSE, n.cores = 1)
+#' f.test(data = brca.data, variable = "Time", is.log = FALSE, n.cores = 1)
 #' }
 f.test <- function(data, variable, is.log, n.cores){
   raw.count <- as.data.frame(SummarizedExperiment::assay(data, 'HTseq_counts'))

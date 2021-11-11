@@ -6,7 +6,7 @@
 #'
 #' @param data S4 data object: Input TGCA Dataset
 #'
-#' @return HeatMap Dashboard
+#' @return Heat Map Plot
 #' @export
 #'
 #' @examples
@@ -118,7 +118,6 @@ study.design <- function(data){
       title_gp = grid::gpar(fontsize = 18),
       labels = c(
         'Cancer',
-        #'Metastatic tumor',
         'Normal')
     )
   )
