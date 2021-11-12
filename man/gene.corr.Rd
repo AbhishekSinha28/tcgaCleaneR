@@ -24,8 +24,9 @@ A S3 data frame. The output contains the correlation test output containing pval
 This function is a part of the data analysis functionality of tgcapkg. It helps to run correlation analysis between genes and variation variables.
 }
 \examples{
+df <- gene.corr(data = brca.data,is.log = FALSE,type = "purity_HTseq_FPKM",cor.method = 'spearman',n.cores = 1)
 \dontrun{
-gene.corr(data = brca.data,is.log = FALSE,type = "librarysize",cor.method = 'spearman',n.cores = 1)
-df <- gene.corr(data = brca.data,is.log = FALSE,type = "purity_HTseq_FPKM",cor.method = 'pearson',n.cores = 1)
+gene.corr(data = brca.data,is.log = FALSE,type = "librarysize",cor.method = 'pearson',n.cores = 1)
+
 }
 }

@@ -11,8 +11,9 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' library.size(data = brca.data, plot_type = "Scatterplot")
+#' \dontrun{
+#'
 #' library.size(data = brca.data, plot_type = "Boxplot")
 #' }
 library.size <- function(data,plot_type){

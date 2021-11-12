@@ -12,9 +12,9 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#'
 #' get.pca(data = brca.data, nPcs = 10, is.log = FALSE)
-#' }
+#'
 get.pca <- function(data, nPcs, is.log){
   .pca <- function(data, nPcs, is.log) {
     if(is.log){

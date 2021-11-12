@@ -19,9 +19,10 @@
 #' @export
 #'
 #' @examples
+#' get.prps(data=brca.data, batch=c('Year', 'Plates'), biology='biology', purity='Purity_singscore', include.ls=TRUE, include.purity=TRUE, n.ls.ps=10, n.sample.batch=3, n.sample.purity=3, n.sample.ls=3)
 #' \dontrun{
-#' get.prps(data=brca.data, batch=c('Year', 'Plates'), biology='biology', purity=NULL, include.ls=T, include.purity=F, n.ls.ps=10, n.sample.batch=3, n.sample.purity=0, n.sample.ls=3)
-#' get.prps(data=brca.data, batch=c('Year', 'Plates'), biology='biology', purity='Purity_singscore', include.ls=T, include.purity=T, n.ls.ps=10, n.sample.batch=3, n.sample.purity=3, n.sample.ls=3)
+#' get.prps(data=brca.data, batch=c('Year', 'Plates'), biology='biology', purity=NULL, include.ls=TRUE, include.purity=FALSE, n.ls.ps=10, n.sample.batch=3, n.sample.purity=0, n.sample.ls=3)
+#'
 #' }
 get.prps <- function(data, batch, biology, purity, include.ls, include.purity, n.ls.ps, n.sample.ls,
                      n.sample.batch, n.sample.purity){

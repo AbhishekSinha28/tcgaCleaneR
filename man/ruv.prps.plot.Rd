@@ -17,8 +17,3 @@ PRPS Map which can be used to show how the biological variation are distributed 
 \description{
 This function is a part of the data analysis functionality of tgcapkg. It helps to map the pseudo samples for different biology in a cancer type replicated across batches. The replication of of pseudo samples across batches are known as Pseudo Replicates.
 }
-\examples{
-\dontrun{
-ruv.prps.plot(data = brca.data)
-}
-}

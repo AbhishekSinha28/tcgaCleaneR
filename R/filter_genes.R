@@ -13,10 +13,10 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#'
 #' gene.filter(data=brca.data,gene.type=c("protein_coding","lncRNA"))
 #' gene.filter(data=brca.data,gene.type=c("protein_coding"))
-#' }
+#'
 gene.filter <- function(data,gene.type){
   gene.annot.rm <-  as.data.frame(SummarizedExperiment::rowData(data))
   keep.genes.rm <- gene.annot.rm$gene_biotype_BioMart %in% gene.type

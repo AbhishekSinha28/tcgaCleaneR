@@ -18,7 +18,7 @@ S4 data object
 This function is a part of the data wrangling functionality of tgcapkg.    It allows user to handle sample purity in TCGA Cancer data by filtering out the samples that are above a specific purity threshold.
 }
 \examples{
-\dontrun{
+
 purity.filter(data= brca.data,purity_cutoff= 0.496)
-}
+
 }

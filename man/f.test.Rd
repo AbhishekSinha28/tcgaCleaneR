@@ -22,8 +22,9 @@ A S3 data frame. The output contains the Anova test (F test) scores correspondin
 This function is a part of the data analysis functionality of tgcapkg. It helps to perform the Anova test to analyse the variation effect due to time and plate on TCGA Cancer data.
 }
 \examples{
-\dontrun{
 f.test(data = brca.data, variable = "Plate", is.log = FALSE, n.cores = 1)
+\dontrun{
+
 f.test(data = brca.data, variable = "Time", is.log = FALSE, n.cores = 1)
 }
 }

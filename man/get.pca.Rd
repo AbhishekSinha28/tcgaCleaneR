@@ -20,7 +20,7 @@ A List of S4 class containing n PCs. For all three \code{assays()}, two values a
 This function is a part of the data analysis functionality of tgcapkg. It performs PCA using SVD algorithm (\code{runSVD()}) on the \code{SummarizedExperiment} class TCGA Cancer Data across all three \code{assays()} i.e. 'HTseq_counts', 'HTseq_FPKM' and 'HTseq_FPKM.UQ' and generate PCs.
 }
 \examples{
-\dontrun{
+
 get.pca(data = brca.data, nPcs = 10, is.log = FALSE)
-}
+
 }

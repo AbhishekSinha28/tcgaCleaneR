@@ -45,8 +45,9 @@ A S4 list object with the Pseudo replicate for pseudo samples for different batc
 This function is a part of the data analysis functionality of \code{tgcapkg}. It creates pseudo samples for on Library size, Batches and Purity.
 }
 \examples{
+get.prps(data=brca.data, batch=c('Year', 'Plates'), biology='biology', purity='Purity_singscore', include.ls=TRUE, include.purity=TRUE, n.ls.ps=10, n.sample.batch=3, n.sample.purity=3, n.sample.ls=3)
 \dontrun{
-get.prps(data=brca.data, batch=c('Year', 'Plates'), biology='biology', purity=NULL, include.ls=T, include.purity=F, n.ls.ps=10, n.sample.batch=3, n.sample.purity=0, n.sample.ls=3)
-get.prps(data=brca.data, batch=c('Year', 'Plates'), biology='biology', purity='Purity_singscore', include.ls=T, include.purity=T, n.ls.ps=10, n.sample.batch=3, n.sample.purity=3, n.sample.ls=3)
+get.prps(data=brca.data, batch=c('Year', 'Plates'), biology='biology', purity=NULL, include.ls=TRUE, include.purity=FALSE, n.ls.ps=10, n.sample.batch=3, n.sample.purity=0, n.sample.ls=3)
+
 }
 }

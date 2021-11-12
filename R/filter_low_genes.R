@@ -12,9 +12,9 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#'
 #' low.genes.filter(data=brca.data,gene_count = 20,sample_size = 200)
-#' }
+#'
 low.genes.filter <- function(data,gene_count,sample_size){
   raw.count <- as.data.frame(SummarizedExperiment::assay(data, 'HTseq_counts'))
   keep.high <- apply(
