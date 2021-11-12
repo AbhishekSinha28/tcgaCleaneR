@@ -13,12 +13,12 @@
 #' @export
 #'
 #' @examples
-#' f.test(data = brca.data, variable = "Plate", is.log = FALSE, n.cores = 1)
+#' anova_test(data = brca.data, variable = "Plate", is.log = FALSE, n.cores = 1)
 #' \dontrun{
 #'
-#' f.test(data = brca.data, variable = "Time", is.log = FALSE, n.cores = 1)
+#' anova_test(data = brca.data, variable = "Time", is.log = FALSE, n.cores = 1)
 #' }
-f.test <- function(data, variable, is.log, n.cores){
+anova_test <- function(data, variable, is.log, n.cores){
   raw.count <- as.data.frame(SummarizedExperiment::assay(data, 'HTseq_counts'))
   sample.info <-  as.data.frame(SummarizedExperiment::colData(data))
   sample.info$ls <- log2(colSums(raw.count))

@@ -12,9 +12,9 @@
 #'
 #' @examples
 #'
-#' library.size.fil(data = brca.data, ls_cutoff = 17.5)
+#' library.size.filter(data = brca.data, ls_cutoff = 17.5)
 #'
-library.size.fil <- function(data,ls_cutoff){
+library.size.filter <- function(data,ls_cutoff){
   raw.count <- as.data.frame(SummarizedExperiment::assay(data, 'HTseq_counts'))
   library_size <- log2(colSums(raw.count))
   keep.samples <- library_size > ls_cutoff
