@@ -2,7 +2,8 @@
 
 #' @title Low Count Genes Filter
 #'
-#' @description This function is a part of the data wrangling functionality of tgcapkg.    It allows user to input the TGCA dataset and the threshold for the minimum gene count and sample count.
+#' @description This function is a part of the data wrangling functionality of tgcapkg.
+#' It allows user to input the TCGA dataset and the threshold for the minimum gene count and sample count.
 #'
 #' @param data Input TGCA Dataset.
 #' @param gene_count numeric: gene count threshold

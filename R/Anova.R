@@ -1,8 +1,11 @@
 # Anova Function
 
-#' @title Anova test for year and plate effects
+#' @title Anova test for batch effect on individual gene expressions
 #'
-#' @description This function is a part of the data analysis functionality of tgcapkg. It helps to perform the Anova test to analyse the variation effect due to time and plate on TCGA Cancer data.
+#' @description This function is a part of the data analysis functionality of tgcapkg. It use ANOVA F statistics to
+#' summarize the effects of a qualitative source of unwanted variation (e.g. batches) on the expression levels of
+#' individual genes. Unwanted Variations such as Plate effect and Time effect can be analysed by this test.
+#'
 #'
 #' @param data S4 data object
 #' @param variable character: The predictor variable to \code{lm} model. The variables included are 'Time' and 'Plate'

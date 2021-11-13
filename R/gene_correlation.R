@@ -2,7 +2,10 @@
 
 #' @title Gene Correlation analysis
 #'
-#' @description This function is a part of the data analysis functionality of tgcapkg. It helps to run correlation analysis between genes and variation variables.
+#' @description This function is a part of the data analysis functionality of tgcapkg.
+#' It helps to run correlation analysis between gene expression level and unwanted variation effect because of Library
+#' Size or Purity. This function can help to quantify the association between an individual gene’s expression level
+#' and library size or tumor purity for a given Cancer type.
 #'
 #' @param data S4 data object
 #' @param is.log logical: Checks if the S4 data has log values. It 'False', it converts data to log scale.
@@ -10,7 +13,9 @@
 #' @param cor.method a character string indicating which correlation coefficient is to be used for the test. One of "pearson", "kendall", or "spearman", can be abbreviated. Default is spearman.
 #' @param n.cores The number of cores to use, i.e. at most how many child processes will be run simultaneously. Must be at least one, and parallelization requires at least two cores.
 #'
-#' @return A S3 data frame. The output contains the correlation test output containing pvalue, adj p-value and Spearman's rank correlation coefficient. Along with the data frame output the function also returns a histogram for Spearman's rank correlation coefficient for easy analysis of the test results
+#' @return A S3 data frame. The output contains the correlation test output containing pvalue, adj p-value and
+#' Spearman's rank correlation coefficient. Along with the data frame output the function also returns a histogram
+#' for Spearman's rank correlation coefficient for easy analysis of the test results
 #' @export
 #'
 #' @examples

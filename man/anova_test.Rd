@@ -2,7 +2,7 @@
 % Please edit documentation in R/Anova.R
 \name{anova_test}
 \alias{anova_test}
-\title{Anova test for year and plate effects}
+\title{Anova test for batch effect on individual gene expressions}
 \usage{
 anova_test(data, variable, is.log, n.cores)
 }
@@ -19,7 +19,9 @@ anova_test(data, variable, is.log, n.cores)
 A S3 data frame. The output contains the Anova test (F test) scores corresponding to all genes in S4 data object.
 }
 \description{
-This function is a part of the data analysis functionality of tgcapkg. It helps to perform the Anova test to analyse the variation effect due to time and plate on TCGA Cancer data.
+This function is a part of the data analysis functionality of tgcapkg. It use ANOVA F statistics to
+summarize the effects of a qualitative source of unwanted variation (e.g. batches) on the expression levels of
+individual genes. Unwanted Variations such as Plate effect and Time effect can be analysed by this test.
 }
 \examples{
 anova_test(data = brca.data, variable = "Plate", is.log = FALSE, n.cores = 1)

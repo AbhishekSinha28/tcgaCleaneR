@@ -2,7 +2,8 @@
 
 #' @title Gene Filter
 #'
-#' @description This function is a part of the data wrangling functionality of tgcapkg.    It allows user to input the TGCA dataset and the required genes to filter the input data based on genes.
+#' @description This function is a part of the data wrangling functionality of tgcapkg.
+#' It allows user to input the TCGA dataset and the required genes to filter the input data based on genes.
 #'
 #' @usage gene.filter(data,gene.type)
 #'

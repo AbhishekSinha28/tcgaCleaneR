@@ -2,7 +2,7 @@
 % Please edit documentation in R/pc_reg_corr.R
 \name{pca.corr}
 \alias{pca.corr}
-\title{Correlation Analysis between PCs and variation types}
+\title{Regression Analysis between PCs and unwanted variation}
 \usage{
 pca.corr(pca.data, data, type, nPCs)
 }
@@ -19,7 +19,17 @@ pca.corr(pca.data, data, type, nPCs)
 Linear Plot the compares the correlation between library size (or Purity, time) and PCs across three datasets. When output is stored in a object the user can also access values used to plot the linear graphs.
 }
 \description{
-This function is a part of the data analysis functionality of tgcapkg. It helps user to run regression between bias in TCGA RNA-seq like librarysize and purity with PCs from \code{get.pca}. The output is a linear plot that compares the three \code{assays} in \code{SummarizedExperiment} TGCA Cancer data across n PCs and R-sq. It also runs vector correlation \code{stats::cancor} between time and n PCs with the same linear output explaining variation explained by different variation types.
+This function is a part of the data analysis functionality of tgcapkg.
+R2 values of fitted linear models are used to quantity the strength of the (linear) relationships between a single
+quantitative source of unwanted variation such as sample (log) library size or tumor purity and global sample
+summary statistics such as the first k PCs.
+The function runs linear regression between unwanted variations in TCGA RNA-seq like
+library size and purity with PCs from \code{get.pca}.
+The output is a linear plot that compares the three \code{assays} in \code{SummarizedExperiment} TCGA Cancer data
+across n PCs and R-sq.
+For variable like Time which is not continuous, dummy variables are used to run
+vector correlation \code{stats::cancor} between dummy time variable and n PCs with the same
+linear output.
 }
 \examples{
 \dontrun{

@@ -17,7 +17,8 @@ low.genes.filter(data, gene_count, sample_size)
 S4 data object
 }
 \description{
-This function is a part of the data wrangling functionality of tgcapkg.    It allows user to input the TGCA dataset and the threshold for the minimum gene count and sample count.
+This function is a part of the data wrangling functionality of tgcapkg.
+It allows user to input the TCGA dataset and the threshold for the minimum gene count and sample count.
 }
 \examples{
 

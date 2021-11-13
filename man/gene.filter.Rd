@@ -15,7 +15,8 @@ gene.filter(data,gene.type)
 S4 data object
 }
 \description{
-This function is a part of the data wrangling functionality of tgcapkg.    It allows user to input the TGCA dataset and the required genes to filter the input data based on genes.
+This function is a part of the data wrangling functionality of tgcapkg.
+It allows user to input the TCGA dataset and the required genes to filter the input data based on genes.
 }
 \examples{
 

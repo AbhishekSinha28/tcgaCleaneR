@@ -2,9 +2,11 @@
 
 #' @title Study Design Plot
 #'
-#' @description This function is a part of the data analysis functionality of tgcapkg. It helps to plot a Heat Map \code{ComplexHeatmap} for some sample variables and present a dashboard level analysis of TCGA data.
+#' @description This function is a part of the data analysis functionality of tgcapkg. It helps to plot
+#' a Combined Heat Map \code{ComplexHeatmap} for some known unwanted variations and present a dashboard level analysis
+#' of the TCGA data before any analysis.
 #'
-#' @param data S4 data object: Input TGCA Dataset
+#' @param data S4 data object: Input TCGA Dataset
 #'
 #' @return Heat Map Plot
 #' @export
