@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 ![R-CMD-check](https://github.com/AbhishekSinha28/tgcapkg/workflows/R-CMD-check/badge.svg)
 <!-- badges: end -->
 
-The goal of `tgcapkg` is to provide a user-friendly R package to help Bioinformaticians with easy access to a tool that can perform Data Wrangling and Data Analysis on TCGA Pan Cancer Dataset. The package contains a subset of the original TCGA Breast Cancer Data collected from [TCGA](https://www.cbioportal.org/datasets). The package contains a detailed set of functionalities allowing user to identify and handle unwanted variations in the TCGA datasets.
+The goal of `tgcapkg` is to provide a user-friendly R package to help Bioinformaticians with easy access to a tool that can perform Data Wrangling and Data Analysis on TCGA Pan Cancer Dataset. The package contains a subset of the original TCGA Breast Cancer Data collected from [TCGA](https://www.cbioportal.org/datasets). The package also contains a detailed set of functionalities that allows user to identify and handle unwanted variations in the TCGA datasets.
 
 ## Installation
 
@@ -32,7 +32,7 @@ devtools::install_github("AbhishekSinha28/tgcapkg", ref="master", auth_token = "
 
 ## TCGA Functionality
 
-This is a quick walk trough the `tgcapkg` functionalities. For the detailed information on the Data Wrangling and Data Analysis functions and arguments of `tgcapkg` package, \code{help} files can be refereed. Also you can consider looking at the vignette to get a detailed walk through about the package functionalties.
+This is a quick walk trough of the `tgcapkg` functionalities. For the detailed information on the Data Wrangling and Data Analysis functions and arguments in `tgcapkg` package, you can consider looking at the vignette.
 
 ```{r}
 library(tgcapkg)
@@ -99,7 +99,7 @@ study.design(data = filtered.data3)
 
 The principal components (in this context also called singular vectors) of the sample × transcript array of log-counts are the linear combinations of the transcript measurements having the largest, second largest, third largest, etc. variation, standardized to be of unit length and orthogonal to the preceding components. Each will give a single value for each sample.
 
-```{r}
+```{r eval=FALSE}
 # Is data input for PCA logical
 is.logical(filtered.data3)
 ```
@@ -108,7 +108,7 @@ is.logical(filtered.data3)
 pca_data <- get.pca(data = filtered.data3, nPcs = 7, is.log = FALSE)
 ```
 
-```{r}
+```{r eval=FALSE, echo=FALSE}
 # Generated 7 PCs for first two genes
 head(pca_data[['HTseq_counts']]$sing.val$u,2)
 ```
@@ -130,16 +130,92 @@ library(tidyverse)
 corr_data <- pca.corr(pca.data = pca_data, data = filtered.data3, type = "purity", nPCs = 7)
 corr_data
 ```
-### Gene correlation 
 
-```{r fig.align='center', fig.width=7, fig.height=5}
-gene_corr_data <- gene.corr(data = filtered.data3, is.log = FALSE, type = "librarysize", cor.method = 'spearman', n.cores = 2)
-head(gene_corr_data)
+# RUV - III
+
+## Pseudo Replicate Pseudo Sample(PRPS) Map
+
+```{r fig.align='center', fig.width=7, fig.height=5, message=FALSE, warning=FALSE}
+#library(tidyverse)
+ruv.prps.plot(data = filtered.data3)
 ```
 
-# Anova Test
+## PRPS Generation
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+df9 <- get.prps(data=filtered.data3, batch=c('Year', 'Plates'), biology='biology', purity=NULL, include.ls=T, include.purity=F, n.ls.ps=10, n.sample.batch=3, n.sample.purity=0, n.sample.ls=3)
+```
+
+## RUV-III
+
+```{r echo=FALSE}
+### data input
+library(SummarizedExperiment)
+### PRPS values
+prps.batch <- df9$ps.batch
+colnames(prps.batch) <- unlist(lapply(
+  colnames(prps.batch),
+  function(x) strsplit(x, '-')[[1]][1]
+))
+prps.ls <- df9$ps.ls
+
+
+raw.data <- as.matrix(SummarizedExperiment::assay(filtered.data3, 'HTseq_counts'))
+ruv.data <- cbind(raw.data ,prps.batch ,prps.ls )
+ruv.data <- t(log2(ruv.data + 1))
+
+### replicate matrix
+ruv.rep <- ruv::replicate.matrix(row.names(ruv.data))
+
+gene.annot <-  as.data.frame(SummarizedExperiment::rowData(filtered.data3))
+
+### NCG sets
+ncg.set <- colnames(ruv.data) %in% gene.annot$gene_id.v[gene.annot$array.hk == 'yes']
+```
+
+```{r echo=FALSE}
+library(BiocParallel)
+library(BiocSingular)
+df10 <- get.ruv(ruv.data = ruv.data, ruv.rep = ruv.rep, ncg.set = ncg.set, k=1, 
+                BSPARAM = BiocSingular::bsparam(), return.info = TRUE)
+```
+
+# Combined Analysis
+
+## Combined data
+
+```{r echo=FALSE}
+#library(SummarizedExperiment)
+gene.annot <-  as.data.frame(SummarizedExperiment::rowData(filtered.data3))
+
+sample.info <-  as.data.frame(SummarizedExperiment::colData(filtered.data3))
+
+ruv.iii.adj <- t(df10$new.ruv.data[1:ncol(raw.data) , ]) # transpose
+
+raw.count <- SummarizedExperiment::assay(filtered.data3, 'HTseq_counts')
+fpkm <- SummarizedExperiment::assay(filtered.data3, 'HTseq_FPKM')
+fpkm.uq <- SummarizedExperiment::assay(filtered.data3, 'HTseq_FPKM.UQ')
+RUV_III <- ruv.iii.adj
+RUV_III <- abs(RUV_III) # absolute values
+```
 
 ```{r}
-anova.data <- anova_test(data = filtered.data3, variable = "Time", is.log = FALSE, n.cores = 2)
-head(anova.data)
+combined_data <- SummarizedExperiment(assays = list(HTseq_counts = raw.count, HTseq_FPKM = fpkm,
+                                                HTseq_FPKM.UQ = fpkm.uq, RUV_III = RUV_III),
+                                  colData = sample.info,
+                                  rowData = gene.annot)
+
+combined_data
+```
+
+## PCA on Combined Data
+```{r echo=FALSE}
+df11 <- get.pca(data = combined_data, nPcs = 7, is.log = FALSE)
+```
+
+## PCs correlation with unwanted variations in Combined Data
+
+```{r fig.align='center',message=FALSE, fig.width=7, fig.height=5, warning=FALSE}
+df12 <- pca.corr(pca.data = df11, data = combined_data, type = "purity", nPCs = 7)
+df12
 ```
