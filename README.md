@@ -23,7 +23,7 @@ You can install the development version of tgcapkg from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("AbhishekSinha28/tgcapkg")
+devtools::install_github("AbhishekSinha28/tgcapkg", ref="master", auth_token = "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")
 ```
 
 ## TCGA Functionality
@@ -93,7 +93,7 @@ library.size(data = filtered.data2, plot_type = "Scatterplot")
 ### Filter samples based on library size
 
 ``` r
-filtered.data3 <- library.size.fil(data = filtered.data2, ls_cutoff = 17.5)
+filtered.data3 <- library.size.filter(data = filtered.data2, ls_cutoff = 17.5)
 ```
 
 # Data Analysis
@@ -136,9 +136,9 @@ head(pca_data[['HTseq_counts']]$sing.val$u,2)
 #>                                      [,1]        [,2]        [,3]        [,4]
 #> TCGA-A8-A06Z-01A-11R-A00Z-07 -0.008247742 -0.03800256 0.074868654  0.08068739
 #> TCGA-AN-A03Y-01A-21R-A00Z-07  0.001517381 -0.01297216 0.008098276 -0.01609687
-#>                                    [,5]       [,6]        [,7]
-#> TCGA-A8-A06Z-01A-11R-A00Z-07 0.01798261 0.03732318  0.02340878
-#> TCGA-AN-A03Y-01A-21R-A00Z-07 0.00107987 0.04753709 -0.04164179
+#>                                      [,5]       [,6]        [,7]
+#> TCGA-A8-A06Z-01A-11R-A00Z-07 -0.017982618 0.03732317  0.02341218
+#> TCGA-AN-A03Y-01A-21R-A00Z-07 -0.001079871 0.04753709 -0.04164148
 ```
 
 ### Plot PCA
@@ -169,6 +169,581 @@ corr_data
 
 ``` r
 gene_corr_data <- gene.corr(data = filtered.data3, is.log = FALSE, type = "librarysize", cor.method = 'spearman', n.cores = 2)
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
+
+#> Warning in cor.test.default(x = expr.data[x, ], y = variable, method = method):
+#> Cannot compute exact p-value with ties
 ```
 
 <img src="man/figures/README-unnamed-chunk-16-1.png" width="100%" style="display: block; margin: auto;" />
@@ -187,7 +762,7 @@ head(gene_corr_data)
 # Anova Test
 
 ``` r
-anova.data <- f.test(data = filtered.data3, variable = "Time", is.log = FALSE, n.cores = 2)
+anova.data <- anova_test(data = filtered.data3, variable = "Time", is.log = FALSE, n.cores = 2)
 head(anova.data)
 #>                           Genes  FValue       PValue   Adj.PValue  Mean
 #> ENSG00000000003 ENSG00000000003  1.9074 1.082485e-01 1.404305e-01 11.80

@@ -27,7 +27,7 @@ You can install the development version of tgcapkg from [GitHub](https://github.
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("AbhishekSinha28/tgcapkg")
+devtools::install_github("AbhishekSinha28/tgcapkg", ref="master", auth_token = "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")
 ```
 
 ## TCGA Functionality
@@ -79,7 +79,7 @@ library.size(data = filtered.data2, plot_type = "Scatterplot")
 ### Filter samples based on library size
 
 ```{r}
-filtered.data3 <- library.size.fil(data = filtered.data2, ls_cutoff = 17.5)
+filtered.data3 <- library.size.filter(data = filtered.data2, ls_cutoff = 17.5)
 ```
 
 
@@ -140,6 +140,6 @@ head(gene_corr_data)
 # Anova Test
 
 ```{r}
-anova.data <- f.test(data = filtered.data3, variable = "Time", is.log = FALSE, n.cores = 2)
+anova.data <- anova_test(data = filtered.data3, variable = "Time", is.log = FALSE, n.cores = 2)
 head(anova.data)
 ```
