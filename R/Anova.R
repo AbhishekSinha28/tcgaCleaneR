@@ -27,7 +27,7 @@ anova_test <- function(data, variable, is.log, n.cores){
     raw.count <- log2(raw.count + 1)
   }
   if (variable == "Plate"){
-    f.test <- parallel::mclapply(
+    anova_test <- parallel::mclapply(
       1:nrow(raw.count),
       function(x) {
         MASS::dropterm(lm(raw.count[x , ] ~ sample.info$PlateId_mda), test = 'F')[c(5:6)]
@@ -35,7 +35,7 @@ anova_test <- function(data, variable, is.log, n.cores){
       , mc.cores = n.cores)
   } else
     if (variable == "Time"){
-      f.test <- parallel::mclapply(
+      anova_test <- parallel::mclapply(
         1:nrow(raw.count),
         function(x) {
           MASS::dropterm(lm(raw.count[x , ] ~ sample.info$year_mda), test = 'F')[c(5:6)]
@@ -44,9 +44,9 @@ anova_test <- function(data, variable, is.log, n.cores){
     }
   test.values <- data.frame(
     Genes = row.names(raw.count),
-    FValue = round(unlist(lapply(f.test, function(x) x$`F Value`[2])), digits = 4) ,
-    PValue = unlist(lapply(f.test, function(x) x$`Pr(F)`[2])),
-    Adj.PValue = p.adjust(unlist(lapply(f.test, function(x) x$`Pr(F)`[2])), method = 'BH'),
+    FValue = round(unlist(lapply(anova_test, function(x) x$`F Value`[2])), digits = 4) ,
+    PValue = unlist(lapply(anova_test, function(x) x$`Pr(F)`[2])),
+    Adj.PValue = p.adjust(unlist(lapply(anova_test, function(x) x$`Pr(F)`[2])), method = 'BH'),
     Mean = round(average.exp, digits = 2)
   )
   return(test.values)
