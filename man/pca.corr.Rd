@@ -31,10 +31,3 @@ For variable like Time which is not continuous, dummy variables are used to run
 vector correlation \code{stats::cancor} between dummy time variable and n PCs with the same
 linear output.
 }
-\examples{
-\dontrun{
-pca.corr(pca.data, data = brca.data, type = "purity", nPCs = 10)
-df <- pca.corr(pca.data, data = brca.data, type = "time", nPCs = 8)
-df
-}
-}

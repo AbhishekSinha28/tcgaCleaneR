@@ -6,7 +6,7 @@
 #' a Combined Heat Map \code{ComplexHeatmap} for some known unwanted variations and present a dashboard level analysis
 #' of the TCGA data before any analysis.
 #'
-#' @param data S4 data object: Input TCGA Dataset
+#' @param data S4 data object: Input TCGA or similar \code{SummarizedExperiment} Dataset
 #'
 #' @return Heat Map Plot
 #' @export

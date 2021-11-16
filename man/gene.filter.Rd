@@ -7,7 +7,7 @@
 gene.filter(data,gene.type)
 }
 \arguments{
-\item{data}{Input TGCA Dataset.}
+\item{data}{SummarizedExperiment S4 class Dataset. E.g. TCGA Dataset.}
 
 \item{gene.type}{A character vector of items.}
 }
@@ -16,11 +16,13 @@ S4 data object
 }
 \description{
 This function is a part of the data wrangling functionality of tgcapkg.
-It allows user to input the TCGA dataset and the required genes to filter the input data based on genes.
+It allows user to input the \code{SummarizedExperiment} S4 class Cancer Dataset (e.g. TCGA dataset) and the required
+genes to filter data based on genes.
 }
 \examples{
 
 gene.filter(data=brca.data,gene.type=c("protein_coding","lncRNA"))
+\dontrun{
 gene.filter(data=brca.data,gene.type=c("protein_coding"))
-
+}
 }

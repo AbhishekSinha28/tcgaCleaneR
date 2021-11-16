@@ -2,9 +2,12 @@
 
 #' @title Filter Samples based on Library Size
 #'
-#' @description This function is a part of the data wrangling functionality of tgcapkg.    It allows user to handle the bias in TCGA Cancer data due to library size by filtering out the samples with sample size greater than the threshold. Using \code{library.size}, user can determine the threshold.
+#' @description This function is a part of the data wrangling functionality of tgcapkg.
+#' It allows user to handle the bias in \code{SummarizedExperiment} S4 class Cancer Dataset (e.g. TCGA dataset) due to
+#' library size by filtering out the samples with sample size greater than the threshold. Using \code{library.size},
+#' user can determine the threshold.
 #'
-#' @param data Input TGCA Dataset.
+#' @param data SummarizedExperiment S4 class Dataset. E.g. TCGA Dataset.
 #' @param ls_cutoff numeric: library size threshold
 #'
 #' @return S4 data object

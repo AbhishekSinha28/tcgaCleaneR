@@ -2,7 +2,7 @@
 
 #' @title PCA Visualization
 #'
-#' @description This function is a part of the data analysis functionality of tgcapkg. It helps to visualize the PCs from \code{get.pca}
+#' @description This function is a part of the data analysis functionality of tgcapkg. It helps to visualize the PCs from \code{get.pca}.
 #'
 #' @param pca.data list: PCA output from \code{get.pca}.
 #' @param data S4 data object
@@ -35,11 +35,7 @@
 #' @importFrom cowplot axis_canvas
 #' @importFrom cowplot insert_xaxis_grob
 #' @importFrom cowplot insert_yaxis_grob
-#' @examples
-#' \dontrun{
-#' pca.plot(pca.data, data = brca.data, group = "Time", plot_type = "DensityPlot", npcs = 3)
-#' pca.plot(pca.data = df6, data = brca.data, group = "Plate", plot_type = "BoxPlot", npcs = 3)
-#' }
+
 pca.plot <- function(pca.data, data, group, plot_type, npcs){
   .scatter.density.pc <- function(
     pcs,

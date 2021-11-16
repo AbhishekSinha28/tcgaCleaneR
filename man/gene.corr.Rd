@@ -20,18 +20,11 @@ gene.corr(data, is.log, type, cor.method, n.cores)
 \value{
 A S3 data frame. The output contains the correlation test output containing pvalue, adj p-value and
 Spearman's rank correlation coefficient. Along with the data frame output the function also returns a histogram
-for Spearman's rank correlation coefficient for easy analysis of the test results
+for Spearman's rank correlation coefficient for easy analysis of the test results.
 }
 \description{
 This function is a part of the data analysis functionality of tgcapkg.
 It helps to run correlation analysis between gene expression level and unwanted variation effect because of Library
 Size or Purity. This function can help to quantify the association between an individual gene’s expression level
 and library size or tumor purity for a given Cancer type.
-}
-\examples{
-df <- gene.corr(data = brca.data,is.log = FALSE,type = "purity_HTseq_FPKM",cor.method = 'spearman',n.cores = 1)
-\dontrun{
-gene.corr(data = brca.data,is.log = FALSE,type = "librarysize",cor.method = 'pearson',n.cores = 1)
-
-}
 }

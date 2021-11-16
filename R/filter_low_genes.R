@@ -3,9 +3,10 @@
 #' @title Low Count Genes Filter
 #'
 #' @description This function is a part of the data wrangling functionality of tgcapkg.
-#' It allows user to input the TCGA dataset and the threshold for the minimum gene count and sample count.
+#' It allows user to input the \code{SummarizedExperiment} S4 class Cancer Dataset (e.g. TCGA dataset) and the threshold
+#' for the minimum gene count and sample count.
 #'
-#' @param data Input TGCA Dataset.
+#' @param data SummarizedExperiment S4 class Dataset. E.g. TCGA Dataset.
 #' @param gene_count numeric: gene count threshold
 #' @param sample_size numeric: sample size threshold
 #'

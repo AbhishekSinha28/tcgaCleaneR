@@ -7,7 +7,7 @@
 library.size(data, plot_type)
 }
 \arguments{
-\item{data}{Input TGCA Dataset.}
+\item{data}{SummarizedExperiment S4 class Dataset. E.g. TCGA Dataset.}
 
 \item{plot_type}{character: Plot type}
 }
@@ -15,7 +15,10 @@ library.size(data, plot_type)
 Scatter Plot, Box plot
 }
 \description{
-This function is a part of the data analysis functionality of tgcapkg.    It allows user to analyze the Library Size bias, a technical bias in the TCGA RNA-seq.    The user can input the TGCA dataset and the type of plot to analyse variations in library size across years and samples.
+This function is a part of the data analysis functionality of tgcapkg.
+It allows user to analyze the Library Size bias, a technical bias in the TCGA RNA-seq.
+The user can input the \code{SummarizedExperiment} S4 class Cancer Dataset (e.g. TCGA dataset) and the type of plot
+to analyse variations in library size across years and samples.
 }
 \examples{
 library.size(data = brca.data, plot_type = "Scatterplot")

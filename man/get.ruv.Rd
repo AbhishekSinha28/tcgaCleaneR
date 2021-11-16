@@ -50,8 +50,3 @@ Based on the return.info we get either a S4 list will all information related to
 \description{
 This function is a part of the data analysis functionality of \code{tgcapkg}. It captures both the uses PRPS values from library \code{tgcapkg} combined with row counts and run SVD algorithm (\code{runSVD()}) from \code{BiocSingular} on the combined dataset. The function uses RUV-I algorithm from \code{ruv} as a pre-processing step to RUV-III.
 }
-\examples{
-\dontrun{
-get.ruv(ruv.data = ruv.data, ruv.rep = ruv.rep, ncg.set = ncg.set, k=1, BSPARAM = BiocSingular::bsparam(), return.info = TRUE)
-}
-}

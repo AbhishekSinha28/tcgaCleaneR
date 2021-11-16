@@ -21,11 +21,5 @@ pca.plot(pca.data, data, group, plot_type, npcs)
 Density Plot, Box Plot
 }
 \description{
-This function is a part of the data analysis functionality of tgcapkg. It helps to visualize the PCs from \code{get.pca}
-}
-\examples{
-\dontrun{
-pca.plot(pca.data, data = brca.data, group = "Time", plot_type = "DensityPlot", npcs = 3)
-pca.plot(pca.data = df6, data = brca.data, group = "Plate", plot_type = "BoxPlot", npcs = 3)
-}
+This function is a part of the data analysis functionality of tgcapkg. It helps to visualize the PCs from \code{get.pca}.
 }

@@ -7,7 +7,7 @@
 purity.filter(data, purity_cutoff)
 }
 \arguments{
-\item{data}{Input TGCA Dataset.}
+\item{data}{SummarizedExperiment S4 class Dataset. E.g. TCGA Dataset.}
 
 \item{purity_cutoff}{numeric: Sample purity cutoff}
 }
@@ -15,7 +15,9 @@ purity.filter(data, purity_cutoff)
 S4 data object
 }
 \description{
-This function is a part of the data wrangling functionality of tgcapkg.    It allows user to handle sample purity in TCGA Cancer data by filtering out the samples that are above a specific purity threshold.
+This function is a part of the data wrangling functionality of tgcapkg.
+It allows user to handle sample purity in \code{SummarizedExperiment} S4 class Cancer Dataset (e.g. TCGA dataset) by
+filtering out the samples that are above a specific purity threshold.
 }
 \examples{
 

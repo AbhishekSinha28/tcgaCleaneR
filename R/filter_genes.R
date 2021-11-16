@@ -3,11 +3,12 @@
 #' @title Gene Filter
 #'
 #' @description This function is a part of the data wrangling functionality of tgcapkg.
-#' It allows user to input the TCGA dataset and the required genes to filter the input data based on genes.
+#' It allows user to input the \code{SummarizedExperiment} S4 class Cancer Dataset (e.g. TCGA dataset) and the required
+#' genes to filter data based on genes.
 #'
 #' @usage gene.filter(data,gene.type)
 #'
-#' @param data Input TGCA Dataset.
+#' @param data SummarizedExperiment S4 class Dataset. E.g. TCGA Dataset.
 #' @param gene.type A character vector of items.
 #'
 #' @return S4 data object
@@ -16,8 +17,9 @@
 #' @examples
 #'
 #' gene.filter(data=brca.data,gene.type=c("protein_coding","lncRNA"))
+#' \dontrun{
 #' gene.filter(data=brca.data,gene.type=c("protein_coding"))
-#'
+#'}
 gene.filter <- function(data,gene.type){
   gene.annot.rm <-  as.data.frame(SummarizedExperiment::rowData(data))
   keep.genes.rm <- gene.annot.rm$gene_biotype_BioMart %in% gene.type

@@ -21,13 +21,7 @@
 #'
 #' @return Linear Plot the compares the correlation between library size (or Purity, time) and PCs across three datasets. When output is stored in a object the user can also access values used to plot the linear graphs.
 #' @export
-#'
-#' @examples
-#' \dontrun{
-#' pca.corr(pca.data, data = brca.data, type = "purity", nPCs = 10)
-#' df <- pca.corr(pca.data, data = brca.data, type = "time", nPCs = 8)
-#' df
-#' }
+
 pca.corr <- function(pca.data, data, type, nPCs){
   raw.count <- as.data.frame(SummarizedExperiment::assay(data, 'HTseq_counts'))
   library.size <- log2(colSums(raw.count))

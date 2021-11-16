@@ -7,7 +7,7 @@
 study.design(data)
 }
 \arguments{
-\item{data}{S4 data object: Input TCGA Dataset}
+\item{data}{S4 data object: Input TCGA or similar \code{SummarizedExperiment} Dataset}
 }
 \value{
 Heat Map Plot

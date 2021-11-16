@@ -7,7 +7,7 @@
 low.genes.filter(data, gene_count, sample_size)
 }
 \arguments{
-\item{data}{Input TGCA Dataset.}
+\item{data}{SummarizedExperiment S4 class Dataset. E.g. TCGA Dataset.}
 
 \item{gene_count}{numeric: gene count threshold}
 
@@ -18,7 +18,8 @@ S4 data object
 }
 \description{
 This function is a part of the data wrangling functionality of tgcapkg.
-It allows user to input the TCGA dataset and the threshold for the minimum gene count and sample count.
+It allows user to input the \code{SummarizedExperiment} S4 class Cancer Dataset (e.g. TCGA dataset) and the threshold
+for the minimum gene count and sample count.
 }
 \examples{
 
