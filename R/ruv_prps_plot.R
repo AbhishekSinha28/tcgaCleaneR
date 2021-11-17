@@ -9,6 +9,10 @@
 #'
 #' @return PRPS Map which can be used to show how the biological variation are distributed across batches.
 #' @export
+#' @example
+#' \dontrun{
+#' ruv.prps.plot(data = brca.data)
+#' }
 
 ruv.prps.plot <- function(data,n=3){
   sample.info <-  as.data.frame(SummarizedExperiment::colData(data))

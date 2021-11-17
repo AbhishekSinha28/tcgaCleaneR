@@ -19,6 +19,11 @@
 #'
 #' @return Based on the return.info we get either a S4 list will all information related to RUV-III object or just the RUV-III result.
 #' @export
+#'
+#' @examples
+#' \dontrun{
+#' get.ruv(ruv.data = ruv.data, ruv.rep = ruv.rep, ncg.set = ncg.set, k=1, BSPARAM = BiocSingular::bsparam(), return.info = TRUE)
+#' }
 
 get.ruv <- function(ruv.data, ruv.rep, ncg.set, k = NULL, eta = NULL,
                     svd_k = 50, include.intercept = TRUE,

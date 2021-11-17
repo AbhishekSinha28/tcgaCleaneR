@@ -12,6 +12,12 @@
 #'
 #' @return A List of S4 class containing n PCs. For all three \code{assays()}, two values are returned. \code{sing.val} contains singular values with \code{u} containing PCs. \code{variation} contains the variation of each PC.
 #' @export
+#'
+#' @examples
+#' \dontrun{
+#' get.pca(data = brca.data, nPcs = 10, is.log = FALSE)
+#' }
+#'
 
 get.pca <- function(data, nPcs, is.log){
   .pca <- function(data, nPcs, is.log) {

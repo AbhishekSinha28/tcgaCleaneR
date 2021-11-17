@@ -21,3 +21,9 @@ This function is a part of the data analysis functionality of tgcapkg. It perfor
 algorithm (\code{runSVD()}) on the \code{SummarizedExperiment} class TCGA Cancer Data across all \code{assays()} and
 generate PCs.
 }
+\examples{
+\dontrun{
+get.pca(data = brca.data, nPcs = 10, is.log = FALSE)
+}
+
+}

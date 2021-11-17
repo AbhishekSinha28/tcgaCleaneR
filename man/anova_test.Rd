@@ -23,3 +23,9 @@ This function is a part of the data analysis functionality of tgcapkg. It use AN
 summarize the effects of a qualitative source of unwanted variation (e.g. batches) on the expression levels of
 individual genes. Unwanted Variations such as Plate effect and Time effect can be analysed by this test.
 }
+\examples{
+\dontrun{
+anova_test(data = brca.data, variable = "Time", is.log = FALSE, n.cores = 1)
+anova_test(data = brca.data, variable = "Plate", is.log = FALSE, n.cores = 1)
+}
+}

@@ -35,6 +35,13 @@
 #' @importFrom cowplot axis_canvas
 #' @importFrom cowplot insert_xaxis_grob
 #' @importFrom cowplot insert_yaxis_grob
+#'
+#' @examples
+#' \dontrun{
+#' pca.plot(pca.data, data = brca.data, group = "Time", plot_type = "DensityPlot", npcs = 3)
+#' pca.plot(pca.data = df6, data = brca.data, group = "Plate", plot_type = "BoxPlot", npcs = 3)
+#' }
+
 
 pca.plot <- function(pca.data, data, group, plot_type, npcs){
   .scatter.density.pc <- function(

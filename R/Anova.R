@@ -14,6 +14,12 @@
 #'
 #' @return A S3 data frame. The output contains the Anova test (F test) scores corresponding to all genes in S4 data object.
 #' @export
+#'
+#' @examples
+#' \dontrun{
+#' anova_test(data = brca.data, variable = "Time", is.log = FALSE, n.cores = 1)
+#' anova_test(data = brca.data, variable = "Plate", is.log = FALSE, n.cores = 1)
+#' }
 
 anova_test <- function(data, variable, is.log, n.cores){
   raw.count <- as.data.frame(SummarizedExperiment::assay(data, 'HTseq_counts'))

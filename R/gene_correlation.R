@@ -17,6 +17,12 @@
 #' Spearman's rank correlation coefficient. Along with the data frame output the function also returns a histogram
 #' for Spearman's rank correlation coefficient for easy analysis of the test results.
 #' @export
+#'
+#' @examples
+#' \dontrun{
+#' df <- gene.corr(data = brca.data,is.log = FALSE,type = "purity_HTseq_FPKM",cor.method = 'spearman',n.cores = 1)
+#' gene.corr(data = brca.data,is.log = FALSE,type = "librarysize",cor.method = 'pearson',n.cores = 1)
+#' }
 
 gene.corr <- function(data, is.log, type, cor.method, n.cores){
   sample.info <-  as.data.frame(SummarizedExperiment::colData(data))

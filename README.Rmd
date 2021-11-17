@@ -65,7 +65,7 @@ filtered.data1 <- low.genes.filter(data=filtered.data,gene_count = 20,sample_siz
 ## Purity Filter - Filter Samples based on Tumor Purity
 
 ```{r}
-filtered.data2 <- purity.filter(data= filtered.data1,purity_cutoff= 0.496)
+filtered.data2 <- purity.filter(data= filtered.data1,purity_cutoff= 0.50)
 ```
 
 ## Library Size Filter

@@ -76,7 +76,7 @@ filtered.data1 <- low.genes.filter(data=filtered.data,gene_count = 20,sample_siz
 ## Purity Filter - Filter Samples based on Tumor Purity
 
 ``` r
-filtered.data2 <- purity.filter(data= filtered.data1,purity_cutoff= 0.496)
+filtered.data2 <- purity.filter(data= filtered.data1,purity_cutoff= 0.50)
 ```
 
 ## Library Size Filter
@@ -180,13 +180,13 @@ combined_data <- SummarizedExperiment(assays = list(HTseq_counts = raw.count, HT
 
 combined_data
 #> class: SummarizedExperiment 
-#> dim: 96 431 
+#> dim: 96 411 
 #> metadata(0):
 #> assays(4): HTseq_counts HTseq_FPKM HTseq_FPKM.UQ RUV_III
 #> rownames(96): ENSG00000000003 ENSG00000000005 ... ENSG00000005469
 #>   ENSG00000005471
 #> rowData names(40): gene_id.v gene_id ... keep.cancer keep.normal
-#> colnames(431): TCGA-A8-A06Z-01A-11R-A00Z-07
+#> colnames(411): TCGA-A8-A06Z-01A-11R-A00Z-07
 #>   TCGA-AN-A03Y-01A-21R-A00Z-07 ... TCGA-AC-A4ZE-01A-11R-A41B-07
 #>   TCGA-E9-A54Y-01A-11R-A466-07
 #> colData names(4115): Sample sample.id.b_mda ... purity_HTseq_FPKM

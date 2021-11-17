@@ -18,7 +18,8 @@ a Combined Heat Map \code{ComplexHeatmap} for some known unwanted variations and
 of the TCGA data before any analysis.
 }
 \examples{
-
+\dontrun{
 study.design(data = brca.data)
+}
 
 }

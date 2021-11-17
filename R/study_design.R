@@ -12,8 +12,9 @@
 #' @export
 #'
 #' @examples
-#'
+#' \dontrun{
 #' study.design(data = brca.data)
+#' }
 #'
 study.design <- function(data){
   data$ls <- log2(colSums(SummarizedExperiment::assay(data, 'HTseq_counts')))
