@@ -50,7 +50,7 @@ raw.count <- as.data.frame(SummarizedExperiment::assay(brca.data, 'HTseq_counts'
 ## Filter data by specific gene.
 
 ```{r}
-df1 <- gene.filter(data=brca.data,gene.type=c("protein_coding"))
+df1 <- gene.filter(data=brca.data,gene.type=c("protein.coding"))
 ```
 
 # Removing lowly expressed genes
@@ -127,7 +127,7 @@ df6
 
 # Gene correlation 
 
-```{r fig.align='center', fig.width=7, fig.height=5}
+```{r fig.align='center', fig.width=7, fig.height=5, message=FALSE, warning=FALSE}
 df7 <- gene.corr(data = df4, is.log = FALSE, type = "librarysize", cor.method = 'spearman', n.cores = 1)
 head(df7)
 ```
@@ -155,7 +155,7 @@ df9 <- get.prps(data=df4, batch=c('Year', 'Plates'), biology='biology', purity=N
 
 ## RUV-III
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 ### data input
 library(SummarizedExperiment)
 ### PRPS values
@@ -177,7 +177,7 @@ ruv.rep <- ruv::replicate.matrix(row.names(ruv.data))
 gene.annot <-  as.data.frame(SummarizedExperiment::rowData(df4))
 
 ### NCG sets
-ncg.set <- colnames(ruv.data) %in% gene.annot$gene_id.v[gene.annot$array.hk == 'yes']
+ncg.set <- colnames(ruv.data) %in% gene.annot$Gene_symbol[gene.annot$RNAseq_HK == 'yes']
 ```
 
 ```{r}
@@ -200,10 +200,12 @@ sample.info <-  as.data.frame(SummarizedExperiment::colData(df4))
 ruv.iii.adj <- t(df10$new.ruv.data[1:ncol(raw.data) , ]) # transpose
 
 raw.count <- SummarizedExperiment::assay(df4, 'HTseq_counts')
+raw.count <- log2(raw.count + 1)
 fpkm <- SummarizedExperiment::assay(df4, 'HTseq_FPKM')
+fpkm <- log2(fpkm + 1)
 fpkm.uq <- SummarizedExperiment::assay(df4, 'HTseq_FPKM.UQ')
+fpkm.uq <- log2(fpkm.uq + 1)
 RUV_III <- ruv.iii.adj
-RUV_III <- abs(RUV_III) # absolute values
 
 combined_data <- SummarizedExperiment(assays = list(HTseq_counts = raw.count, HTseq_FPKM = fpkm,
                                                 HTseq_FPKM.UQ = fpkm.uq, RUV_III = RUV_III),
@@ -213,11 +215,11 @@ combined_data <- SummarizedExperiment(assays = list(HTseq_counts = raw.count, HT
 
 ## PCA on Combined Data
 ```{r}
-df11 <- get.pca(data = combined_data, nPcs = 7, is.log = FALSE)
+df11 <- get.pca(data = combined_data, nPcs = 7, is.log = TRUE)
 ```
 
 ## Plot PCA for Combined Data
-```{r}
+```{r fig.align='center', fig.width=7, fig.height=5, message=FALSE, warning=FALSE}
 pca.plot(pca.data = df11, data = combined_data, group = "Time", plot_type = "DensityPlot", npcs = 3)
 ```
 ## PCs correlation with unwanted variations in Combined Data

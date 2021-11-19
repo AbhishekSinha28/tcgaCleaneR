@@ -20,8 +20,8 @@ It allows user to input the \code{SummarizedExperiment} S4 class Cancer Dataset 
 genes to filter data based on genes.
 }
 \examples{
-gene.filter(data=brca.data,gene.type=c("protein_coding"))
+gene.filter(data=brca.data,gene.type=c("protein.coding"))
 \dontrun{
-gene.filter(data=brca.data,gene.type=c("protein_coding","lncRNA"))
+gene.filter(data=brca.data,gene.type=c("protein.coding","snRNA"))
 }
 }

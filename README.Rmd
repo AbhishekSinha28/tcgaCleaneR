@@ -53,7 +53,7 @@ brca.data
 ## Gene Filter
 
 ```{r}
-filtered.data <- gene.filter(data=brca.data,gene.type=c("protein_coding"))
+filtered.data <- gene.filter(data=brca.data,gene.type=c("protein.coding"))
 ```
 
 ## Removing lowly expressed genes
@@ -162,15 +162,15 @@ prps.ls <- df9$ps.ls
 
 raw.data <- as.matrix(SummarizedExperiment::assay(filtered.data3, 'HTseq_counts'))
 ruv.data <- cbind(raw.data ,prps.batch ,prps.ls )
-ruv.data <- t(log2(ruv.data + 1))
+ruv.data <- t(log2(ruv.data + 1)) # Taking Log 
 
 ### replicate matrix
 ruv.rep <- ruv::replicate.matrix(row.names(ruv.data))
 
 gene.annot <-  as.data.frame(SummarizedExperiment::rowData(filtered.data3))
 
-### NCG sets
-ncg.set <- colnames(ruv.data) %in% gene.annot$gene_id.v[gene.annot$array.hk == 'yes']
+### NCG sets - Select House Keeping Genes
+ncg.set <- colnames(ruv.data) %in% gene.annot$Gene_symbol[gene.annot$RNAseq_HK == 'yes']
 ```
 
 ```{r echo=FALSE}
@@ -193,10 +193,13 @@ sample.info <-  as.data.frame(SummarizedExperiment::colData(filtered.data3))
 ruv.iii.adj <- t(df10$new.ruv.data[1:ncol(raw.data) , ]) # transpose
 
 raw.count <- SummarizedExperiment::assay(filtered.data3, 'HTseq_counts')
+raw.count <- log2(raw.count + 1) # Taking Log 
 fpkm <- SummarizedExperiment::assay(filtered.data3, 'HTseq_FPKM')
+fpkm <- log2(fpkm + 1) # Taking Log 
 fpkm.uq <- SummarizedExperiment::assay(filtered.data3, 'HTseq_FPKM.UQ')
+fpkm.uq <- log2(fpkm.uq + 1) # Taking Log 
 RUV_III <- ruv.iii.adj
-RUV_III <- abs(RUV_III) # absolute values
+
 ```
 
 ```{r}
@@ -210,7 +213,7 @@ combined_data
 
 ## PCA on Combined Data
 ```{r echo=FALSE}
-df11 <- get.pca(data = combined_data, nPcs = 7, is.log = FALSE)
+df11 <- get.pca(data = combined_data, nPcs = 7, is.log = TRUE)
 ```
 
 ## PCs correlation with unwanted variations in Combined Data

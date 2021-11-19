@@ -166,6 +166,8 @@ pca.plot <- function(pca.data, data, group, plot_type, npcs){
   data.set.names <- names(SummarizedExperiment::assays(data))
   if (group == "Time"){
     if(plot_type == "DensityPlot"){
+      currentCols <- RColorBrewer::brewer.pal(8, "Dark2")[-5]
+      years.colors <- currentCols[1:length(unique(sample.info$Year))]
       pca.plots.time <- lapply(
         data.set.names,#tcga.harmonized,
         function(x){
@@ -174,8 +176,8 @@ pca.plot <- function(pca.data, data, group, plot_type, npcs){
             pcs = pcs$sing.val$u[,1:npcs],
             pc.var = pcs$var,
             group.name = 'Time',
-            group = sample.info$year_mda,
-            color = unique(sample.info$year_mda),#years.colors,
+            group = sample.info$Year,
+            color = years.colors,#unique(sample.info$Year),
             strokeSize = .2,
             pointSize = 3,
             strokeColor = 'gray30',
@@ -188,7 +190,7 @@ pca.plot <- function(pca.data, data, group, plot_type, npcs){
         })
     } else if (plot_type == "BoxPlot"){
       for (i in 1:npcs){
-        boxplot(pca.data$HTseq_counts$sing.val$u[,i] ~ sample.info$year_mda)
+        boxplot(pca.data$HTseq_counts$sing.val$u[,i] ~ sample.info$Year)
       }
     }
   }
@@ -203,8 +205,8 @@ pca.plot <- function(pca.data, data, group, plot_type, npcs){
               pcs = pcs$sing.val$u[,1:npcs],
               pc.var = pcs$var,
               group.name = 'Tissue',
-              group = sample.info$tissue,
-              color = c('red', 'blue'),
+              group = sample.info$Tissues,
+              color = c("#252525","#D9D9D9"),#c('red', 'blue'),
               strokeSize = .2,
               pointSize = 3,
               strokeColor = 'gray30',
@@ -218,7 +220,7 @@ pca.plot <- function(pca.data, data, group, plot_type, npcs){
           })
       } else if (plot_type == "BoxPlot"){
         for (i in 1:npcs){
-          boxplot(pca.data$HTseq_counts$sing.val$u[,i] ~ sample.info$tissue)
+          boxplot(pca.data$HTseq_counts$sing.val$u[,i] ~ sample.info$Tissues)
         }
       }
     } else
@@ -232,8 +234,8 @@ pca.plot <- function(pca.data, data, group, plot_type, npcs){
                 pcs = pcs$sing.val$u[,1:npcs],
                 pc.var = pcs$var,
                 group.name = 'Plate',
-                group = sample.info$PlateId_mda,
-                color = unique(factor(sample.info$PlateId_mda)),
+                group = sample.info$Plates,
+                color = unique(factor(sample.info$Plates)),
                 strokeSize = .2,
                 pointSize = 3,
                 strokeColor = 'gray30',
@@ -247,39 +249,10 @@ pca.plot <- function(pca.data, data, group, plot_type, npcs){
             })
         } else if (plot_type == "BoxPlot"){
           for (i in 1:npcs){
-            boxplot(pca.data$HTseq_counts$sing.val$u[,i] ~ sample.info$PlateId_mda)
+            boxplot(pca.data$HTseq_counts$sing.val$u[,i] ~ sample.info$Plates)
           }
         }
       } else
-        if (group == "Batch"){
-          if(plot_type == "DensityPlot"){
-            pca.plots.time <- lapply(
-              data.set.names,
-              function(x){
-                pcs <- pca.data[[x]]
-                p <- .scatter.density.pc(
-                  pcs = pcs$sing.val$u[,1:npcs],
-                  pc.var = pcs$var,
-                  group.name = 'Batch',
-                  group = sample.info$BatchId_mda,
-                  color = unique(sample.info$BatchId_mda),
-                  strokeSize = .2,
-                  pointSize = 3,
-                  strokeColor = 'gray30',
-                  alpha = .6)
-                do.call(
-                  gridExtra::grid.arrange,
-                  c(p,
-                    ncol = 4,
-                    top = x)
-                )
-              })
-          } else if (plot_type == "BoxPlot"){
-            for (i in 1:npcs){
-              boxplot(pca.data$HTseq_counts$sing.val$u[,i] ~ sample.info$BatchId_mda)
-            }
-          }
-        } else
           if (group == "TSS"){
             if(plot_type == "DensityPlot"){
               pca.plots.time <- lapply(
@@ -290,8 +263,8 @@ pca.plot <- function(pca.data, data, group, plot_type, npcs){
                     pcs = pcs$sing.val$u[,1:npcs],
                     pc.var = pcs$var,
                     group.name = 'TSS',
-                    group = sample.info$TSS_mda,
-                    color = unique(factor(sample.info$TSS_mda)),
+                    group = sample.info$TSS,
+                    color = unique(factor(sample.info$TSS)),
                     strokeSize = .2,
                     pointSize = 3,
                     strokeColor = 'gray30',
@@ -305,7 +278,7 @@ pca.plot <- function(pca.data, data, group, plot_type, npcs){
                 })
             } else if (plot_type == "BoxPlot"){
               for (i in 1:npcs){
-                boxplot(pca.data$HTseq_counts$sing.val$u[,i] ~ sample.info$TSS_mda)
+                boxplot(pca.data$HTseq_counts$sing.val$u[,i] ~ sample.info$TSS)
               }
             }
           } else
@@ -319,8 +292,8 @@ pca.plot <- function(pca.data, data, group, plot_type, npcs){
                       pcs = pcs$sing.val$u[,1:npcs],
                       pc.var = pcs$var,
                       group.name = 'Center',
-                      group = sample.info$center_mda,
-                      color = unique(sample.info$center_mda),
+                      group = sample.info$Center,
+                      color = unique(sample.info$Center),
                       strokeSize = .2,
                       pointSize = 3,
                       strokeColor = 'gray30',
@@ -334,7 +307,7 @@ pca.plot <- function(pca.data, data, group, plot_type, npcs){
                   })
               } else if (plot_type == "BoxPlot"){
                 for (i in 1:npcs){
-                  boxplot(pca.data$HTseq_counts$sing.val$u[,i] ~ sample.info$center_mda)
+                  boxplot(pca.data$HTseq_counts$sing.val$u[,i] ~ sample.info$Center)
                 }
               }
             }

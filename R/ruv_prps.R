@@ -28,12 +28,6 @@ get.prps <- function(data, batch, biology, purity, include.ls, include.purity, n
                      n.sample.batch, n.sample.purity){
   data$log.ls <- log2(colSums(SummarizedExperiment::assay(data, 'HTseq_counts')))
   sample.info <- as.data.frame(SummarizedExperiment::colData(data))
-  sample.info$Purity_singscore <- sample.info$purity_HTseq_FPKM
-  sample.info$Year <- sample.info$year_mda
-  sample.info$Plates <- sample.info$PlateId_mda
-  sample.info$TSS <- sample.info$TSS_mda
-  sample.info$Tissues <- sample.info$tissue
-  sample.info$Center <- sample.info$center_mda
   cols <- c(
     'Year',
     'Plates',
@@ -51,10 +45,6 @@ get.prps <- function(data, batch, biology, purity, include.ls, include.purity, n
     sample.info$Plates
   )
   raw.data <- as.matrix(SummarizedExperiment::assay(data, 'HTseq_counts'))
-  gene.annot <- as.data.frame(SummarizedExperiment::rowData(data))
-  keep.genes <- gene.annot$gene_biotype_BioMart == 'protein_coding'
-  gene.annot <- gene.annot[ keep.genes, ]
-  raw.data <- raw.data[ keep.genes, ]
   expr.data = raw.data
 
   ### combine biology and batch

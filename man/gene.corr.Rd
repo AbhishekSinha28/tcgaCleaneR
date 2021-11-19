@@ -30,7 +30,7 @@ and library size or tumor purity for a given Cancer type.
 }
 \examples{
 \dontrun{
-df <- gene.corr(data = brca.data,is.log = FALSE,type = "purity_HTseq_FPKM",cor.method = 'spearman',n.cores = 1)
+df <- gene.corr(data = brca.data,is.log = FALSE,type = "purity",cor.method = 'spearman',n.cores = 1)
 gene.corr(data = brca.data,is.log = FALSE,type = "librarysize",cor.method = 'pearson',n.cores = 1)
 }
 }

@@ -9,7 +9,7 @@
 #'
 #' @return PRPS Map which can be used to show how the biological variation are distributed across batches.
 #' @export
-#' @example
+#' @examples
 #' \dontrun{
 #' ruv.prps.plot(data = brca.data)
 #' }
@@ -18,9 +18,9 @@ ruv.prps.plot <- function(data,n=3){
   sample.info <-  as.data.frame(SummarizedExperiment::colData(data))
   sample.info$biology <- sample(letters[1:4], nrow(sample.info), replace = TRUE)
   sample.info$new.batch <- paste0(
-    sample.info$year_mda, #sample.info$Year,
+    sample.info$Year, #sample.info$Year,
     '_',
-    sample.info$PlateId_mda #sample.info$Plates
+    sample.info$Plates #sample.info$Plates
   )
 
 

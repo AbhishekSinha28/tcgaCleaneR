@@ -49,7 +49,7 @@ get.pca <- function(data, nPcs, is.log){
       .pca(
         data = as.matrix(SummarizedExperiment::assay(data, x)),
         nPcs = nPcs,
-        is.log = FALSE)
+        is.log = is.log)
     })
   names(pca.cancer.tcga) <- tcga.harmonized
   return(pca.cancer.tcga)

@@ -46,17 +46,16 @@ data("brca.data")
 ``` r
 brca.data
 #> class: SummarizedExperiment 
-#> dim: 100 1222 
+#> dim: 100 1196 
 #> metadata(0):
 #> assays(3): HTseq_counts HTseq_FPKM HTseq_FPKM.UQ
-#> rownames(100): ENSG00000000003 ENSG00000000005 ... ENSG00000005469
-#>   ENSG00000005471
-#> rowData names(40): gene_id.v gene_id ... keep.cancer keep.normal
-#> colnames(1222): TCGA-A8-A06Z-01A-11R-A00Z-07
-#>   TCGA-A8-A08F-01A-11R-A00Z-07 ... TCGA-BH-A0H9-11A-22R-A466-07
-#>   TCGA-E9-A54Y-01A-11R-A466-07
-#> colData names(4115): Sample sample.id.b_mda ... purity_HTseq_FPKM
-#>   purity_HTseq_FPKM.UQ
+#> rownames(100): TSPAN6 TNMD ... CROT ABCB4
+#> rowData names(9): EnsemblGene_ids Gene_symbol ...
+#>   NanostringPanCancer_HK sinscorePanCancer_HK
+#> colnames(1196): TCGA-A8-A06Z-01A-11R-A00Z-07
+#>   TCGA-A8-A08F-01A-11R-A00Z-07 ... TCGA-5T-A9QA-01A-11R-A41B-07
+#>   TCGA-BH-A0H9-11A-22R-A466-07
+#> colData names(12): Samples Tissues ... CPE Subtypes
 ```
 
 # Data Wrangling
@@ -64,7 +63,7 @@ brca.data
 ## Gene Filter
 
 ``` r
-filtered.data <- gene.filter(data=brca.data,gene.type=c("protein_coding"))
+filtered.data <- gene.filter(data=brca.data,gene.type=c("protein.coding"))
 ```
 
 ## Removing lowly expressed genes
@@ -180,17 +179,16 @@ combined_data <- SummarizedExperiment(assays = list(HTseq_counts = raw.count, HT
 
 combined_data
 #> class: SummarizedExperiment 
-#> dim: 96 411 
+#> dim: 96 266 
 #> metadata(0):
 #> assays(4): HTseq_counts HTseq_FPKM HTseq_FPKM.UQ RUV_III
-#> rownames(96): ENSG00000000003 ENSG00000000005 ... ENSG00000005469
-#>   ENSG00000005471
-#> rowData names(40): gene_id.v gene_id ... keep.cancer keep.normal
-#> colnames(411): TCGA-A8-A06Z-01A-11R-A00Z-07
-#>   TCGA-AN-A03Y-01A-21R-A00Z-07 ... TCGA-AC-A4ZE-01A-11R-A41B-07
-#>   TCGA-E9-A54Y-01A-11R-A466-07
-#> colData names(4115): Sample sample.id.b_mda ... purity_HTseq_FPKM
-#>   purity_HTseq_FPKM.UQ
+#> rownames(96): TSPAN6 TNMD ... CROT ABCB4
+#> rowData names(9): EnsemblGene_ids Gene_symbol ...
+#>   NanostringPanCancer_HK sinscorePanCancer_HK
+#> colnames(266): TCGA-A8-A06Z-01A-11R-A00Z-07
+#>   TCGA-AN-A0AK-01A-21R-A00Z-07 ... TCGA-S3-AA11-01A-31R-A41B-07
+#>   TCGA-AC-A4ZE-01A-11R-A41B-07
+#> colData names(12): Samples Tissues ... CPE Subtypes
 ```
 
 ## PCA on Combined Data

@@ -36,7 +36,7 @@ anova_test <- function(data, variable, is.log, n.cores){
     anova_test <- parallel::mclapply(
       1:nrow(raw.count),
       function(x) {
-        MASS::dropterm(lm(raw.count[x , ] ~ sample.info$PlateId_mda), test = 'F')[c(5:6)]
+        MASS::dropterm(lm(raw.count[x , ] ~ sample.info$Plates), test = 'F')[c(5:6)]
       }
       , mc.cores = n.cores)
   } else
@@ -44,7 +44,7 @@ anova_test <- function(data, variable, is.log, n.cores){
       anova_test <- parallel::mclapply(
         1:nrow(raw.count),
         function(x) {
-          MASS::dropterm(lm(raw.count[x , ] ~ sample.info$year_mda), test = 'F')[c(5:6)]
+          MASS::dropterm(lm(raw.count[x , ] ~ sample.info$Year), test = 'F')[c(5:6)]
         }
         , mc.cores = n.cores)
     }

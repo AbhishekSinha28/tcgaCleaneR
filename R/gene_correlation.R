@@ -20,7 +20,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' df <- gene.corr(data = brca.data,is.log = FALSE,type = "purity_HTseq_FPKM",cor.method = 'spearman',n.cores = 1)
+#' df <- gene.corr(data = brca.data,is.log = FALSE,type = "purity",cor.method = 'spearman',n.cores = 1)
 #' gene.corr(data = brca.data,is.log = FALSE,type = "librarysize",cor.method = 'pearson',n.cores = 1)
 #' }
 
@@ -64,35 +64,15 @@ gene.corr <- function(data, is.log, type, cor.method, n.cores){
     )
     hist(genes.df$rho)
   } else
-    if(type == "purity_HTseq_counts"){
+    if(type == "purity"){
       genes.df <- .corr.gene.variable(
         expr.data = raw.count,
         is.log = is.log,
-        variable = sample.info$purity_HTseq_counts,
+        variable = sample.info$Purity_singscore,
         method = cor.method,
         n.cores = 1
       )
       hist(genes.df$rho)
-    } else
-      if(type == "purity_HTseq_FPKM"){
-        genes.df <- .corr.gene.variable(
-          expr.data = raw.count,
-          is.log = is.log,
-          variable = sample.info$purity_HTseq_FPKM,
-          method = cor.method,
-          n.cores = 1
-        )
-        hist(genes.df$rho)
-      } else
-        if(type == "purity_HTseq_FPKM.UQ"){
-          genes.df <- .corr.gene.variable(
-            expr.data = raw.count,
-            is.log = is.log,
-            variable = sample.info$purity_HTseq_FPKM.UQ,
-            method = cor.method,
-            n.cores = 1
-          )
-          hist(genes.df$rho)
-        }
+    }
   return(genes.df)
 }

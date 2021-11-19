@@ -54,12 +54,12 @@ pca.corr <- function(pca.data, data, type, nPCs){
           tcga.ls.rSquared <- sapply(
             1:nPCs,
             function(y) {
-              purity.ls <- summary(lm(sample.info$purity_HTseq_counts ~ pcs[, 1:y]))$r.squared
+              purity.ls <- summary(lm(sample.info$Purity_singscore ~ pcs[, 1:y]))$r.squared
             })
         })
     } else
       if(type == "time"){
-        time.years <- fastDummies::dummy_cols(sample.info$year_mda)
+        time.years <- fastDummies::dummy_cols(sample.info$Year)
         time.years <- time.years[, c(2:ncol(time.years))]
         corr.cancer.tcga <-
           lapply(

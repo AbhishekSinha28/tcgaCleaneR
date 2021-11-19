@@ -19,12 +19,6 @@
 study.design <- function(data){
   data$ls <- log2(colSums(SummarizedExperiment::assay(data, 'HTseq_counts')))
   sample.info <- as.data.frame(SummarizedExperiment::colData(data))
-  sample.info$Purity_singscore <- sample.info$purity_HTseq_FPKM
-  sample.info$Year <- sample.info$year_mda
-  sample.info$Plates <- sample.info$PlateId_mda
-  sample.info$TSS <- sample.info$TSS_mda
-  sample.info$Tissues <- sample.info$tissue
-  sample.info$Center <- sample.info$center_mda
 
   currentCols <-  c(
     RColorBrewer::brewer.pal(8, "Dark2")[-5],
@@ -51,7 +45,8 @@ study.design <- function(data){
     'Tissues',
     'Center',
     'ls',
-    'Purity_singscore'
+    'Purity_singscore',
+    'Tumor.stage'
   )
 
   sample.info <- sample.info[ , cols]
@@ -148,13 +143,29 @@ study.design <- function(data){
     )
   )
 
+  ### Tumor Stage
+  tumor.stage.colors <- currentCols[1:length(unique(sample.info$Tumor.stage))]
+  H.tumor.stage <- ComplexHeatmap::Heatmap(
+    rev(sample.info$Tumor.stage),
+    cluster_columns  = FALSE,
+    column_names_gp = grid::gpar(fontsize = 18),
+    col =  tumor.stage.colors,
+    name = 'Tumor Stage',
+    heatmap_legend_param = list(
+      color_bar = "discrete" ,
+      ncol = 2,
+      title_gp = grid::gpar(fontsize = 18)
+    )
+  )
+
   ComplexHeatmap::draw(
     H.time +
       H.plate +
       H.tss +
       H.tissue +
       H.purity +
-      H.ls ,
+      H.ls +
+      H.tumor.stage,
     merge_legends = FALSE,
     heatmap_legend_side = 'left'
   )
