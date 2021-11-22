@@ -27,7 +27,7 @@ You can install the development version of tgcapkg from [GitHub](https://github.
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("AbhishekSinha28/tgcapkg", ref="master", auth_token = "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")
+devtools::install_github("AbhishekSinha28/tgcapkg", ref="master")
 ```
 
 ## TCGA Functionality
@@ -142,13 +142,13 @@ ruv.prps.plot(data = filtered.data3)
 
 ## PRPS Generation
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
+```{r message=FALSE, warning=FALSE}
 df9 <- get.prps(data=filtered.data3, batch=c('Year', 'Plates'), biology='biology', purity=NULL, include.ls=T, include.purity=F, n.ls.ps=10, n.sample.batch=3, n.sample.purity=0, n.sample.ls=3)
 ```
 
 ## RUV-III
 
-```{r echo=FALSE}
+```{r}
 ### data input
 library(SummarizedExperiment)
 ### PRPS values
@@ -173,7 +173,7 @@ gene.annot <-  as.data.frame(SummarizedExperiment::rowData(filtered.data3))
 ncg.set <- colnames(ruv.data) %in% gene.annot$Gene_symbol[gene.annot$RNAseq_HK == 'yes']
 ```
 
-```{r echo=FALSE}
+```{r}
 library(BiocParallel)
 library(BiocSingular)
 df10 <- get.ruv(ruv.data = ruv.data, ruv.rep = ruv.rep, ncg.set = ncg.set, k=1, 
@@ -184,7 +184,7 @@ df10 <- get.ruv(ruv.data = ruv.data, ruv.rep = ruv.rep, ncg.set = ncg.set, k=1,
 
 ## Combined data
 
-```{r echo=FALSE}
+```{r}
 #library(SummarizedExperiment)
 gene.annot <-  as.data.frame(SummarizedExperiment::rowData(filtered.data3))
 
@@ -212,7 +212,7 @@ combined_data
 ```
 
 ## PCA on Combined Data
-```{r echo=FALSE}
+```{r}
 df11 <- get.pca(data = combined_data, nPcs = 7, is.log = TRUE)
 ```
 

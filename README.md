@@ -23,7 +23,7 @@ You can install the development version of tgcapkg from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("AbhishekSinha28/tgcapkg", ref="master", auth_token = "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")
+devtools::install_github("AbhishekSinha28/tgcapkg", ref="master")
 ```
 
 ## TCGA Functionality
@@ -165,11 +165,64 @@ ruv.prps.plot(data = filtered.data3)
 
 ## PRPS Generation
 
+``` r
+df9 <- get.prps(data=filtered.data3, batch=c('Year', 'Plates'), biology='biology', purity=NULL, include.ls=T, include.purity=F, n.ls.ps=10, n.sample.batch=3, n.sample.purity=0, n.sample.ls=3)
+```
+
 ## RUV-III
+
+``` r
+### data input
+library(SummarizedExperiment)
+### PRPS values
+prps.batch <- df9$ps.batch
+colnames(prps.batch) <- unlist(lapply(
+  colnames(prps.batch),
+  function(x) strsplit(x, '-')[[1]][1]
+))
+prps.ls <- df9$ps.ls
+
+
+raw.data <- as.matrix(SummarizedExperiment::assay(filtered.data3, 'HTseq_counts'))
+ruv.data <- cbind(raw.data ,prps.batch ,prps.ls )
+ruv.data <- t(log2(ruv.data + 1)) # Taking Log 
+
+### replicate matrix
+ruv.rep <- ruv::replicate.matrix(row.names(ruv.data))
+
+gene.annot <-  as.data.frame(SummarizedExperiment::rowData(filtered.data3))
+
+### NCG sets - Select House Keeping Genes
+ncg.set <- colnames(ruv.data) %in% gene.annot$Gene_symbol[gene.annot$RNAseq_HK == 'yes']
+```
+
+``` r
+library(BiocParallel)
+library(BiocSingular)
+df10 <- get.ruv(ruv.data = ruv.data, ruv.rep = ruv.rep, ncg.set = ncg.set, k=1, 
+                BSPARAM = BiocSingular::bsparam(), return.info = TRUE)
+```
 
 # Combined Analysis
 
 ## Combined data
+
+``` r
+#library(SummarizedExperiment)
+gene.annot <-  as.data.frame(SummarizedExperiment::rowData(filtered.data3))
+
+sample.info <-  as.data.frame(SummarizedExperiment::colData(filtered.data3))
+
+ruv.iii.adj <- t(df10$new.ruv.data[1:ncol(raw.data) , ]) # transpose
+
+raw.count <- SummarizedExperiment::assay(filtered.data3, 'HTseq_counts')
+raw.count <- log2(raw.count + 1) # Taking Log 
+fpkm <- SummarizedExperiment::assay(filtered.data3, 'HTseq_FPKM')
+fpkm <- log2(fpkm + 1) # Taking Log 
+fpkm.uq <- SummarizedExperiment::assay(filtered.data3, 'HTseq_FPKM.UQ')
+fpkm.uq <- log2(fpkm.uq + 1) # Taking Log 
+RUV_III <- ruv.iii.adj
+```
 
 ``` r
 combined_data <- SummarizedExperiment(assays = list(HTseq_counts = raw.count, HTseq_FPKM = fpkm,
@@ -192,6 +245,10 @@ combined_data
 ```
 
 ## PCA on Combined Data
+
+``` r
+df11 <- get.pca(data = combined_data, nPcs = 7, is.log = TRUE)
+```
 
 ## PCs correlation with unwanted variations in Combined Data
 
