@@ -18,7 +18,7 @@
 
 plotPRPS <- function(data,n=3){
   sample.info <-  as.data.frame(SummarizedExperiment::colData(data))
-  sample.info$biology <- sample(letters[1:4], nrow(sample.info), replace = TRUE)
+  #sample.info$biology <- sample(letters[1:4], nrow(sample.info), replace = TRUE)
   sample.info$new.batch <- paste0(
     sample.info$Year, #sample.info$Year,
     '_',
@@ -27,7 +27,7 @@ plotPRPS <- function(data,n=3){
 
 
   df_count <- sample.info %>%
-    dplyr::count(new.batch, biology)
+    dplyr::count(new.batch, Subtypes)
 
   if (n!=3){
     df_count$use <- 'Un-selected'
@@ -38,7 +38,7 @@ plotPRPS <- function(data,n=3){
   }
 
 
-  ggplot(df_count, aes(x = new.batch, y = biology)) +
+  ggplot(df_count, aes(x = new.batch, y = Subtypes)) +
     geom_count(aes(color = use)) +
     geom_text(aes(
       label = n,
