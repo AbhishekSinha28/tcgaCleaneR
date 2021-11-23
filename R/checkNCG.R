@@ -29,7 +29,7 @@ checkNegCtrlGenes <- function(data, ncg_set, group, plot_type, nPcs, npcs, is.lo
   nhk_genes <- setdiff(names(gene.annot.rm), hk_genes)
   names.use <- hk_genes[(hk_genes %in% ncg_set)]
   keep.ncg.genes <- c(nhk_genes,names.use)
-  rowData(data) <- rowData(df5)[names(rowData(df5)) %in% keep.ncg.genes]
+  SummarizedExperiment::rowData(data) <- SummarizedExperiment::rowData(data)[names(SummarizedExperiment::rowData(data)) %in% keep.ncg.genes]
   .pca <- function(data, nPcs, is.log) {
     if(is.log){
       data <- data

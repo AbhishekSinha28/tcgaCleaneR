@@ -63,19 +63,19 @@ brca.data
 ## Gene Filter
 
 ``` r
-filtered.data <- gene.filter(data=brca.data,gene.type=c("protein.coding"))
+filtered.data <- filterGenesByBiotypes(data=brca.data,gene.type=c("protein.coding"))
 ```
 
 ## Removing lowly expressed genes
 
 ``` r
-filtered.data1 <- low.genes.filter(data=filtered.data,gene_count = 20,sample_size = 200)
+filtered.data1 <- filterLowExprGenes(data=filtered.data,gene_count = 20,sample_size = 200)
 ```
 
 ## Purity Filter - Filter Samples based on Tumor Purity
 
 ``` r
-filtered.data2 <- purity.filter(data= filtered.data1,purity_cutoff= 0.50)
+filtered.data2 <- filterSamplesByPurity(data= filtered.data1,purity_cutoff= 0.50)
 ```
 
 ## Library Size Filter
@@ -83,7 +83,7 @@ filtered.data2 <- purity.filter(data= filtered.data1,purity_cutoff= 0.50)
 ### Determine Library Size
 
 ``` r
-library.size(data = filtered.data2, plot_type = "Scatterplot")
+plotLibSize(data = filtered.data2, plot_type = "Scatterplot")
 ```
 
 <img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" />
@@ -91,7 +91,7 @@ library.size(data = filtered.data2, plot_type = "Scatterplot")
 ### Filter samples based on library size
 
 ``` r
-filtered.data3 <- library.size.filter(data = filtered.data2, ls_cutoff = 17.5)
+filtered.data3 <- filterSamplesByLibSize(data = filtered.data2, ls_cutoff = 17.5)
 ```
 
 # Data Analysis
@@ -102,7 +102,7 @@ The idea behind Study Design plot is to present the summarized
 information about the filtered dataset using HeatMaps.
 
 ``` r
-study.design(data = filtered.data3)
+plotStudyOutline(data = filtered.data3)
 ```
 
 <img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" />
@@ -124,7 +124,7 @@ is.logical(filtered.data3)
 ```
 
 ``` r
-pca_data <- get.pca(data = filtered.data3, nPcs = 7, is.log = FALSE)
+pca_data <- computePCA(data = filtered.data3, nPcs = 7, is.log = FALSE)
 ```
 
 ### Plot PCA
@@ -137,7 +137,7 @@ patterns in the plots by feature.
 ``` r
 library(ggplot2)
 library(cowplot)
-pca.plot.data <- pca.plot(pca.data = pca_data, data = filtered.data3, group = "Time", plot_type = "DensityPlot", npcs = 3)
+pca.plot.data <- plotPC(pca.data = pca_data, data = filtered.data3, group = "Time", plot_type = "DensityPlot", npcs = 3)
 ```
 
 <img src="man/figures/README-unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-14-2.png" width="100%" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-14-3.png" width="100%" style="display: block; margin: auto;" />
@@ -146,7 +146,7 @@ pca.plot.data <- pca.plot(pca.data = pca_data, data = filtered.data3, group = "T
 
 ``` r
 library(tidyverse)
-corr_data <- pca.corr(pca.data = pca_data, data = filtered.data3, type = "purity", nPCs = 7)
+corr_data <- plotPCsVar(pca.data = pca_data, data = filtered.data3, type = "purity", nPCs = 7)
 corr_data
 ```
 
@@ -158,7 +158,7 @@ corr_data
 
 ``` r
 #library(tidyverse)
-ruv.prps.plot(data = filtered.data3)
+plotPRPS(data = filtered.data3)
 ```
 
 <img src="man/figures/README-unnamed-chunk-16-1.png" width="100%" style="display: block; margin: auto;" />
@@ -166,7 +166,7 @@ ruv.prps.plot(data = filtered.data3)
 ## PRPS Generation
 
 ``` r
-df9 <- get.prps(data=filtered.data3, batch=c('Year', 'Plates'), biology='biology', purity=NULL, include.ls=T, include.purity=F, n.ls.ps=10, n.sample.batch=3, n.sample.purity=0, n.sample.ls=3)
+df9 <- createPRPS(data=filtered.data3, batch=c('Year', 'Plates'), biology='biology', purity=NULL, include.ls=T, include.purity=F, n.ls.ps=10, n.sample.batch=3, n.sample.purity=0, n.sample.ls=3)
 ```
 
 ## RUV-III
@@ -199,7 +199,7 @@ ncg.set <- colnames(ruv.data) %in% gene.annot$Gene_symbol[gene.annot$RNAseq_HK =
 ``` r
 library(BiocParallel)
 library(BiocSingular)
-df10 <- get.ruv(ruv.data = ruv.data, ruv.rep = ruv.rep, ncg.set = ncg.set, k=1, 
+df10 <- runRUVIII(ruv.data = ruv.data, ruv.rep = ruv.rep, ncg.set = ncg.set, k=1, 
                 BSPARAM = BiocSingular::bsparam(), return.info = TRUE)
 ```
 
@@ -247,13 +247,13 @@ combined_data
 ## PCA on Combined Data
 
 ``` r
-df11 <- get.pca(data = combined_data, nPcs = 7, is.log = TRUE)
+df11 <- computePCA(data = combined_data, nPcs = 7, is.log = TRUE)
 ```
 
 ## PCs correlation with unwanted variations in Combined Data
 
 ``` r
-df12 <- pca.corr(pca.data = df11, data = combined_data, type = "purity", nPCs = 7)
+df12 <- plotPCsVar(pca.data = df11, data = combined_data, type = "purity", nPCs = 7)
 df12
 ```
 

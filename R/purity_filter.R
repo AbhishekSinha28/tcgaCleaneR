@@ -15,9 +15,9 @@
 #'
 #' @examples
 #'
-#' purity.filter(data= brca.data,purity_cutoff= 0.496)
+#' filterSamplesByPurity(data= brca.data,purity_cutoff= 0.496)
 #'
-purity.filter <- function(data,purity_cutoff){
+filterSamplesByPurity <- function(data,purity_cutoff){
   sample.info <-  as.data.frame(SummarizedExperiment::colData(data))
   keep.samples <- sample.info$Purity_singscore > purity_cutoff
   brca.se.filtered <- data[ ,keep.samples]

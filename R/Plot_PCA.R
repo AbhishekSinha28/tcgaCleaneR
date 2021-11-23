@@ -4,9 +4,9 @@
 #'
 #' @description This function is a part of the data analysis functionality of tgcapkg. It helps to visualize the PCs from \code{get.pca}.
 #'
-#' @param pca.data list: PCA output from \code{get.pca}.
+#' @param pca.data list: PCA output from \code{computePCA}.
 #' @param data S4 data object
-#' @param group character: Color code PCs based on group. groups included are 'Time', 'Tissue', 'Plate', 'Batch', 'TSS', 'Center'
+#' @param group character: Color code PCs based on group. groups included are 'Time', 'Tissue', 'Plate', 'TSS', 'Center'
 #' @param plot_type character: Plot type
 #' @param npcs numeric: Number of PCs that needs to be plotted
 #'
@@ -38,12 +38,12 @@
 #'
 #' @examples
 #' \dontrun{
-#' pca.plot(pca.data, data = brca.data, group = "Time", plot_type = "DensityPlot", npcs = 3)
-#' pca.plot(pca.data = df6, data = brca.data, group = "Plate", plot_type = "BoxPlot", npcs = 3)
+#' plotPC(pca.data, data = brca.data, group = "Time", plot_type = "DensityPlot", npcs = 3)
+#' plotPC(pca.data = df6, data = brca.data, group = "Plate", plot_type = "BoxPlot", npcs = 3)
 #' }
 
 
-pca.plot <- function(pca.data, data, group, plot_type, npcs){
+plotPC <- function(pca.data, data, group, plot_type, npcs){
   .scatter.density.pc <- function(
     pcs,
     pc.var,

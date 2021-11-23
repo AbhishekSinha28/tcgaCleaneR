@@ -7,14 +7,14 @@
 #' quantitative source of unwanted variation such as sample (log) library size or tumor purity and global sample
 #' summary statistics such as the first k PCs.
 #' The function runs linear regression between unwanted variations in TCGA RNA-seq like
-#' library size and purity with PCs from \code{get.pca}.
+#' library size and purity with PCs from \code{computePCA}.
 #' The output is a linear plot that compares the three \code{assays} in \code{SummarizedExperiment} TCGA Cancer data
 #' across n PCs and R-sq.
 #' For variable like Time which is not continuous, dummy variables are used to run
 #' vector correlation \code{stats::cancor} between dummy time variable and n PCs with the same
 #' linear output.
 #'
-#' @param pca.data list: PCA output from \code{get.pca}.
+#' @param pca.data list: PCA output from \code{computePCA}.
 #' @param data S4 data object
 #' @param type character: The response variable to \code{lm} model. groups included are 'librarysize', 'purity' and 'time'.
 #' @param nPCs numeric: Number of PCs that needs to be used for regression
@@ -24,12 +24,12 @@
 #'
 #' @examples
 #' \dontrun{
-#' pca.corr(pca.data, data = brca.data, type = "purity", nPCs = 10)
-#' df <- pca.corr(pca.data, data = brca.data, type = "time", nPCs = 8)
+#' plotPCsVar(pca.data, data = brca.data, type = "purity", nPCs = 10)
+#' df <- plotPCsVar(pca.data, data = brca.data, type = "time", nPCs = 8)
 #' df
 #' }
 
-pca.corr <- function(pca.data, data, type, nPCs){
+plotPCsVar <- function(pca.data, data, type, nPCs){
   raw.count <- as.data.frame(SummarizedExperiment::assay(data, 'HTseq_counts'))
   library.size <- log2(colSums(raw.count))
   data.set.names <- names(SummarizedExperiment::assays(data))

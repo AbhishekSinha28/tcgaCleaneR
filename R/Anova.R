@@ -10,18 +10,19 @@
 #' @param data S4 data object
 #' @param variable character: The predictor variable to \code{lm} model. The variables included are 'Time' and 'Plate'
 #' @param is.log logical: Checks if the S4 data has log values. It 'False', it converts data to log scale.
-#' @param n.cores The number of cores to use, i.e. at most how many child processes will be run simultaneously. Must be at least one, and parallelization requires at least two cores.
+#' @param n.cores The number of cores to use, i.e. at most how many child processes will be run simultaneously. Must be
+#' at least one, and parallel computing requires at least two cores.
 #'
 #' @return A S3 data frame. The output contains the Anova test (F test) scores corresponding to all genes in S4 data object.
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' anova_test(data = brca.data, variable = "Time", is.log = FALSE, n.cores = 1)
-#' anova_test(data = brca.data, variable = "Plate", is.log = FALSE, n.cores = 1)
+#' computeANOVA(data = brca.data, variable = "Time", is.log = FALSE, n.cores = 1)
+#' computeANOVA(data = brca.data, variable = "Plate", is.log = FALSE, n.cores = 1)
 #' }
 
-anova_test <- function(data, variable, is.log, n.cores){
+computeANOVA <- function(data, variable, is.log, n.cores){
   raw.count <- as.data.frame(SummarizedExperiment::assay(data, 'HTseq_counts'))
   sample.info <-  as.data.frame(SummarizedExperiment::colData(data))
   sample.info$ls <- log2(colSums(raw.count))

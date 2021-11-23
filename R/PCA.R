@@ -15,11 +15,11 @@
 #'
 #' @examples
 #' \dontrun{
-#' get.pca(data = brca.data, nPcs = 10, is.log = FALSE)
+#' computePCA(data = brca.data, nPcs = 10, is.log = FALSE)
 #' }
 #'
 
-get.pca <- function(data, nPcs, is.log){
+computePCA <- function(data, nPcs, is.log){
   .pca <- function(data, nPcs, is.log) {
     if(is.log){
       data <- data

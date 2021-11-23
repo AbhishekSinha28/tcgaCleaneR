@@ -6,7 +6,7 @@
 #' It allows user to input the \code{SummarizedExperiment} S4 class Cancer Dataset (e.g. TCGA dataset) and the required
 #' genes to filter data based on genes.
 #'
-#' @usage gene.filter(data,gene.type)
+#' @usage filterGenesByBiotypes(data,gene.type)
 #'
 #' @param data SummarizedExperiment S4 class Dataset. E.g. TCGA Dataset.
 #' @param gene.type A character vector of items.
@@ -15,11 +15,11 @@
 #' @export
 #'
 #' @examples
-#' gene.filter(data=brca.data,gene.type=c("protein.coding"))
+#' filterGenesByBiotypes(data=brca.data,gene.type=c("protein.coding"))
 #' \dontrun{
-#' gene.filter(data=brca.data,gene.type=c("protein.coding","snRNA"))
+#' filterGenesByBiotypes(data=brca.data,gene.type=c("protein.coding","snRNA"))
 #'}
-gene.filter <- function(data,gene.type){
+filterGenesByBiotypes <- function(data,gene.type){
   gene.annot.rm <-  as.data.frame(SummarizedExperiment::rowData(data))
   keep.genes.rm <- gene.annot.rm$Gene_BioType %in% gene.type
   data.filtered <- data[keep.genes.rm , ]

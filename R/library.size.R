@@ -14,12 +14,12 @@
 #' @export
 #'
 #' @examples
-#' library.size(data = brca.data, plot_type = "Scatterplot")
+#' plotLibSize(data = brca.data, plot_type = "Scatterplot")
 #' \dontrun{
 #'
-#' library.size(data = brca.data, plot_type = "Boxplot")
+#' plotLibSize(data = brca.data, plot_type = "Boxplot")
 #' }
-library.size <- function(data,plot_type){
+plotLibSize <- function(data,plot_type){
   sample.info <-  as.data.frame(SummarizedExperiment::colData(data))
   raw.count <- as.data.frame(SummarizedExperiment::assay(data, 'HTseq_counts'))
   library_size <- log2(colSums(raw.count))

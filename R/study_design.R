@@ -13,10 +13,10 @@
 #'
 #' @examples
 #' \dontrun{
-#' study.design(data = brca.data)
+#' plotStudyOutline(data = brca.data)
 #' }
 #'
-study.design <- function(data){
+plotStudyOutline <- function(data){
   data$ls <- log2(colSums(SummarizedExperiment::assay(data, 'HTseq_counts')))
   sample.info <- as.data.frame(SummarizedExperiment::colData(data))
 

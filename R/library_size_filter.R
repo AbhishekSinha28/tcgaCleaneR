@@ -4,7 +4,7 @@
 #'
 #' @description This function is a part of the data wrangling functionality of tgcapkg.
 #' It allows user to handle the bias in \code{SummarizedExperiment} S4 class Cancer Dataset (e.g. TCGA dataset) due to
-#' library size by filtering out the samples with sample size greater than the threshold. Using \code{library.size},
+#' library size by filtering out the samples with sample size greater than the threshold. Using \code{plotLibSize},
 #' user can determine the threshold.
 #'
 #' @param data SummarizedExperiment S4 class Dataset. E.g. TCGA Dataset.
@@ -15,9 +15,9 @@
 #'
 #' @examples
 #'
-#' library.size.filter(data = brca.data, ls_cutoff = 17.5)
+#' filterSamplesByLibSize(data = brca.data, ls_cutoff = 17.5)
 #'
-library.size.filter <- function(data,ls_cutoff){
+filterSamplesByLibSize <- function(data,ls_cutoff){
   raw.count <- as.data.frame(SummarizedExperiment::assay(data, 'HTseq_counts'))
   library_size <- log2(colSums(raw.count))
   keep.samples <- library_size > ls_cutoff

@@ -2,7 +2,9 @@
 
 #' @title RUV-III PRPS Map
 #'
-#' @description This function is a part of the data analysis functionality of tgcapkg. It helps to map the pseudo samples for different biology in a cancer type replicated across batches. The replication of of pseudo samples across batches are known as Pseudo Replicates.
+#' @description This function is a part of the data analysis functionality of tgcapkg. It helps to map the pseudo samples
+#' for different biology in a cancer type replicated across batches. The replication of of pseudo samples across batches
+#' are known as Pseudo Replicates.
 #'
 #' @param data S4 data object
 #' @param n numeric: Minimum no. of samples needed to make pseudo sample. By default it consider 3 samples.
@@ -11,10 +13,10 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' ruv.prps.plot(data = brca.data)
+#' plotPRPS(data = brca.data)
 #' }
 
-ruv.prps.plot <- function(data,n=3){
+plotPRPS <- function(data,n=3){
   sample.info <-  as.data.frame(SummarizedExperiment::colData(data))
   sample.info$biology <- sample(letters[1:4], nrow(sample.info), replace = TRUE)
   sample.info$new.batch <- paste0(

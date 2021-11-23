@@ -20,11 +20,11 @@
 #'
 #' @examples
 #' \dontrun{
-#' df <- gene.corr(data = brca.data,is.log = FALSE,type = "purity",cor.method = 'spearman',n.cores = 1)
-#' gene.corr(data = brca.data,is.log = FALSE,type = "librarysize",cor.method = 'pearson',n.cores = 1)
+#' df <- computeCorr(data = brca.data,is.log = FALSE,type = "purity",cor.method = 'spearman',n.cores = 1)
+#' computeCorr(data = brca.data,is.log = FALSE,type = "librarysize",cor.method = 'pearson',n.cores = 1)
 #' }
 
-gene.corr <- function(data, is.log, type, cor.method, n.cores){
+computeCorr <- function(data, is.log, type, cor.method, n.cores){
   sample.info <-  as.data.frame(SummarizedExperiment::colData(data))
   raw.count <- as.data.frame(SummarizedExperiment::assay(data, 'HTseq_counts'))
   .corr.gene.variable <- function(expr.data, is.log, variable, method, n.cores){
