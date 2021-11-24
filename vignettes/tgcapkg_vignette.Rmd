@@ -150,14 +150,14 @@ checkNegCtrlGenes(data =df4, ncg_set= c("Microrray_HK"), group='Time', plot_type
 ## PRPS Map
 
 ```{r fig.align='center', fig.width=7, fig.height=5, message=FALSE}
-#library(tidyverse)
+library(tidyverse)
 plotPRPS(data = df4)
 ```
 
 ## PRPS Generation
 
 ```{r}
-df9 <- createPRPS(data=df4, batch=c('Year', 'Plates'), biology='biology', purity=NULL, include.ls=T, include.purity=F, n.ls.ps=10, n.sample.batch=3, n.sample.purity=0, n.sample.ls=3)
+df9 <- createPRPS(data=df4, batch=c('Year', 'Plates'), purity=NULL, include.ls=T, include.purity=F, n.ls.ps=10, n.sample.batch=3, n.sample.purity=0, n.sample.ls=3)
 ```
 
 

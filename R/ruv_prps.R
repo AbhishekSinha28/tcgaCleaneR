@@ -6,7 +6,9 @@
 #'
 #' @param data S4 data object
 #' @param batch character: Batch effect factors. In current package version batch can be given values like 'Year', 'Plate' or both.
-#' @param biology character: Biology of cancer type. In current package version biology for cancer type Breast, Rectum & Colon is considered.
+#' @param biology character: Biology of cancer type. TCGA datasets have biology for only four Cancer types i.e.
+#' Lung (LUAD), Breast (BRCA), Rectum (READ) & Colon (COAD). So the function supports only these four datasets for RUV-III
+#' and PRPS analysis.
 #' @param purity character: Purity column name
 #' @param include.ls logical: Do we need to consider library size in creating pseudo samples.
 #' @param include.purity logical: Do we need to consider purity in creating pseudo samples.
@@ -20,11 +22,11 @@
 #'
 #' @examples
 #' \dontrun{
-#' createPRPS(data=brca.data, batch=c('Year', 'Plates'), biology='biology', purity='Purity_singscore', include.ls=TRUE, include.purity=TRUE, n.ls.ps=10, n.sample.batch=3, n.sample.purity=3, n.sample.ls=3)
-#' createPRPS(data=brca.data, batch=c('Year', 'Plates'), biology='biology', purity=NULL, include.ls=TRUE, include.purity=FALSE, n.ls.ps=10, n.sample.batch=3, n.sample.purity=0, n.sample.ls=3)
+#' createPRPS(data=brca.data, batch=c('Year', 'Plates'), purity='Purity_singscore', include.ls=TRUE, include.purity=TRUE, n.ls.ps=10, n.sample.batch=3, n.sample.purity=3, n.sample.ls=3)
+#' createPRPS(data=brca.data, batch=c('Year', 'Plates'), purity=NULL, include.ls=TRUE, include.purity=FALSE, n.ls.ps=10, n.sample.batch=3, n.sample.purity=0, n.sample.ls=3)
 #' }
 
-createPRPS <- function(data, batch, biology, purity, include.ls, include.purity, n.ls.ps, n.sample.ls,
+createPRPS <- function(data, batch, biology ='Subtypes', purity, include.ls, include.purity, n.ls.ps, n.sample.ls,
                      n.sample.batch, n.sample.purity){
   data$log.ls <- log2(colSums(SummarizedExperiment::assay(data, 'HTseq_counts')))
   sample.info <- as.data.frame(SummarizedExperiment::colData(data))
@@ -35,10 +37,11 @@ createPRPS <- function(data, batch, biology, purity, include.ls, include.purity,
     'Tissues',
     'Center',
     'log.ls',
-    'Purity_singscore'
+    'Purity_singscore',
+    'Subtypes'
   )
   sample.info <- sample.info[ , cols]
-  sample.info$biology <- sample(letters[1:4], nrow(sample.info), replace = TRUE)
+  #sample.info$biology <- sample(letters[1:4], nrow(sample.info), replace = TRUE)
   sample.info$new.batch <- paste0(
     sample.info$Year,
     '_',
@@ -52,7 +55,7 @@ createPRPS <- function(data, batch, biology, purity, include.ls, include.purity,
   biology.batches <- c(biology, batch )
 
   ### Biology
-  sample.info$biology <- apply(
+  sample.info$Subtypes <- apply(
     sample.info[, biology, drop = FALSE],
     1,
     paste,
@@ -105,18 +108,18 @@ createPRPS <- function(data, batch, biology, purity, include.ls, include.purity,
 
   if(include.purity ){
     selected.biology <- names(
-      which(table(sample.info$biology) >= 2*n.sample.purity)
+      which(table(sample.info$Subtypes) >= 2*n.sample.purity)
     )
     sample.info <- dplyr::arrange(
       sample.info,
-      biology,
+      Subtypes,
       sample.info[ , purity]
     )
     expr.data <- expr.data[ , row.names(sample.info)]
     ps.purity <- lapply(
       selected.biology,
       function(x) {
-        index <- sample.info$biology == x
+        index <- sample.info$Subtypes == x
         purity.data <- expr.data[, index]
         low.pur <- rowMeans(purity.data[, 1:n.sample.purity])
         high.pur <- rowMeans(

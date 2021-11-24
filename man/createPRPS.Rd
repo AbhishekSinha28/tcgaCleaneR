@@ -7,7 +7,7 @@
 createPRPS(
   data,
   batch,
-  biology,
+  biology = "Subtypes",
   purity,
   include.ls,
   include.purity,
@@ -22,7 +22,9 @@ createPRPS(
 
 \item{batch}{character: Batch effect factors. In current package version batch can be given values like 'Year', 'Plate' or both.}
 
-\item{biology}{character: Biology of cancer type. In current package version biology for cancer type Breast, Rectum & Colon is considered.}
+\item{biology}{character: Biology of cancer type. TCGA datasets have biology for only four Cancer types i.e.
+Lung (LUAD), Breast (BRCA), Rectum (READ) & Colon (COAD). So the function supports only these four datasets for RUV-III
+and PRPS analysis.}
 
 \item{purity}{character: Purity column name}
 
@@ -46,7 +48,7 @@ This function is a part of the data analysis functionality of \code{tgcapkg}. It
 }
 \examples{
 \dontrun{
-createPRPS(data=brca.data, batch=c('Year', 'Plates'), biology='biology', purity='Purity_singscore', include.ls=TRUE, include.purity=TRUE, n.ls.ps=10, n.sample.batch=3, n.sample.purity=3, n.sample.ls=3)
-createPRPS(data=brca.data, batch=c('Year', 'Plates'), biology='biology', purity=NULL, include.ls=TRUE, include.purity=FALSE, n.ls.ps=10, n.sample.batch=3, n.sample.purity=0, n.sample.ls=3)
+createPRPS(data=brca.data, batch=c('Year', 'Plates'), purity='Purity_singscore', include.ls=TRUE, include.purity=TRUE, n.ls.ps=10, n.sample.batch=3, n.sample.purity=3, n.sample.ls=3)
+createPRPS(data=brca.data, batch=c('Year', 'Plates'), purity=NULL, include.ls=TRUE, include.purity=FALSE, n.ls.ps=10, n.sample.batch=3, n.sample.purity=0, n.sample.ls=3)
 }
 }
