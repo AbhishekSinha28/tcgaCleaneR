@@ -33,6 +33,16 @@ detailed information on the Data Wrangling and Data Analysis functions
 and arguments in `tgcapkg` package, you can consider looking at the
 vignette.
 
+At present, TCGA Pan Cancer Datasets supports Cancer Biology for only
+**four** Cancer types. These four cancer type (TCGA datasets) are
+*Breast Cancer (BRCA)*, *Lung Cancer (LUAD)*, *Colon Cancer (COAD)* and
+*Rectum Cancer (READ)*. This implies that *RUV-III analysis* can only be
+performed for these four cancer types. This is because the RUV-III
+approach here requires at least one roughly known biologically
+homogeneous subclass of samples shared across sources of unwanted
+variation. Similary, the vector correlation between Biology and PCs can
+only be viewed for these four Cancer types.
+
 ``` r
 library(tgcapkg)
 ```

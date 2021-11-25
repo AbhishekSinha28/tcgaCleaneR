@@ -143,6 +143,8 @@ head(df8)
 ## Check NCG Sets
 
 ```{r fig.align='center', fig.width=7, fig.height=5, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(cowplot)
 checkNegCtrlGenes(data =df4, ncg_set= c("Microrray_HK"), group='Time', plot_type="DensityPlot", nPcs=10, npcs = 3, is.log=FALSE)
 ```
 

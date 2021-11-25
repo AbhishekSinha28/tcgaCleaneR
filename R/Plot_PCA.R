@@ -189,8 +189,34 @@ plotPC <- function(pca.data, data, group, plot_type, npcs){
           )
         })
     } else if (plot_type == "BoxPlot"){
-      for (i in 1:npcs){
-        boxplot(pca.data$HTseq_counts$sing.val$u[,i] ~ sample.info$Year)
+
+      for (i in data.set.names){
+        to.plot.pc <- pca.data[[i]]$sing.val$u
+        to.plot.pc <- as.data.frame(to.plot.pc)
+        to.plot.pc <- to.plot.pc[,1:npcs]
+        colnames(to.plot.pc) <- sub("V", "PC", colnames(to.plot.pc))
+        to.plot.pc$variable = sample.info$Year
+        to.plot.pc <- to.plot.pc %>%
+          tidyr::pivot_longer(-variable, names_to = 'pcs', values_to = 'var') %>%
+          data.frame(.)
+        p <- ggplot(to.plot.pc, aes(x = variable, y = var)) +
+          geom_boxplot()+
+          facet_wrap(~pcs) +
+          ylab('PC') +
+          ggtitle(i) +
+          theme(
+            panel.background = element_blank(),
+            plot.title = element_text(size = 22),
+            axis.line = element_line(colour = 'black', size = 1),
+            axis.title.x = element_text(size = 16),
+            axis.title.y = element_text(size = 16),
+            axis.text.x = element_text(size = 12),
+            axis.text.y = element_text(size = 12),
+            legend.text = element_text(size = 12),
+            legend.title = element_text(size = 14),
+            strip.text.x = element_text(size = 20),
+            strip.text = element_text(size = 22))
+        print(p)
       }
     }
   }
@@ -219,8 +245,34 @@ plotPC <- function(pca.data, data, group, plot_type, npcs){
             )
           })
       } else if (plot_type == "BoxPlot"){
-        for (i in 1:npcs){
-          boxplot(pca.data$HTseq_counts$sing.val$u[,i] ~ sample.info$Tissues)
+
+        for (i in data.set.names){
+          to.plot.pc <- pca.data[[i]]$sing.val$u
+          to.plot.pc <- as.data.frame(to.plot.pc)
+          to.plot.pc <- to.plot.pc[,1:npcs]
+          colnames(to.plot.pc) <- sub("V", "PC", colnames(to.plot.pc))
+          to.plot.pc$variable = sample.info$Tissues
+          to.plot.pc <- to.plot.pc %>%
+            tidyr::pivot_longer(-variable, names_to = 'pcs', values_to = 'var') %>%
+            data.frame(.)
+          p <- ggplot(to.plot.pc, aes(x = variable, y = var)) +
+            geom_boxplot()+
+            facet_wrap(~pcs) +
+            ylab('PC') +
+            ggtitle(i) +
+            theme(
+              panel.background = element_blank(),
+              plot.title = element_text(size = 22),
+              axis.line = element_line(colour = 'black', size = 1),
+              axis.title.x = element_text(size = 16),
+              axis.title.y = element_text(size = 16),
+              axis.text.x = element_text(size = 12),
+              axis.text.y = element_text(size = 12),
+              legend.text = element_text(size = 12),
+              legend.title = element_text(size = 14),
+              strip.text.x = element_text(size = 20),
+              strip.text = element_text(size = 22))
+          print(p)
         }
       }
     } else
@@ -248,8 +300,34 @@ plotPC <- function(pca.data, data, group, plot_type, npcs){
               )
             })
         } else if (plot_type == "BoxPlot"){
-          for (i in 1:npcs){
-            boxplot(pca.data$HTseq_counts$sing.val$u[,i] ~ sample.info$Plates)
+
+          for (i in data.set.names){
+            to.plot.pc <- pca.data[[i]]$sing.val$u
+            to.plot.pc <- as.data.frame(to.plot.pc)
+            to.plot.pc <- to.plot.pc[,1:npcs]
+            colnames(to.plot.pc) <- sub("V", "PC", colnames(to.plot.pc))
+            to.plot.pc$variable = sample.info$Plates
+            to.plot.pc <- to.plot.pc %>%
+              tidyr::pivot_longer(-variable, names_to = 'pcs', values_to = 'var') %>%
+              data.frame(.)
+            p <- ggplot(to.plot.pc, aes(x = variable, y = var)) +
+              geom_boxplot()+
+              facet_wrap(~pcs) +
+              ylab('PC') +
+              ggtitle(i) +
+              theme(
+                panel.background = element_blank(),
+                plot.title = element_text(size = 22),
+                axis.line = element_line(colour = 'black', size = 1),
+                axis.title.x = element_text(size = 16),
+                axis.title.y = element_text(size = 16),
+                axis.text.x = element_text(size = 12),
+                axis.text.y = element_text(size = 12),
+                legend.text = element_text(size = 12),
+                legend.title = element_text(size = 14),
+                strip.text.x = element_text(size = 20),
+                strip.text = element_text(size = 22))
+            print(p)
           }
         }
       } else
@@ -277,8 +355,34 @@ plotPC <- function(pca.data, data, group, plot_type, npcs){
                   )
                 })
             } else if (plot_type == "BoxPlot"){
-              for (i in 1:npcs){
-                boxplot(pca.data$HTseq_counts$sing.val$u[,i] ~ sample.info$TSS)
+
+              for (i in data.set.names){
+                to.plot.pc <- pca.data[[i]]$sing.val$u
+                to.plot.pc <- as.data.frame(to.plot.pc)
+                to.plot.pc <- to.plot.pc[,1:npcs]
+                colnames(to.plot.pc) <- sub("V", "PC", colnames(to.plot.pc))
+                to.plot.pc$variable = sample.info$TSS
+                to.plot.pc <- to.plot.pc %>%
+                  tidyr::pivot_longer(-variable, names_to = 'pcs', values_to = 'var') %>%
+                  data.frame(.)
+                p <- ggplot(to.plot.pc, aes(x = variable, y = var)) +
+                  geom_boxplot()+
+                  facet_wrap(~pcs) +
+                  ylab('PC') +
+                  ggtitle(i) +
+                  theme(
+                    panel.background = element_blank(),
+                    plot.title = element_text(size = 22),
+                    axis.line = element_line(colour = 'black', size = 1),
+                    axis.title.x = element_text(size = 16),
+                    axis.title.y = element_text(size = 16),
+                    axis.text.x = element_text(size = 12),
+                    axis.text.y = element_text(size = 12),
+                    legend.text = element_text(size = 12),
+                    legend.title = element_text(size = 14),
+                    strip.text.x = element_text(size = 20),
+                    strip.text = element_text(size = 22))
+                print(p)
               }
             }
           } else
@@ -306,8 +410,33 @@ plotPC <- function(pca.data, data, group, plot_type, npcs){
                     )
                   })
               } else if (plot_type == "BoxPlot"){
-                for (i in 1:npcs){
-                  boxplot(pca.data$HTseq_counts$sing.val$u[,i] ~ sample.info$Center)
+                for (i in data.set.names){
+                  to.plot.pc <- pca.data[[i]]$sing.val$u
+                  to.plot.pc <- as.data.frame(to.plot.pc)
+                  to.plot.pc <- to.plot.pc[,1:npcs]
+                  colnames(to.plot.pc) <- sub("V", "PC", colnames(to.plot.pc))
+                  to.plot.pc$variable = sample.info$Center
+                  to.plot.pc <- to.plot.pc %>%
+                    tidyr::pivot_longer(-variable, names_to = 'pcs', values_to = 'var') %>%
+                    data.frame(.)
+                  p <- ggplot(to.plot.pc, aes(x = variable, y = var)) +
+                    geom_boxplot()+
+                    facet_wrap(~pcs) +
+                    ylab('PC') +
+                    ggtitle(i) +
+                    theme(
+                      panel.background = element_blank(),
+                      plot.title = element_text(size = 22),
+                      axis.line = element_line(colour = 'black', size = 1),
+                      axis.title.x = element_text(size = 16),
+                      axis.title.y = element_text(size = 16),
+                      axis.text.x = element_text(size = 12),
+                      axis.text.y = element_text(size = 12),
+                      legend.text = element_text(size = 12),
+                      legend.title = element_text(size = 14),
+                      strip.text.x = element_text(size = 20),
+                      strip.text = element_text(size = 22))
+                  print(p)
                 }
               }
             }

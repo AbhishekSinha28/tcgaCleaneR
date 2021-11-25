@@ -75,7 +75,25 @@ plotPCsVar <- function(pca.data, data, type, nPCs){
                 })
 
             })
-      }
+      } else
+        if(type == "biology"){
+          biology.types <- fastDummies::dummy_cols(sample.info$Subtypes)
+          biology.types <- biology.types[, c(2:ncol(biology.types))]
+          corr.cancer.tcga <-
+            lapply(
+              data.set.names,
+              function(x){
+                sapply(
+                  1:nPCs,
+                  function(y) {
+                    cca.pam50 <- stats::cancor(
+                      x = pca.data[[x]]$sing.val$u[, 1:y, drop = FALSE],
+                      y = biology.types)
+                    1 - prod(1 - cca.pam50$cor ^ 2)
+                  })
+
+              })
+        }
   names(corr.cancer.tcga) <- data.set.names
   if (length(SummarizedExperiment::assays(data)) == 4){
     # Visualize
@@ -115,7 +133,17 @@ plotPCsVar <- function(pca.data, data, type, nPCs){
     ggplot2::ggplot(corr.normAssess.p, ggplot2::aes(x = pcs, y = CorrValue, group = Datasets)) +
       ggplot2::geom_line(ggplot2::aes(color = Datasets), size = 1) +
       ggplot2::geom_point(ggplot2::aes(color = Datasets), size = 3) +
-      ggplot2::xlab('PCs') + ggplot2::ylab (expression("R"^"2")) +
+      ggplot2::xlab('PCs') +
+      {if (type == 'purity')
+      {
+        ggplot2::ylab (expression("R"^"2"))
+      } else if (type == 'librarysize'){
+        ggplot2::ylab (expression("R"^"2"))
+      } else if (type == 'time'){
+        ggplot2::ylab ('Vector Correlation')
+      } else if (type == 'biology'){
+        ggplot2::ylab ('Vector Correlation')
+      }} +
       ggplot2::scale_color_manual(
         values = c(dataSets.colors[1:4]),
         labels = c('Raw counts', 'FPKM','FPKM.UQ', 'RUV_III')) +
@@ -138,6 +166,8 @@ plotPCsVar <- function(pca.data, data, type, nPCs){
         ggplot2::ggtitle('Library Size : PCs Regression Plot')
       } else if (type == 'time'){
         ggplot2::ggtitle('Time : PCs Correlation Plot')
+      } else if (type == 'biology'){
+        ggplot2::ggtitle('Biology : PCs Correlation Plot')
       } }
   } else
     if(length(SummarizedExperiment::assays(data)) == 3){
@@ -176,7 +206,17 @@ plotPCsVar <- function(pca.data, data, type, nPCs){
   ggplot2::ggplot(corr.normAssess.p, aes(x = pcs, y = CorrValue, group = Datasets)) +
     geom_line(aes(color = Datasets), size = 1) +
     geom_point(aes(color = Datasets), size = 3) +
-    xlab('PCs') + ylab (expression("R"^"2")) +
+    xlab('PCs') +
+    {if (type == 'purity')
+    {
+      ggplot2::ylab (expression("R"^"2"))
+    } else if (type == 'librarysize'){
+      ggplot2::ylab (expression("R"^"2"))
+    } else if (type == 'time'){
+      ggplot2::ylab ('Vector Correlation')
+    } else if (type == 'biology'){
+      ggplot2::ylab ('Vector Correlation')
+    }} +
     scale_color_manual(
       values = c(dataSets.colors[1:3]),
       labels = c('Raw counts', 'FPKM','FPKM.UQ')) +
@@ -199,7 +239,9 @@ plotPCsVar <- function(pca.data, data, type, nPCs){
       ggtitle('Library Size : PCs Regression Plot')
     } else if (type == 'time'){
       ggtitle('Time : PCs Correlation Plot')
-    } }
+    } else if (type == 'biology'){
+      ggplot2::ggtitle('Biology : PCs Correlation Plot')
+    }}
     }
   #return(corr.normAssess)
 }

@@ -23,7 +23,6 @@ to analyse variations in library size across years and samples.
 \examples{
 plotLibSize(data = brca.data, plot_type = "Scatterplot")
 \dontrun{
-
 plotLibSize(data = brca.data, plot_type = "Boxplot")
 }
 }

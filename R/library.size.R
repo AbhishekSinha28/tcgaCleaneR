@@ -16,21 +16,39 @@
 #' @examples
 #' plotLibSize(data = brca.data, plot_type = "Scatterplot")
 #' \dontrun{
-#'
 #' plotLibSize(data = brca.data, plot_type = "Boxplot")
 #' }
 plotLibSize <- function(data,plot_type){
   sample.info <-  as.data.frame(SummarizedExperiment::colData(data))
   raw.count <- as.data.frame(SummarizedExperiment::assay(data, 'HTseq_counts'))
   library_size <- log2(colSums(raw.count))
+  to.plot.ls <- data.frame(ls = library_size, samples = 1:length(library_size))
   if (plot_type == "Boxplot"){
-    boxplot(library_size ~ sample.info$Year, xlab = 'Sample Years', ylab = 'log2 library size')
+    ggplot2::ggplot(to.plot.ls, aes(x=sample.info$Year, y=ls, fill = factor(sample.info$Year))) +
+      geom_boxplot(alpha=0.3) +
+      ylab('Log2 library size (total counts)') +
+      xlab('Year') +
+      labs(fill='Year') +
+      ggtitle('Library size')
   } else
     if (plot_type == "Scatterplot"){
-      plot(library_size, xlab = 'sample', ylab = 'log2 library size', col = factor(sample.info$Year))
-      legend("bottomright", legend=levels(factor(sample.info$Year)), fill = 1:5, #as.numeric(levels(factor(sample.info$Year))),
-             title="Year",
-             inset=c(0,0.92), xpd=TRUE, horiz=TRUE, bty="n"
-      )
+      ggplot2::ggplot(to.plot.ls, aes(x = samples, y = ls, color = factor(sample.info$Year))) +
+        geom_point() +
+        ylab('Log2 library size (total counts)') +
+        xlab('Samples') +
+        ggplot2::labs(color='Year') +
+        ggtitle('Library size') +
+        theme(
+          panel.background = element_blank(),
+          axis.line = element_line(colour = 'black', size = 1),
+          plot.title = element_text(size = 18),
+          axis.title.x = element_text(size = 16),
+          axis.title.y = element_text(size = 16),
+          axis.text.x = element_text(size = 12),
+          axis.text.y = element_text(size = 12),
+          legend.text = element_text(size = 12),
+          legend.title = element_text(size = 14),
+          strip.text.x = element_text(size = 10),
+          strip.text = element_text(size = 14))
     }
 }
