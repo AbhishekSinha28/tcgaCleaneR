@@ -2,53 +2,64 @@
 % Please edit documentation in R/ruv_prps.R
 \name{createPRPS}
 \alias{createPRPS}
-\title{Generate RUV-III PRPS data}
+\title{Generate PRPS for RUV-III}
 \usage{
 createPRPS(
   data,
+  librarySize = "ls",
   batch,
   biology = "Subtypes",
   purity,
   include.ls,
   include.purity,
-  n.ls.ps,
-  n.sample.ls,
-  n.sample.batch,
-  n.sample.purity
+  minSamplesPerBatchPS,
+  minSamplesForPuirtyPS,
+  minSamplesForPurityPerBiology,
+  minSamplesForLibrarySizePerBatch,
+  minSamplesForLibrarySizePS
 )
 }
 \arguments{
 \item{data}{S4 data object}
 
-\item{batch}{character: Batch effect factors. In current package version batch can be given values like 'Year', 'Plate' or both.}
+\item{librarySize}{character: Library Size variable in input data object. Default is 'ls'.}
+
+\item{batch}{character: Batch effect factors. In current package version batch can take values like 'Year', 'Plate' or both}
 
 \item{biology}{character: Biology of cancer type. TCGA datasets have biology for only four Cancer types i.e.
 Lung (LUAD), Breast (BRCA), Rectum (READ) & Colon (COAD). So the function supports only these four datasets for RUV-III
-and PRPS analysis.}
+and PRPS analysis. Default is 'Subtypes'.}
 
-\item{purity}{character: Purity column name}
+\item{purity}{character: Purity variable in input data object}
 
-\item{include.ls}{logical: Do we need to consider library size in creating pseudo samples.}
+\item{include.ls}{logical: Do we need to consider library size in creating pseudo samples}
 
-\item{include.purity}{logical: Do we need to consider purity in creating pseudo samples.}
+\item{include.purity}{logical: Do we need to consider purity in creating pseudo samples}
 
-\item{n.ls.ps}{numeric: Number of samples for library size considered within plate.}
+\item{minSamplesPerBatchPS}{numeric: Minimum number of samples per batch for creating Pseudo Samples}
 
-\item{n.sample.ls}{numeric: Minimum number of samples within library size pseudo sample size.}
+\item{minSamplesForPuirtyPS}{numeric: Minimum number of samples for creating Pseudo Samples for purity.}
 
-\item{n.sample.batch}{numeric: Number of samples per batch.}
+\item{minSamplesForPurityPerBiology}{numeric: Number of samples for purity per biology for creating Pseudo Samples}
 
-\item{n.sample.purity}{numeric: Number of samples for purity.}
+\item{minSamplesForLibrarySizePerBatch}{numeric: Number of samples for library size per batch for creating Pseudo Samples}
+
+\item{minSamplesForLibrarySizePS}{numeric: Minimum number of samples for creating Pseudo Samples for library size}
 }
 \value{
-A S4 list object with the Pseudo replicate for pseudo samples for different batches.
+A S4 list object with the Pseudo replicate for pseudo samples for different batches, library size and purity.
 }
 \description{
-This function is a part of the data analysis functionality of \code{tgcapkg}. It creates pseudo samples for on Library size, Batches and Purity.
+This function is a part of the data analysis functionality of \code{tgcapkg}. It creates pseudo-replicates
+of pseudo-samples (PRPS) for unwanted variations like Library size, Batches and Purity in TCGA Pan Cancer Datasets with
+Cancer biology like Breast Cancer data (BRCA), Lung Cancer (LUAD), Colon Cancer (COAD) and Rectum Cancer (READ). In the
+function batch refers to the source of Batch Effect variation like Time and Plate which captures variation across
+biology while factors like Purity captures variation within biology.
 }
 \examples{
 \dontrun{
-createPRPS(data=brca.data, batch=c('Year', 'Plates'), purity='Purity_singscore', include.ls=TRUE, include.purity=TRUE, n.ls.ps=10, n.sample.batch=3, n.sample.purity=3, n.sample.ls=3)
-createPRPS(data=brca.data, batch=c('Year', 'Plates'), purity=NULL, include.ls=TRUE, include.purity=FALSE, n.ls.ps=10, n.sample.batch=3, n.sample.purity=0, n.sample.ls=3)
+createPRPS(data=brca.data, batch=c('Year', 'Plates'), purity='Purity_singscore',include.ls=TRUE, include.purity=TRUE,
+minSamplesPerBatchPS = 3, minSamplesForPuirtyPS = 3, minSamplesForPurityPerBiology = 12,
+minSamplesForLibrarySizePerBatch = 6,minSamplesForLibrarySizePS = 3)
 }
 }

@@ -157,7 +157,9 @@ plotPRPS(data = df4)
 ## PRPS Generation
 
 ```{r}
-df9 <- createPRPS(data=df4, batch=c('Year', 'Plates'), purity=NULL, include.ls=T, include.purity=F, n.ls.ps=10, n.sample.batch=3, n.sample.purity=0, n.sample.ls=3)
+df9 <- createPRPS(data=df4, batch=c('Year', 'Plates'), purity='Purity_singscore',include.ls=T, include.purity=T, minSamplesPerBatchPS = 3, minSamplesForPuirtyPS = 3, 
+                 minSamplesForPurityPerBiology = 12, minSamplesForLibrarySizePerBatch = 6,
+                 minSamplesForLibrarySizePS = 3)
 ```
 
 
@@ -173,10 +175,10 @@ colnames(prps.batch) <- unlist(lapply(
   function(x) strsplit(x, '-')[[1]][1]
 ))
 prps.ls <- df9$ps.ls
-
+prps.purity <- df9$ps.purity
 
 raw.data <- as.matrix(SummarizedExperiment::assay(df4, 'HTseq_counts'))
-ruv.data <- cbind(raw.data ,prps.batch ,prps.ls )
+ruv.data <- cbind(raw.data ,prps.batch ,prps.ls, prps.purity )
 ruv.data <- t(log2(ruv.data + 1))
 
 ### replicate matrix
