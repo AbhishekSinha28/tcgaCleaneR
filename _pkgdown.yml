@@ -1,2 +1,5 @@
-url: ~
+url: https://github.com/AbhishekSinha28/tgcapkg/
+template:
+  params:
+    bootswatch: flatly
 
