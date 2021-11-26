@@ -2,7 +2,7 @@
 
 #' @title Regression Analysis between PCs and unwanted variation
 #'
-#' @description This function is a part of the data analysis functionality of tgcapkg.
+#' @description This function is a part of the data analysis functionality of `tcgaCleaneR`.
 #' R2 values of fitted linear models are used to quantity the strength of the (linear) relationships between a single
 #' quantitative source of unwanted variation such as sample (log) library size or tumor purity and global sample
 #' summary statistics such as the first k PCs.

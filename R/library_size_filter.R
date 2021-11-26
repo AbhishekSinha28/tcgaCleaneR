@@ -2,7 +2,7 @@
 
 #' @title Filter Samples based on Library Size
 #'
-#' @description This function is a part of the data wrangling functionality of tgcapkg.
+#' @description This function is a part of the data wrangling functionality of `tcgaCleaneR`.
 #' It allows user to handle the bias in \code{SummarizedExperiment} S4 class Cancer Dataset (e.g. TCGA dataset) due to
 #' library size by filtering out the samples with sample size greater than the threshold. Using \code{plotLibSize},
 #' user can determine the threshold.

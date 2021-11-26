@@ -15,7 +15,7 @@ filterSamplesByPurity(data, purity_cutoff)
 S4 data object
 }
 \description{
-This function is a part of the data wrangling functionality of tgcapkg.
+This function is a part of the data wrangling functionality of \code{tcgaCleaneR}.
 It allows user to handle sample purity in \code{SummarizedExperiment} S4 class Cancer Dataset (e.g. TCGA dataset) by
 filtering out the samples that are above a specific purity threshold.
 }

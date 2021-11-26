@@ -2,7 +2,7 @@
 
 #' @title Generate PRPS for RUV-III
 #'
-#' @description This function is a part of the data analysis functionality of \code{tgcapkg}. It creates pseudo-replicates
+#' @description This function is a part of the data analysis functionality of `tcgaCleaneR`. It creates pseudo-replicates
 #' of pseudo-samples (PRPS) for unwanted variations like Library size, Batches and Purity in TCGA Pan Cancer Datasets with
 #' Cancer biology like Breast Cancer data (BRCA), Lung Cancer (LUAD), Colon Cancer (COAD) and Rectum Cancer (READ). In the
 #' function batch refers to the source of Batch Effect variation like Time and Plate which captures variation across

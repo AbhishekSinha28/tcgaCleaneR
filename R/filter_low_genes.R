@@ -2,7 +2,7 @@
 
 #' @title Low Count Genes Filter
 #'
-#' @description This function is a part of the data wrangling functionality of tgcapkg.
+#' @description This function is a part of the data wrangling functionality of `tcgaCleaneR`.
 #' It allows user to input the \code{SummarizedExperiment} S4 class Cancer Dataset (e.g. TCGA dataset) and the threshold
 #' for the minimum gene count and sample count.
 #'

@@ -2,7 +2,7 @@
 
 #' @title Generate RUV-III Data Object
 #'
-#' @description This function is a part of the data analysis functionality of \code{tgcapkg}. It captures both the uses PRPS values from library \code{tgcapkg} combined with row counts and run SVD algorithm (\code{runSVD()}) from \code{BiocSingular} on the combined dataset. The function uses RUV-I algorithm from \code{ruv} as a pre-processing step to RUV-III.
+#' @description This function is a part of the data analysis functionality of `tcgaCleaneR`. It captures both the uses PRPS values from library \code{tcgaCleaneR} combined with row counts and run SVD algorithm (\code{runSVD()}) from \code{BiocSingular} on the combined dataset. The function uses RUV-I algorithm from \code{ruv} as a pre-processing step to RUV-III.
 #'
 #' @param ruv.data S4 data object for RUV-III: A S4 data object with combined data including the row count from original filtered data using assay \code{HTseq_counts}, prps data for batch and library size. This data needs to be further converted to log scale and transposed.
 #' @param ruv.rep S4 data matrix for RUV-III: A S4 data object that has been generated using \code{replicate.matrix} functionality from \code{ruv} package. This helps ruv to identify replicate samples.

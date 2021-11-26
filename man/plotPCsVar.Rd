@@ -19,7 +19,7 @@ plotPCsVar(pca.data, data, type, nPCs)
 Linear Plot the compares the correlation between library size (or Purity, time) and PCs across three datasets. When output is stored in a object the user can also access values used to plot the linear graphs.
 }
 \description{
-This function is a part of the data analysis functionality of tgcapkg.
+This function is a part of the data analysis functionality of \code{tcgaCleaneR}.
 R2 values of fitted linear models are used to quantity the strength of the (linear) relationships between a single
 quantitative source of unwanted variation such as sample (log) library size or tumor purity and global sample
 summary statistics such as the first k PCs.

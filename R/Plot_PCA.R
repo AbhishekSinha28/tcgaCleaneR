@@ -2,7 +2,7 @@
 
 #' @title PCA Visualization
 #'
-#' @description This function is a part of the data analysis functionality of tgcapkg. It helps to visualize the PCs from \code{get.pca}.
+#' @description This function is a part of the data analysis functionality of `tcgaCleaneR`. It helps to visualize the PCs from \code{get.pca}.
 #'
 #' @param pca.data list: PCA output from \code{computePCA}.
 #' @param data S4 data object

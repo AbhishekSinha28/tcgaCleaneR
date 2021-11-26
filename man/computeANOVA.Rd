@@ -20,7 +20,7 @@ at least one, and parallel computing requires at least two cores.}
 A S3 data frame. The output contains the Anova test (F test) scores corresponding to all genes in S4 data object.
 }
 \description{
-This function is a part of the data analysis functionality of tgcapkg. It use ANOVA F statistics to
+This function is a part of the data analysis functionality of \code{tcgaCleaneR}. It use ANOVA F statistics to
 summarize the effects of a qualitative source of unwanted variation (e.g. batches) on the expression levels of
 individual genes. Unwanted Variations such as Plate effect and Time effect can be analysed by this test.
 }

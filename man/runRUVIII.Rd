@@ -48,7 +48,7 @@ runRUVIII(
 Based on the return.info we get either a S4 list will all information related to RUV-III object or just the RUV-III result.
 }
 \description{
-This function is a part of the data analysis functionality of \code{tgcapkg}. It captures both the uses PRPS values from library \code{tgcapkg} combined with row counts and run SVD algorithm (\code{runSVD()}) from \code{BiocSingular} on the combined dataset. The function uses RUV-I algorithm from \code{ruv} as a pre-processing step to RUV-III.
+This function is a part of the data analysis functionality of \code{tcgaCleaneR}. It captures both the uses PRPS values from library \code{tcgaCleaneR} combined with row counts and run SVD algorithm (\code{runSVD()}) from \code{BiocSingular} on the combined dataset. The function uses RUV-I algorithm from \code{ruv} as a pre-processing step to RUV-III.
 }
 \examples{
 \dontrun{

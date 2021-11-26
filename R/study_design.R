@@ -2,7 +2,7 @@
 
 #' @title Study Design Plot
 #'
-#' @description This function is a part of the data analysis functionality of tgcapkg. It helps to plot
+#' @description This function is a part of the data analysis functionality of `tcgaCleaneR`. It helps to plot
 #' a Combined Heat Map \code{ComplexHeatmap} for some known unwanted variations and present a dashboard level analysis
 #' of the TCGA data before any analysis.
 #'

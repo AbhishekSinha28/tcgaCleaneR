@@ -2,7 +2,7 @@
 
 #' @title Library Size
 #'
-#' @description This function is a part of the data analysis functionality of tgcapkg.
+#' @description This function is a part of the data analysis functionality of `tcgaCleaneR`.
 #' It allows user to analyze the Library Size bias, a technical bias in the TCGA RNA-seq.
 #' The user can input the \code{SummarizedExperiment} S4 class Cancer Dataset (e.g. TCGA dataset) and the type of plot
 #' to analyse variations in library size across years and samples.

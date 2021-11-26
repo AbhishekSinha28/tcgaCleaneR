@@ -17,7 +17,7 @@ computePCA(data, nPcs, is.log)
 A List of S4 class containing n PCs. For all three \code{assays()}, two values are returned. \code{sing.val} contains singular values with \code{u} containing PCs. \code{variation} contains the variation of each PC.
 }
 \description{
-This function is a part of the data analysis functionality of tgcapkg. It performs PCA using SVD
+This function is a part of the data analysis functionality of \code{tcgaCleaneR}. It performs PCA using SVD
 algorithm (\code{runSVD()}) on the \code{SummarizedExperiment} class TCGA Cancer Data across all \code{assays()} and
 generate PCs.
 }

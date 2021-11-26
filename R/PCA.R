@@ -2,7 +2,7 @@
 
 #' @title Generate PCA
 #'
-#' @description This function is a part of the data analysis functionality of tgcapkg. It performs PCA using SVD
+#' @description This function is a part of the data analysis functionality of `tcgaCleaneR`. It performs PCA using SVD
 #' algorithm (\code{runSVD()}) on the \code{SummarizedExperiment} class TCGA Cancer Data across all \code{assays()} and
 #' generate PCs.
 #'

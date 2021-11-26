@@ -2,9 +2,9 @@ pandoc: 2.14.0.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
-  tgcapkg_vignette: tgcapkg_vignette.html
-last_built: 2021-11-25T13:19Z
+  tcgaCleaneR_vignette: tcgaCleaneR_vignette.html
+last_built: 2021-11-26T02:11Z
 urls:
-  reference: https://github.com/AbhishekSinha28/tgcapkg//reference
-  article: https://github.com/AbhishekSinha28/tgcapkg//articles
+  reference: https://github.com/AbhishekSinha28/tcgaCleaneR//reference
+  article: https://github.com/AbhishekSinha28/tcgaCleaneR//articles
 

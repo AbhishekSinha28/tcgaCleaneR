@@ -15,7 +15,7 @@ filterSamplesByLibSize(data, ls_cutoff)
 S4 data object
 }
 \description{
-This function is a part of the data wrangling functionality of tgcapkg.
+This function is a part of the data wrangling functionality of \code{tcgaCleaneR}.
 It allows user to handle the bias in \code{SummarizedExperiment} S4 class Cancer Dataset (e.g. TCGA dataset) due to
 library size by filtering out the samples with sample size greater than the threshold. Using \code{plotLibSize},
 user can determine the threshold.

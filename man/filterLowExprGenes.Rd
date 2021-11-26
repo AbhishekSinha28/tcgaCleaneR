@@ -17,7 +17,7 @@ filterLowExprGenes(data, gene_count, sample_size)
 S4 data object
 }
 \description{
-This function is a part of the data wrangling functionality of tgcapkg.
+This function is a part of the data wrangling functionality of \code{tcgaCleaneR}.
 It allows user to input the \code{SummarizedExperiment} S4 class Cancer Dataset (e.g. TCGA dataset) and the threshold
 for the minimum gene count and sample count.
 }

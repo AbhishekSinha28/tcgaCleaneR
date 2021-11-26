@@ -2,7 +2,7 @@
 
 #' @title Check Unwanted variation in Negative Control Genes
 #'
-#' @description This function is a part of the data analysis functionality of tgcapkg. It helps to visualize the presence
+#' @description This function is a part of the data analysis functionality of `tcgaCleaneR`. It helps to visualize the presence
 #' of unwanted variation in the Negative Control Genes (NCG) for RUV-III analysis. Using PCA analysis any relation between
 #' the negative control sets in the TCGA data and the unwanted variation type can be visualized. The plot between PCs and
 #' unwanted variation can help verify the presence of unwanted variation in NCG sets.

@@ -21,7 +21,7 @@ plotPC(pca.data, data, group, plot_type, npcs)
 Density Plot, Box Plot
 }
 \description{
-This function is a part of the data analysis functionality of tgcapkg. It helps to visualize the PCs from \code{get.pca}.
+This function is a part of the data analysis functionality of \code{tcgaCleaneR}. It helps to visualize the PCs from \code{get.pca}.
 }
 \examples{
 \dontrun{

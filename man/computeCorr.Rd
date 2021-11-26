@@ -23,7 +23,7 @@ Spearman's rank correlation coefficient. Along with the data frame output the fu
 for Spearman's rank correlation coefficient for easy analysis of the test results.
 }
 \description{
-This function is a part of the data analysis functionality of tgcapkg.
+This function is a part of the data analysis functionality of \code{tcgaCleaneR}.
 It helps to run correlation analysis between gene expression level and unwanted variation effect because of Library
 Size or Purity. This function can help to quantify the association between an individual gene’s expression level
 and library size or tumor purity for a given Cancer type.
