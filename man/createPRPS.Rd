@@ -5,10 +5,11 @@
 \title{Generate PRPS for RUV-III}
 \usage{
 createPRPS(
-  data,
-  librarySize = "ls",
+  expr.data,
+  sample.info,
+  librarySize,
   batch,
-  biology = "Subtypes",
+  biology,
   purity,
   include.ls,
   include.purity,
@@ -20,9 +21,11 @@ createPRPS(
 )
 }
 \arguments{
-\item{data}{S4 data object}
+\item{expr.data}{S4 data object: Cancer Gene expression data}
 
-\item{librarySize}{character: Library Size variable in input data object. Default is 'ls'.}
+\item{sample.info}{S4 data object: Cancer data Sample information}
+
+\item{librarySize}{character: Library Size variable in input \code{sample.info} data object.}
 
 \item{batch}{character: Batch effect factors. In current package version batch can take values like 'Year', 'Plate' or both}
 
@@ -58,7 +61,8 @@ biology while factors like Purity captures variation within biology.
 }
 \examples{
 \dontrun{
-createPRPS(data=brca.data, batch=c('Year', 'Plates'), purity='Purity_singscore',include.ls=TRUE, include.purity=TRUE,
+createPRPS(expr.data, sample.info, librarySize = 'ls', batch=c('Year', 'Plates'), biology = 'Subtypes',
+purity='Purity_singscore',include.ls=TRUE, include.purity=TRUE,
 minSamplesPerBatchPS = 3, minSamplesForPuirtyPS = 3, minSamplesForPurityPerBiology = 12,
 minSamplesForLibrarySizePerBatch = 6,minSamplesForLibrarySizePS = 3)
 }

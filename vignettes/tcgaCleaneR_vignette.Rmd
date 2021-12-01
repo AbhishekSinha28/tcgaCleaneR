@@ -32,11 +32,11 @@ library(tcgaCleaneR)
 data("brca.data")
 ```
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 brca.data
 ```
 
-The package contains a highly condensed version of the original dataset with 100 unique genes and 1222 samples. The data consists three individual data that can be accessed using \code{SummarizedExperiment::assay()}. Sample meta-data describing the samples can be accessed using \code{SummarizedExperiment::colData()}, and is a DataFrame that can store any number of descriptive columns for each sample row. Similarly, Gene meta-data describing the genes can be accessed using \code{SummarizedExperiment::rowData()}, and is a DataFrame that can store any number of descriptive columns for each gene row.
+The package contains a highly condensed version of the original dataset with 100 unique genes and 1196 samples. The data consists three individual data that can be accessed using \code{SummarizedExperiment::assay()}. Sample meta-data describing the samples can be accessed using \code{SummarizedExperiment::colData()}, and is a DataFrame that can store any number of descriptive columns for each sample row. Similarly, Gene meta-data describing the genes can be accessed using \code{SummarizedExperiment::rowData()}, and is a DataFrame that can store any number of descriptive columns for each gene row.
 
 ```{r eval=FALSE}
 gene.annot <-  as.data.frame(SummarizedExperiment::rowData(brca.data))
@@ -115,7 +115,7 @@ head(df5[['HTseq_counts']]$sing.val$u,2)
 ```{r fig.align='center', fig.width=7, fig.height=5, message=FALSE, warning=FALSE}
 library(ggplot2)
 library(cowplot)
-plotPC(pca.data = df5, data = df4, group = "Time", plot_type = "DensityPlot", npcs = 3)
+plotPC(pca.data = df5, data = df4, group = "Time", plot_type = "DensityPlot", pcs.no = c(1,2,3))
 ```
 
 # PCs correlation with unwanted variations
@@ -160,7 +160,11 @@ plotPRPS(data = df4)
 ## PRPS Generation
 
 ```{r}
-df9 <- createPRPS(data=df4, batch=c('Year', 'Plates'), purity='Purity_singscore',include.ls=T, include.purity=T, minSamplesPerBatchPS = 3, minSamplesForPuirtyPS = 3, 
+sample.info <- as.data.frame(SummarizedExperiment::colData(df4))
+expr.data <- as.matrix(SummarizedExperiment::assay(df4, 'HTseq_counts')) # gene expression data
+sample.info$ls <- colSums(expr.data) # adding library size variable
+
+df9 <- createPRPS(expr.data, sample.info, librarySize = 'ls', batch=c('Year', 'Plates'), biology = 'Subtypes', purity='Purity_singscore',include.ls=T, include.purity=T, minSamplesPerBatchPS = 3, minSamplesForPuirtyPS = 3, 
                  minSamplesForPurityPerBiology = 12, minSamplesForLibrarySizePerBatch = 6,
                  minSamplesForLibrarySizePS = 3)
 ```

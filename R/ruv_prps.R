@@ -8,8 +8,9 @@
 #' function batch refers to the source of Batch Effect variation like Time and Plate which captures variation across
 #' biology while factors like Purity captures variation within biology.
 #'
-#' @param data S4 data object
-#' @param librarySize character: Library Size variable in input data object. Default is 'ls'.
+#' @param expr.data S4 data object: Cancer Gene expression data
+#' @param sample.info S4 data object: Cancer data Sample information
+#' @param librarySize character: Library Size variable in input \code{sample.info} data object.
 #' @param batch character: Batch effect factors. In current package version batch can take values like 'Year', 'Plate' or both
 #' @param biology character: Biology of cancer type. TCGA datasets have biology for only four Cancer types i.e.
 #' Lung (LUAD), Breast (BRCA), Rectum (READ) & Colon (COAD). So the function supports only these four datasets for RUV-III
@@ -28,13 +29,14 @@
 #'
 #' @examples
 #' \dontrun{
-#' createPRPS(data=brca.data, batch=c('Year', 'Plates'), purity='Purity_singscore',include.ls=TRUE, include.purity=TRUE,
+#' createPRPS(expr.data, sample.info, librarySize = 'ls', batch=c('Year', 'Plates'), biology = 'Subtypes',
+#' purity='Purity_singscore',include.ls=TRUE, include.purity=TRUE,
 #' minSamplesPerBatchPS = 3, minSamplesForPuirtyPS = 3, minSamplesForPurityPerBiology = 12,
 #' minSamplesForLibrarySizePerBatch = 6,minSamplesForLibrarySizePS = 3)
 #' }
-createPRPS <- function(data, librarySize = 'ls', batch, biology = 'Subtypes', purity, include.ls, include.purity,
-                       minSamplesPerBatchPS, minSamplesForPuirtyPS, minSamplesForPurityPerBiology,
-                       minSamplesForLibrarySizePerBatch,minSamplesForLibrarySizePS){
+createPRPS <- function(expr.data, sample.info, librarySize, batch, biology, purity, include.ls, include.purity,
+                     minSamplesPerBatchPS, minSamplesForPuirtyPS, minSamplesForPurityPerBiology,
+                     minSamplesForLibrarySizePerBatch, minSamplesForLibrarySizePS){
 
   if(minSamplesForPuirtyPS > minSamplesForPurityPerBiology){
     stop('error: minSamplesForPuirtyPS can not be smaller than minSamplesForPurityPerBiology')
@@ -46,13 +48,10 @@ createPRPS <- function(data, librarySize = 'ls', batch, biology = 'Subtypes', pu
     stop('error: minSamplesForLibrarySizePerBatch should be at least two times larger than minSamplesForLibrarySizePS')
   }
 
-  sample.info <- as.data.frame(SummarizedExperiment::colData(data))
   biology.batch <- c(biology, batch )
-  expr.data <- as.matrix(SummarizedExperiment::assay(data, 'HTseq_counts'))
-  sample.info[librarySize] <- colSums(expr.data)
 
   ### Biology
-  sample.info$Subtypes <- apply(
+  sample.info$biology <- apply(
     sample.info[, biology, drop = FALSE],
     1,
     paste,
@@ -66,9 +65,9 @@ createPRPS <- function(data, librarySize = 'ls', batch, biology = 'Subtypes', pu
 
   ### Create PS per batch
   selected.biology <- unlist(lapply(
-    unique(sample.info$Subtypes),
+    unique(sample.info$biology),
     function(x){
-      index <- sample.info$Subtypes == x
+      index <- sample.info$biology == x
       if(sum( table(sample.info$biology.batch[index] ) >= minSamplesPerBatchPS) > 1 ){
         x
       }
@@ -78,7 +77,7 @@ createPRPS <- function(data, librarySize = 'ls', batch, biology = 'Subtypes', pu
   }else{
     stop('error: there are not enough samples to make pseudo-samples for batch effects, you may want to lower minSamplesPerBatchPS')
   }
-  sample.info <- sample.info[sample.info$Subtypes %in% selected.biology , ]
+  sample.info <- sample.info[sample.info$biology %in% selected.biology , ]
   expr.data <- expr.data[, row.names(sample.info)]
 
   selected.batches <- names(which(table(sample.info$biology.batch) >= minSamplesPerBatchPS))
@@ -123,7 +122,7 @@ createPRPS <- function(data, librarySize = 'ls', batch, biology = 'Subtypes', pu
 
   if(include.purity ){
     selected.biology.purity <- names(
-      which(table(sample.info$Subtypes) >= minSamplesForPurityPerBiology)
+      which(table(sample.info$biology) >= minSamplesForPurityPerBiology)
     )
     if(length(include.purity) > 0){
       message('PRPS are generated for purity effects')
@@ -135,7 +134,7 @@ createPRPS <- function(data, librarySize = 'ls', batch, biology = 'Subtypes', pu
       ps.purity <- lapply(
         selected.biology.purity,
         function(x) {
-          index <- sample.info$Subtypes == x
+          index <- sample.info$biology == x
           purity.data <- expr.data[, index]
           low.pur <- rowMeans(purity.data[, 1:minSamplesForPuirtyPS])
           high.pur <- rowMeans(purity.data[, c(ncol(purity.data) - (minSamplesForPuirtyPS - 1)):ncol(purity.data)])

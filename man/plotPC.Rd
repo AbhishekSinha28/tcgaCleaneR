@@ -4,7 +4,7 @@
 \alias{plotPC}
 \title{PCA Visualization}
 \usage{
-plotPC(pca.data, data, group, plot_type, npcs)
+plotPC(pca.data, data, group, plot_type, pcs.no)
 }
 \arguments{
 \item{pca.data}{list: PCA output from \code{computePCA}.}
@@ -15,7 +15,7 @@ plotPC(pca.data, data, group, plot_type, npcs)
 
 \item{plot_type}{character: Plot type}
 
-\item{npcs}{numeric: Number of PCs that needs to be plotted}
+\item{pcs.no}{numeric vector: PCs that needs to be plotted}
 }
 \value{
 Density Plot, Box Plot
@@ -25,7 +25,7 @@ This function is a part of the data analysis functionality of \code{tcgaCleaneR}
 }
 \examples{
 \dontrun{
-plotPC(pca.data, data = brca.data, group = "Time", plot_type = "DensityPlot", npcs = 3)
-plotPC(pca.data = df6, data = brca.data, group = "Plate", plot_type = "BoxPlot", npcs = 3)
+plotPC(pca.data, data = brca.data, group = "Time", plot_type = "DensityPlot", pcs.no = c(1,2,3))
+plotPC(pca.data = df6, data = brca.data, group = "Plate", plot_type = "BoxPlot", pcs.no = c(1,2,4))
 }
 }

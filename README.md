@@ -147,7 +147,7 @@ patterns in the plots by feature.
 ``` r
 library(ggplot2)
 library(cowplot)
-pca.plot.data <- plotPC(pca.data = pca_data, data = filtered.data3, group = "Time", plot_type = "DensityPlot", npcs = 3)
+pca.plot.data <- plotPC(pca.data = pca_data, data = filtered.data3, group = "Time", plot_type = "DensityPlot", pcs.no = c(1,2,3))
 ```
 
 <img src="man/figures/README-unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-14-2.png" width="100%" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-14-3.png" width="100%" style="display: block; margin: auto;" />
@@ -176,7 +176,11 @@ plotPRPS(data = filtered.data3)
 ## PRPS Generation
 
 ``` r
-df9 <- createPRPS(data=filtered.data3, batch=c('Year', 'Plates'), purity='Purity_singscore',include.ls=T, include.purity=T, minSamplesPerBatchPS = 3, minSamplesForPuirtyPS = 3, 
+sample.info <- as.data.frame(SummarizedExperiment::colData(filtered.data3))
+expr.data <- as.matrix(SummarizedExperiment::assay(filtered.data3, 'HTseq_counts')) # gene expression data
+sample.info$ls <- colSums(expr.data) # adding library size variable
+
+df9 <- createPRPS(expr.data, sample.info, librarySize = 'ls', batch=c('Year', 'Plates'), biology = 'Subtypes', purity='Purity_singscore',include.ls=T, include.purity=T, minSamplesPerBatchPS = 3, minSamplesForPuirtyPS = 3, 
                  minSamplesForPurityPerBiology = 12, minSamplesForLibrarySizePerBatch = 6,
                  minSamplesForLibrarySizePS = 3)
 ```
