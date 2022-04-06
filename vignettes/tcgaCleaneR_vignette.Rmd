@@ -1,12 +1,65 @@
 ---
 title: "TCGA Data Analysis using tcgaCleaneR"
 author: "Abhishek Sinha"
-output: rmarkdown::html_vignette
+output:
+  rmdformats::readthedown:
+    code_folding: hide
+    gallery: yes
+    highlight: tango
+    lightbox: yes
+    self_contained: no
+    thumbnails: no
+    number_sections: yes
+    toc_depth: 3
+    use_bookdown: yes
+  html_document2:
+    df_print: paged
+  html_document:
+    toc_depth: '3'
+    df_print: paged
+params:
+  update_date: !r paste("Last updated on:", Sys.Date())
+editor_options:
+  chunk_output_type: console
 vignette: >
   %\VignetteIndexEntry{TCGA Data Analysis using tcgaCleaneR}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
+`r params$update_date`
+
+
+<style type="text/css">
+h1.title {
+  font-size: 28px;
+  color: DarkRed;
+}
+h1 { /* Header 1 */
+  font-size: 24px;
+  color: DarkBlue;
+}
+h2 { /* Header 2 */
+    font-size: 20px;
+  color: DarkBlue;
+}
+h3 { /* Header 3 */
+    font-size: 18px;
+  color: DarkBlue;
+}
+h4 { /* Header 3 */
+    font-size: 16px;
+  color: DarkBlue;
+}
+</style>
+
+<style>
+p.caption {
+  font-size: 46em;
+  font-style: italic;
+  color: black;
+}
+</style>
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
