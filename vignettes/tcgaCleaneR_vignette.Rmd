@@ -23,8 +23,8 @@ editor_options:
   chunk_output_type: console
 vignette: >
   %\VignetteIndexEntry{TCGA Data Analysis using tcgaCleaneR}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
 ---
 
 `r params$update_date`
@@ -99,39 +99,39 @@ raw.count <- as.data.frame(SummarizedExperiment::assay(brca.data, 'HTseq_counts'
 
 # Data Wrangling
 
-# Gene Filter
+## Gene Filter
 
-## Filter data by specific gene.
+### Filter data by specific gene.
 
 ```{r}
 df1 <- filterGenesByBiotypes(data=brca.data,gene.type=c("protein.coding"))
 ```
 
-# Removing lowly expressed genes
+## Removing lowly expressed genes
 
-## Filter data for genes with low count set number of samples
+### Filter data for genes with low count set number of samples
 
 ```{r}
 df2 <- filterLowExprGenes(data=df1,gene_count = 20,sample_size = 200)
 ```
 
-# Purity Filter
+## Purity Filter
 
-## Filter Samples based on Tumor Purity
+### Filter Samples based on Tumor Purity
 
 ```{r}
 df3 <- filterSamplesByPurity(data= df2,purity_cutoff= 0.496)
 ```
 
-# Library Size Filter
+## Library Size Filter
 
-## Determine Library Size
+### Determine Library Size
 
 ```{r fig.align='center', fig.width=7, fig.height=5}
 plotLibSize(data = df3, plot_type = "Scatterplot")
 ```
 
-## Filter samples based on library size
+### Filter samples based on library size
 
 ```{r}
 df4 <- filterSamplesByLibSize(data = df3, ls_cutoff = 17.5)
@@ -139,14 +139,15 @@ df4 <- filterSamplesByLibSize(data = df3, ls_cutoff = 17.5)
 
 # Data Analysis
 
-# Study Design Plot
+## Study Design Plot
 
 ```{r fig.align='center', fig.width=7, fig.height=5}
 plotStudyOutline(data = df4)
 ```
-# PCA
 
-## Generate PCA
+## PCA
+
+### Generate PCA
 
 ```{r}
 # Is data input for PCA logical
@@ -163,7 +164,7 @@ df5 <- computePCA(data = df4, nPcs = 7, is.log = FALSE)
 head(df5[['HTseq_counts']]$sing.val$u,2)
 ```
 
-## Plot PCA
+### Plot PCA
 
 ```{r fig.align='center', fig.width=7, fig.height=5, message=FALSE, warning=FALSE}
 library(ggplot2)
@@ -171,7 +172,7 @@ library(cowplot)
 plotPC(pca.data = df5, data = df4, group = "Time", plot_type = "DensityPlot", pcs.no = c(1,2,3))
 ```
 
-# PCs correlation with unwanted variations
+## PCs correlation with unwanted variations
 
 ```{r fig.align='center',message=FALSE, fig.width=7, fig.height=5, warning=FALSE}
 library(tidyverse)
@@ -179,19 +180,20 @@ df6 <- plotPCsVar(pca.data = df5, data = df4, type = "purity", nPCs = 7)
 df6
 ```
 
-# Gene correlation 
+## Gene correlation 
 
 ```{r fig.align='center', fig.width=7, fig.height=5, message=FALSE, warning=FALSE}
 df7 <- computeCorr(data = df4, is.log = FALSE, type = "librarysize", cor.method = 'spearman', n.cores = 1)
 head(df7)
 ```
 
-# Anova Test
+## Anova Test
 
 ```{r}
 df8 <- computeANOVA(data = df4, variable = "Time", is.log = FALSE, n.cores = 1)
 head(df8)
 ```
+
 # RUV - III
 
 ## Check NCG Sets
