@@ -213,10 +213,9 @@ ncg.set <- colnames(ruv.data) %in% gene.annot$Gene_symbol[gene.annot$RNAseq_HK =
 ```
 
 ``` r
-library(BiocParallel)
-library(BiocSingular)
-df10 <- runRUVIII(ruv.data = ruv.data, ruv.rep = ruv.rep, ncg.set = ncg.set, k=1, 
-                BSPARAM = BiocSingular::bsparam(), return.info = TRUE)
+#library(BiocParallel)
+#library(BiocSingular)
+df10 <- runRUV_III_PRPS(ruv.data = ruv.data, ruv.rep = ruv.rep, ncg.set = ncg.set, k=1, return.info = TRUE)
 ```
 
 # Combined Analysis
