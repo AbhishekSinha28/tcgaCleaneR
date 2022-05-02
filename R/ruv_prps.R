@@ -38,13 +38,13 @@ createPRPS <- function(expr.data, sample.info, librarySize, batch, biology, puri
                      minSamplesPerBatchPS, minSamplesForPuirtyPS, minSamplesForPurityPerBiology,
                      minSamplesForLibrarySizePerBatch, minSamplesForLibrarySizePS){
 
-  if(minSamplesForPuirtyPS > minSamplesForPurityPerBiology){
+  if(include.purity & minSamplesForPuirtyPS > minSamplesForPurityPerBiology){
     stop('error: minSamplesForPuirtyPS can not be smaller than minSamplesForPurityPerBiology')
-  } else if(minSamplesForPurityPerBiology < 2*minSamplesForPuirtyPS){
+  } else if(include.purity & minSamplesForPurityPerBiology < 2*minSamplesForPuirtyPS){
     stop('error: minSamplesForPurityPerBiology should be at least two times larger than minSamplesForPuirtyPS')
-  } else if(minSamplesForLibrarySizePS > minSamplesForLibrarySizePerBatch) {
+  } else if(include.purity & minSamplesForLibrarySizePS > minSamplesForLibrarySizePerBatch) {
     stop('error: minSamplesForLibrarySizePerBatch can not be smaller than minSamplesForLibrarySizePS')
-  } else if(minSamplesForLibrarySizePerBatch < 2*minSamplesForLibrarySizePS){
+  } else if(include.purity & minSamplesForLibrarySizePerBatch < 2*minSamplesForLibrarySizePS){
     stop('error: minSamplesForLibrarySizePerBatch should be at least two times larger than minSamplesForLibrarySizePS')
   }
 
@@ -64,7 +64,7 @@ createPRPS <- function(expr.data, sample.info, librarySize, batch, biology, puri
     collapse = "-")
 
   ### Create PS per batch
-  selected.biology <- unlist(lapply(
+  selected.biology.ps.batch <- unlist(lapply(
     unique(sample.info$biology),
     function(x){
       index <- sample.info$biology == x
@@ -72,20 +72,20 @@ createPRPS <- function(expr.data, sample.info, librarySize, batch, biology, puri
         x
       }
     }))
-  if(length(selected.biology) > 0){
+  if(length(selected.biology.ps.batch) > 0){
     message('PRPS are generated for batch effects')
   }else{
     stop('error: there are not enough samples to make pseudo-samples for batch effects, you may want to lower minSamplesPerBatchPS')
   }
-  sample.info <- sample.info[sample.info$biology %in% selected.biology , ]
-  expr.data <- expr.data[, row.names(sample.info)]
+  sample.info.ps.batch <- sample.info[sample.info$biology %in% selected.biology.ps.batch , ]
+  expr.data.ps.batch <- expr.data[, row.names(sample.info.ps.batch)]
 
-  selected.batches <- names(which(table(sample.info$biology.batch) >= minSamplesPerBatchPS))
+  selected.batches <- names(which(table(sample.info.ps.batch$biology.batch) >= minSamplesPerBatchPS))
   ps.batch <- sapply(
     selected.batches,
     function(x) {
-      index <- sample.info$biology.batch == x
-      Matrix::rowMeans(expr.data[, index])
+      index <- sample.info.ps.batch$biology.batch == x
+      Matrix::rowMeans(expr.data.ps.batch[, index])
     })
 
   if(include.ls){
@@ -93,7 +93,7 @@ createPRPS <- function(expr.data, sample.info, librarySize, batch, biology, puri
       which(table(sample.info$biology.batch) >= minSamplesForLibrarySizePerBatch)
     )
     if(length(selected.batches.ls) > 1){
-      message('PRPS are generated for library size')
+      message('PRPS are generated for library size effects')
       sample.info <- sample.info[
         with(sample.info,
              order(sample.info[, 'biology.batch'],
@@ -124,7 +124,7 @@ createPRPS <- function(expr.data, sample.info, librarySize, batch, biology, puri
     selected.biology.purity <- names(
       which(table(sample.info$biology) >= minSamplesForPurityPerBiology)
     )
-    if(length(include.purity) > 0){
+    if(length(selected.biology.purity) > 0){
       message('PRPS are generated for purity effects')
       sample.info <- sample.info[
         with(sample.info,

@@ -253,10 +253,9 @@ ncg.set <- colnames(ruv.data) %in% gene.annot$Gene_symbol[gene.annot$RNAseq_HK =
 ```
 
 ```{r}
-library(BiocParallel)
-library(BiocSingular)
-df10 <- runRUVIII(ruv.data = ruv.data, ruv.rep = ruv.rep, ncg.set = ncg.set, k=1, 
-                BSPARAM = BiocSingular::bsparam(), return.info = TRUE)
+#library(BiocParallel)
+#library(BiocSingular)
+df10 <- runRUV_III_PRPS(ruv.data = ruv.data, ruv.rep = ruv.rep, ncg.set = ncg.set, k=1, return.info = TRUE)
 ```
 
 # Combined Analysis
@@ -292,7 +291,7 @@ df11 <- computePCA(data = combined_data, nPcs = 7, is.log = TRUE)
 
 ## Plot PCA for Combined Data
 ```{r eval=FALSE,fig.align='center', fig.width=7, fig.height=5, message=FALSE, warning=FALSE}
-plotPC(pca.data = df11, data = combined_data, group = "Time", plot_type = "DensityPlot", npcs = 3)
+plotPC(pca.data = df11, data = combined_data, group = "Time", plot_type = "DensityPlot", pcs.no = 1:3)
 ```
 ## PCs correlation with unwanted variations in Combined Data
 
